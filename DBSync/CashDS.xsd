@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-16"?>
+<xs:schema id="CashDS" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="CashDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="KSS_CHECK">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CHECK_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ACCOUNT_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BANK_CODE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CHECK_LIST_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_POS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="POS_TERMINAL_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CARD_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ACCOUNT_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BANK_CODE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CARD_VALID_TO" type="xs:dateTime" />
+              <xs:element name="TRANSACTION_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_TRANSF_CASH_COPY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CASH_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PERSONAL_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OPEN_AT" type="xs:dateTime" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_INVOICE_COPY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INVOICE_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DEBITOR_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DEBITOR_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="181" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INVOICE_ORDER_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ORDER_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CUSTOMER_TYPE" type="xs:int" minOccurs="0" />
+              <xs:element name="CUSTOMER_ADDRESS_CITY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="160" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_ADDRESS_NAME_1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_ADDRESS_NAME_2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_ADDRESS_STREET" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="220" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_ADDRESS_ZIP_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_ADDRESS_COUNTRY_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_FE_ORDER" type="xs:boolean" />
+              <xs:element name="FE_PRODUCT_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FE_CUSTOMER_FULL_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="181" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FE_CUSTOMER_BIRTH_DAY" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FE_PRICE_WITHOUT_TAX" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_CASH">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CASH_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OPEN_AT" type="xs:dateTime" />
+              <xs:element name="CLOSED_AT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ACCOUNTING_AT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="EMP_EMPLOYEE_ID" type="xs:int" />
+              <xs:element name="POS_CONFIRM_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AMOUNT_CASH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AMOUNT_CHECK" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AMOUNT_POS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IS_EMAIL_SENT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ORG_ORGANIZATIONAL_UNIT_ID" type="xs:int" />
+              <xs:element name="KSS_CASH_STATUS_ID" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SYS_SYNC_STATUS_ID" type="xs:int" />
+              <xs:element name="SYNC_DATE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_CASH_DOCUMENT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="KSS_CASH_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="KSS_DOCUMENT_TYPE_ID" type="xs:int" />
+              <xs:element name="DOCUMENT" type="xs:base64Binary" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_OPERATION">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="KSS_CASH_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="OPERATION_NUMBER" type="xs:int" />
+              <xs:element name="AMOUNT" type="xs:decimal" />
+              <xs:element name="CANCELLATION_REASON" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="COMMENTS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KSS_OPERATION_STATUS_ID" type="xs:int" />
+              <xs:element name="CREATED_AT" type="xs:dateTime" />
+              <xs:element name="TRANSFERRED_CASH_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORG_COST_CENTER_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="KSS_EXPENSE_GROUND_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="OPERATION_TO_CANCEL_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="KSS_OPERATION_TYPE_ID" type="xs:int" />
+              <xs:element name="KSS_CHECK_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="KSS_POS_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="KSS_PAYMENT_METHOD_ID" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_CANCELATION_LOCKED" type="xs:boolean" />
+              <xs:element name="PROPOSED_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="KSS_INVOICE_COPY_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="KSS_TRANSF_CASH_COPY_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="KSS_INVOICE_ID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_OPERATION_DOCUMENT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="KSS_OPERATION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="KSS_DOCUMENT_TYPE_ID" type="xs:int" />
+              <xs:element name="DOCUMENT" type="xs:base64Binary" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_DUPLICATE" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KSS_OPERATION_ORD_POSITION_RSP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="KSS_OPERATION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="POSITION_PRICE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ORDER_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREDIT_ORDER_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_CHECK" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_POS_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_POS" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_TRANSF_CASH_COPY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_TRANSF_CASH_COPY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_INVOICE_COPY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_INVOICE_COPY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_CASH_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_CASH" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_CASH_DOCUMENT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_CASH_DOCUMENT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_OPERATION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_OPERATION" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_OPERATION_DOCUMENT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_OPERATION_DOCUMENT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="KSS_OPERATION_ORD_POSITION_RSP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//KSS_OPERATION_ORD_POSITION_RSP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
+		

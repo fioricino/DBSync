@@ -1,0 +1,45 @@
+﻿<#@ assembly name="$(TargetPath)" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="DBSync" #>
+
+<#@ include file="TemplateFileManager.ttinclude" #>
+
+<#  	    
+		string connectionString = @"Data Source=localhost;Initial Catalog=TUEV_SUED;Integrated Security=true";
+		ScopeType[] usedScopes = new[] { ScopeType.Core, ScopeType.Expenses, ScopeType.Order, ScopeType.Cash, ScopeType.Login, 
+		ScopeType.Protocol, ScopeType.ExpensesAll, ScopeType.Attachments };
+		
+			
+		string permissionsSqlFileName = "StammdatenPermissions.sql";
+        string uniqueColumnsFileName = "UniqueColumns.sql";
+        string notNullColumnsFileName = "NotNullColumns.sql";
+        string scriptFilesFolder = "ScriptHelper";
+        string scopeConfigurationFile = "scopes.xml";
+		
+		var transformation = DynamicTextTransformation.Create(this);
+	var fileManager = TemplateFileManager.Create(transformation);
+	var errorManager = TemplateFileManager.Create(transformation);
+	var errorFile = Path.ChangeExtension(Host.TemplateFile, ".errors");
+
+	var currentDir = Path.GetDirectoryName(Host.TemplateFile);
+	var ddlFileName = "DDLMetaData.sql";
+	var dmlFileName = "DMLMetaData.sql";
+
+	var scriptsFolder = Path.Combine(currentDir, scriptFilesFolder);
+	var scopeFile = Path.Combine(currentDir, scopeConfigurationFile);
+	var sqlTargetFile = Path.Combine(currentDir, dmlFileName);
+	var ddlTargetFile = Path.Combine(currentDir, ddlFileName);
+	var selectTargetFileTemplate = Path.Combine(currentDir, SyncMetaDataHelper.SelectMetaDataFileTemplate);
+	var deleteTargetFileTemplate = Path.Combine(currentDir, SyncMetaDataHelper.DeleteMetaDataFileTemplate);
+	var dsTargetFileTemplate = Path.Combine(currentDir, "{0}DS.xsd");
+	
+	var updateFolder = currentDir;
+	var sqlCopyFile = Path.Combine(updateFolder, dmlFileName);
+	var ddlCopyFile = Path.Combine(updateFolder, ddlFileName);
+ 
+#>

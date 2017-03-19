@@ -95,8 +95,114 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="AttachmentsDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CashDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="codegen.cmd" />
+    <None Include="Configuration.ttinclude" />
+    <None Include="CoreDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ExpensesAllDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ExpensesDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LoginDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MetaDataGenerator.errors">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </None>
+    <None Include="MetaDataGenerator.tmp">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </None>
+    <None Include="OrderDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ProtocolDS.xsd">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TemplateFileManager.ttinclude" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="AttachmentsDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttachmentsSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CoreDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CoreSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="DDLMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </Content>
+    <Content Include="DMLMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </Content>
+    <EmbeddedResource Include="ExpensesAllDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpensesAllSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpensesDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpensesSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="MetaDataGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MetaDataGenerator.tmp</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="OrderDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtocolDeleteMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtocolSelectMetaData.sql">
+      <DependentUpon>MetaDataGenerator.tt</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="scopes.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

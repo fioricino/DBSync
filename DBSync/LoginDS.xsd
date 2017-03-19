@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-16"?>
+<xs:schema id="LoginDS" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="LoginDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EMP_LOGIN_DATA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" />
+              <xs:element name="IS_BLOCKED" type="xs:boolean" />
+              <xs:element name="PASSWORD_ENTRY_ATTEMPT" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ROW_VERSION" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SYS_PASSWORD">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" />
+              <xs:element name="TEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EMP_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VALID_FROM" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IS_INITIAL" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ROW_VERSION" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//EMP_LOGIN_DATA" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="SYS_PASSWORD_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//SYS_PASSWORD" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
+		

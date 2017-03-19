@@ -1,0 +1,878 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Entity.Design" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq"#>
+<#@ assembly name="EnvDTE"#>
+<#@ import namespace="Microsoft.CSharp" #>
+<#@ import namespace="System.CodeDom" #>
+<#@ import namespace="System.Data.Entity.Design.PluralizationServices" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System.CodeDom.Compiler" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Resources" #>
+<#@ import namespace="System.Text" #>
+<#+
+
+    /// <summary>
+///   Responsible for marking the various sections of the generation,
+///   so they can be split up into separate files
+/// </summary>
+    public class TemplateFileManager
+    {
+/// <summary>
+///   Creates the VsEntityFrameworkTemplateFileManager if VS is detected, otherwise
+///   creates the file system version.
+/// </summary>
+        public static TemplateFileManager Create(DynamicTextTransformation textTransformation)
+        {
+            var transformation = textTransformation;
+            var host = transformation.Host;
+
+#if !PREPROCESSED_TEMPLATE
+            var hostServiceProvider = host.AsIServiceProvider();
+
+            if (hostServiceProvider != null)
+            {
+                var dte = (DTE) hostServiceProvider.GetService(typeof (DTE));
+
+                if (dte != null)
+                {
+                    return new VsTemplateFileManager(transformation);
+                }
+            }
+#endif
+            return new TemplateFileManager(transformation);
+        }
+
+        private sealed class Block
+        {
+            public String Name;
+			public bool Copy;
+            public int Start, Length;
+        }
+
+        private readonly List<Block> files = new List<Block>();
+        private readonly Block footer = new Block();
+        private readonly Block header = new Block();
+        private readonly DynamicTextTransformation _textTransformation;
+
+        // reference to the GenerationEnvironment StringBuilder on the
+        // TextTransformation object
+        private readonly StringBuilder _generationEnvironment;
+
+        private Block currentBlock;
+
+        /// <summary>
+///   Initializes an EntityFrameworkTemplateFileManager Instance  with the
+///   TextTransformation (T4 generated class) that is currently running
+/// </summary>
+        private TemplateFileManager(object textTransformation)
+        {
+            if (textTransformation == null)
+            {
+                throw new ArgumentNullException("textTransformation");
+            }
+
+            _textTransformation = DynamicTextTransformation.Create(textTransformation);
+            _generationEnvironment = _textTransformation.GenerationEnvironment;
+        }
+
+		public virtual void CheckoutFileIfRequired(string fileName)
+        {
+		}
+
+        /// <summary>
+///   Marks the end of the last file if there was one, and starts a new
+///   and marks this point in generation as a new file.
+/// </summary>
+        public void StartNewFile(string name, bool copy = false)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
+
+            CurrentBlock = new Block {Name = name, Copy = copy};
+        }
+
+
+        public void StartFooter()
+        {
+            CurrentBlock = footer;
+        }
+
+        public void StartHeader()
+        {
+            CurrentBlock = header;
+        }
+
+        public void EndBlock()
+        {
+            if (CurrentBlock == null)
+            {
+                return;
+            }
+
+            CurrentBlock.Length = _generationEnvironment.Length - CurrentBlock.Start;
+
+            if (CurrentBlock != header && CurrentBlock != footer)
+            {
+                files.Add(CurrentBlock);
+            }
+
+            currentBlock = null;
+        }
+
+        /// <summary>
+///   Produce the template output files.
+/// </summary>
+        public virtual Dictionary<string, bool> Process(bool split = true, params string[] keepFiles)
+        {
+            var generatedFileNames = new Dictionary<string, bool>();
+
+            if (split)
+            {
+                EndBlock();
+
+                var headerText = _generationEnvironment.ToString(header.Start, header.Length);
+                var footerText = _generationEnvironment.ToString(footer.Start, footer.Length);
+                var outputPath = Path.GetDirectoryName(_textTransformation.Host.TemplateFile);
+
+                files.Reverse();
+
+                foreach (var block in files)
+                {
+                    var fileName = Path.Combine(outputPath, block.Name);
+					var copy = block.Copy;
+                    var content = headerText + _generationEnvironment.ToString(block.Start, block.Length) + footerText;
+
+                    generatedFileNames.Add(fileName, copy);
+                    CreateFile(fileName, content);
+                    _generationEnvironment.Remove(block.Start, block.Length);
+                }
+            }
+
+            return generatedFileNames;
+        }
+
+        protected virtual void CreateFile(string fileName, string content)
+        {
+            if (IsFileContentDifferent(fileName, content))
+            {
+                File.WriteAllText(fileName, content);
+            }
+        }
+
+        protected bool IsFileContentDifferent(String fileName, string newContent)
+        {
+            return !(File.Exists(fileName) && File.ReadAllText(fileName) == newContent);
+        }
+
+        public string CurrentFileName
+        {
+            get
+            {
+                if (CurrentBlock != null)
+                {
+                    return CurrentBlock.Name;
+                }
+                return String.Empty;
+            }
+        }
+
+        private Block CurrentBlock
+        {
+            get { return currentBlock; }
+            set
+            {
+                if (CurrentBlock != null)
+                {
+                    EndBlock();
+                }
+
+                if (value != null)
+                {
+                    value.Start = _generationEnvironment.Length;
+                }
+
+                currentBlock = value;
+            }
+        }
+
+#if !PREPROCESSED_TEMPLATE
+        private sealed class VsTemplateFileManager : TemplateFileManager
+        {
+            private readonly ProjectItem templateProjectItem;
+            private readonly DTE dte;
+            private readonly Action<string> checkOutAction;
+            private readonly Action<Dictionary<string, bool>, string[]> projectSyncAction;
+
+            /// <summary>
+///   Creates an instance of the VsEntityFrameworkTemplateFileManager class with the IDynamicHost instance
+/// </summary>
+            public VsTemplateFileManager(object textTemplating)
+                    : base(textTemplating)
+            {
+                var hostServiceProvider = _textTransformation.Host.AsIServiceProvider();
+                if (hostServiceProvider == null)
+                {
+                    throw new ArgumentNullException("Could not obtain hostServiceProvider");
+                }
+
+                dte = (DTE) hostServiceProvider.GetService(typeof (DTE));
+                if (dte == null)
+                {
+                    throw new ArgumentNullException("Could not obtain DTE from host");
+                }
+
+                templateProjectItem = dte.Solution.FindProjectItem(_textTransformation.Host.TemplateFile);
+
+                checkOutAction = fileName => dte.SourceControl.CheckOutItem(fileName);
+                projectSyncAction = (keepFileNames, keepFiles) => ProjectSync(templateProjectItem, keepFileNames, keepFiles);
+            }
+
+            public override Dictionary<string, bool> Process(bool split, params string[] keepFiles)
+            {
+                if (templateProjectItem.ProjectItems == null)
+                {
+                    return new Dictionary<string, bool>();
+                }
+
+                var generatedFileNames = base.Process(split, keepFiles);
+
+                projectSyncAction.EndInvoke(projectSyncAction.BeginInvoke(generatedFileNames, keepFiles, null, null));
+
+                return generatedFileNames;
+            }
+
+            protected override void CreateFile(string fileName, string content)
+            {
+                if (IsFileContentDifferent(fileName, content))
+                {
+                    CheckoutFileIfRequired(fileName);
+                    File.WriteAllText(fileName, content);
+                }
+            }
+
+            private static void ProjectSync(ProjectItem templateProjectItem, Dictionary<string, bool> keepFileNames, params string[] keepFiles)
+            {
+                var keepFileNameSet = new HashSet<string>(keepFileNames.Select(f => f.Key));
+                var projectFiles = new Dictionary<string, ProjectItem>();
+                var originalOutput = Path.GetFileNameWithoutExtension(templateProjectItem.FileNames[0]);
+
+                foreach (ProjectItem projectItem in templateProjectItem.ProjectItems)
+                {
+                    projectFiles.Add(projectItem.FileNames[0], projectItem);
+                }
+
+                // Add missing files to the project
+                foreach (var fileName in keepFileNameSet)
+                {
+                    if (!projectFiles.ContainsKey(fileName))
+                    {
+                        projectFiles.Add(fileName, templateProjectItem.ProjectItems.AddFromFile(fileName));
+                    }
+                }
+				
+				foreach (var pair in projectFiles)
+				{
+					if (pair.Key.ToLower().EndsWith("config"))
+					{
+					//copy config files always
+						pair.Value.Properties.Cast<Property>().Single(p => p.Name == "CopyToOutputDirectory").Value = 1;
+					}
+					if (!keepFileNames.ContainsKey(pair.Key) && !keepFiles.Contains(pair.Key)
+						&& !(Path.GetFileNameWithoutExtension(pair.Key) + ".").StartsWith(originalOutput + "."))
+					{
+						// Remove unused items from the project
+						pair.Value.Delete();
+					}
+					if (keepFileNames.ContainsKey(pair.Key) && keepFileNames[pair.Key])
+					{
+						//Set copy always property
+						pair.Value.Properties.Cast<Property>().Single(p => p.Name == "BuildAction").Value = 3;
+					}
+					if (pair.Key.StartsWith("unity"))
+					{
+						//copy unity files
+					}
+				}
+            }
+
+            public override void CheckoutFileIfRequired(string fileName)
+            {
+                if (dte.SourceControl == null
+                    || !dte.SourceControl.IsItemUnderSCC(fileName)
+                    || dte.SourceControl.IsItemCheckedOut(fileName))
+                {
+                    return;
+                }
+
+                // run on worker thread to prevent T4 calling back into VS
+                checkOutAction.EndInvoke(checkOutAction.BeginInvoke(fileName, null, null));
+            }
+        }
+#endif
+    }
+
+    /// <summary>
+///   Responsible creating an instance that can be passed
+///   to helper classes that need to access the TextTransformation
+///   members.  It accesses member by name and signature rather than
+///   by type.  This is necessary when the
+///   template is being used in Preprocessed mode
+///   and there is no common known type that can be
+///   passed instead
+/// </summary>
+    public class DynamicTextTransformation
+    {
+        private readonly object _instance;
+        private IDynamicHost _dynamicHost;
+
+        private readonly MethodInfo _write;
+        private readonly MethodInfo _writeLine;
+        private readonly PropertyInfo _generationEnvironment;
+        private readonly PropertyInfo _errors;
+        private readonly PropertyInfo _host;
+
+        /// <summary>
+///   Creates an instance of the DynamicTextTransformation class around the passed in
+///   TextTransformation shapped instance passed in, or if the passed in instance
+///   already is a DynamicTextTransformation, it casts it and sends it back.
+/// </summary>
+        public static DynamicTextTransformation Create(object instance)
+        {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            }
+
+            var textTransformation = instance as DynamicTextTransformation;
+            if (textTransformation != null)
+            {
+                return textTransformation;
+            }
+
+            return new DynamicTextTransformation(instance);
+        }
+
+        private DynamicTextTransformation(object instance)
+        {
+            _instance = instance;
+            var type = _instance.GetType();
+            _write = type.GetMethod("Write", new Type[] {typeof (string)});
+            _writeLine = type.GetMethod("WriteLine", new Type[] {typeof (string)});
+            _generationEnvironment = type.GetProperty("GenerationEnvironment", BindingFlags.Instance | BindingFlags.NonPublic);
+            _host = type.GetProperty("Host");
+            _errors = type.GetProperty("Errors");
+        }
+
+        /// <summary>
+///   Gets the value of the wrapped TextTranformation instance's GenerationEnvironment property
+/// </summary>
+        public StringBuilder GenerationEnvironment
+        {
+            get { return (StringBuilder) _generationEnvironment.GetValue(_instance, null); }
+        }
+
+        /// <summary>
+///   Gets the value of the wrapped TextTranformation instance's Errors property
+/// </summary>
+        public CompilerErrorCollection Errors
+        {
+            get { return (CompilerErrorCollection) _errors.GetValue(_instance, null); }
+        }
+
+        /// <summary>
+///   Calls the wrapped TextTranformation instance's Write method.
+/// </summary>
+        public void Write(string text)
+        {
+            _write.Invoke(_instance, new object[] {text});
+        }
+
+        /// <summary>
+///   Calls the wrapped TextTranformation instance's WriteLine method.
+/// </summary>
+        public void WriteLine(string text)
+        {
+            _writeLine.Invoke(_instance, new object[] {text});
+        }
+
+        /// <summary>
+///   Gets the value of the wrapped TextTranformation instance's Host property
+///   if available (shows up when hostspecific is set to true in the template directive) and returns
+///   the appropriate implementation of IDynamicHost
+/// </summary>
+        public IDynamicHost Host
+        {
+            get
+            {
+                if (_dynamicHost == null)
+                {
+                    if (_host == null)
+                    {
+                        _dynamicHost = new NullHost();
+                    }
+                    else
+                    {
+                        _dynamicHost = new DynamicHost(_host.GetValue(_instance, null));
+                    }
+                }
+                return _dynamicHost;
+            }
+        }
+    }
+
+    /// <summary>
+///   Reponsible for abstracting the use of Host between times
+///   when it is available and not
+/// </summary>
+    public interface IDynamicHost
+    {
+/// <summary>
+///   An abstracted call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost ResolveParameterValue
+/// </summary>
+        string ResolveParameterValue(string id, string name, string otherName);
+
+        /// <summary>
+///   An abstracted call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost ResolvePath
+/// </summary>
+        string ResolvePath(string path);
+
+        /// <summary>
+///   An abstracted call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost TemplateFile
+/// </summary>
+        string TemplateFile { get; }
+
+        /// <summary>
+///   Returns the Host instance cast as an IServiceProvider
+/// </summary>
+        IServiceProvider AsIServiceProvider();
+    }
+
+    /// <summary>
+///   Reponsible for implementing the IDynamicHost as a dynamic
+///   shape wrapper over the Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost interface
+///   rather than type dependent wrapper.  We don't use the
+///   interface type so that the code can be run in preprocessed mode
+///   on a .net framework only installed machine.
+/// </summary>
+    public class DynamicHost : IDynamicHost
+    {
+        private readonly object _instance;
+        private readonly MethodInfo _resolveParameterValue;
+        private readonly MethodInfo _resolvePath;
+        private readonly PropertyInfo _templateFile;
+
+        /// <summary>
+///   Creates an instance of the DynamicHost class around the passed in
+///   Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost shapped instance passed in.
+/// </summary>
+        public DynamicHost(object instance)
+        {
+            _instance = instance;
+            var type = _instance.GetType();
+            _resolveParameterValue = type.GetMethod("ResolveParameterValue", new[] {typeof (string), typeof (string), typeof (string)});
+            _resolvePath = type.GetMethod("ResolvePath", new[] {typeof (string)});
+            _templateFile = type.GetProperty("TemplateFile");
+        }
+
+        /// <summary>
+///   A call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost ResolveParameterValue
+/// </summary>
+        public string ResolveParameterValue(string id, string name, string otherName)
+        {
+            return (string) _resolveParameterValue.Invoke(_instance, new object[] {id, name, otherName});
+        }
+
+        /// <summary>
+///   A call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost ResolvePath
+/// </summary>
+        public string ResolvePath(string path)
+        {
+            try
+            {
+                return (string) _resolvePath.Invoke(_instance, new object[] {path});
+            }
+            catch
+            {
+                return path;
+            }
+        }
+
+        /// <summary>
+///   A call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost TemplateFile
+/// </summary>
+        public string TemplateFile
+        {
+            get { return (string) _templateFile.GetValue(_instance, null); }
+        }
+
+        /// <summary>
+///   Returns the Host instance cast as an IServiceProvider
+/// </summary>
+        public IServiceProvider AsIServiceProvider()
+        {
+            return _instance as IServiceProvider;
+        }
+    }
+
+    /// <summary>
+///   Reponsible for implementing the IDynamicHost when the
+///   Host property is not available on the TextTemplating type. The Host
+///   property only exists when the hostspecific attribute of the template
+///   directive is set to true.
+/// </summary>
+    public class NullHost : IDynamicHost
+    {
+/// <summary>
+///   An abstraction of the call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost ResolveParameterValue
+///   that simply retuns null.
+/// </summary>
+        public string ResolveParameterValue(string id, string name, string otherName)
+        {
+            return null;
+        }
+
+        /// <summary>
+///   An abstraction of the call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost ResolvePath
+///   that simply retuns the path passed in.
+/// </summary>
+        public string ResolvePath(string path)
+        {
+            return path;
+        }
+
+        /// <summary>
+///   An abstraction of the call to Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost TemplateFile
+///   that returns null.
+/// </summary>
+        public string TemplateFile
+        {
+            get { return null; }
+        }
+
+        /// <summary>
+///   Returns null.
+/// </summary>
+        public IServiceProvider AsIServiceProvider()
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+///   Responsible for helping to create source code that is
+///   correctly formated and functional
+/// </summary>
+    public class CodeGenerationTools
+    {
+        private static readonly TextInfo textInfo = new CultureInfo("en-US").TextInfo;
+        public string ToCamel(string name)
+        {
+            name = name ?? string.Empty;
+            var parts = name.Trim(' ', '_', '-').Split(' ', '_', '-');
+            var sbuilder = new StringBuilder();
+            foreach (var part in parts)
+            {
+                var current = part;
+                if (part.All(char.IsUpper))
+                {
+                    current = String.Empty;
+                    current += char.ToUpperInvariant(part[0]);
+                    current += part.ToLowerInvariant().Substring(1);
+                }
+                sbuilder.Append(current);
+            }
+            return _code.CreateValidIdentifier(sbuilder.ToString());
+        }
+
+        private readonly Func<string, string> _nameTransform;
+        private readonly DynamicTextTransformation _textTransformation;
+        private readonly CSharpCodeProvider _code;
+
+        /// <summary>
+///   Initializes a new CodeGenerationTools object with the TextTransformation (T4 generated class)
+///   that is currently running
+/// </summary>
+        public CodeGenerationTools(DynamicTextTransformation textTransformation, Func<string, string> nameTransform)
+        {
+
+            if (textTransformation == null)
+            {
+                throw new ArgumentNullException("textTransformation");
+            }
+            _nameTransform = nameTransform ?? (name => name);
+
+            _textTransformation = textTransformation;
+            _code = new CSharpCodeProvider();
+            FullyQualifySystemTypes = false;
+            CamelCaseFields = true;
+        }
+
+        /// <summary>
+///   When true, all types that are not being generated
+///   are fully qualified to keep them from conflicting with
+///   types that are being generated. Useful when you have
+///   something like a type being generated named System.
+///   Default is false.
+/// </summary>
+        public bool FullyQualifySystemTypes { get; set; }
+
+        /// <summary>
+///   When true, the field names are Camel Cased,
+///   otherwise they will preserve the case they
+///   start with.
+///   Default is true.
+/// </summary>
+        public bool CamelCaseFields { get; set; }
+
+        /// <summary>
+///   Returns the NamespaceName suggested by VS if running inside VS.  Otherwise, returns
+///   null.
+/// </summary>
+        public string VsNamespaceSuggestion()
+        {
+            var suggestion = _textTransformation.Host.ResolveParameterValue("directiveId", "namespaceDirectiveProcessor", "namespaceHint");
+            if (String.IsNullOrEmpty(suggestion))
+            {
+                return null;
+            }
+
+            return suggestion;
+        }
+
+        /// <summary>
+///   Returns a string that is safe for use as an identifier in C#.
+///   Keywords are escaped.
+/// </summary>
+        public string Escape(string name, bool toCamel = true, bool nameTransform = true)
+        {
+            if (name == null)
+            {
+                return null;
+            }
+            if (nameTransform)
+            {
+                name = _nameTransform(name);
+            }
+            if (toCamel)
+            {
+                name = ToCamel(name);
+            }
+            return _code.CreateEscapedIdentifier(name);
+        }
+
+        /// <summary>
+///   Returns the NamespaceName with each segment safe to
+///   use as an identifier.
+/// </summary>
+        public string EscapeNamespace(string namespaceName)
+        {
+            if (String.IsNullOrEmpty(namespaceName))
+            {
+                return namespaceName;
+            }
+
+            var parts = namespaceName.Split('.');
+            namespaceName = String.Empty;
+            foreach (var part in parts)
+            {
+                if (namespaceName != String.Empty)
+                {
+                    namespaceName += ".";
+                }
+
+                namespaceName += Escape(part, false);
+            }
+
+            return namespaceName;
+        }
+
+        /// <summary>
+///   Returns the name of the Type object formatted for
+///   use in source code.
+///   This method changes behavior based on the FullyQualifySystemTypes
+///   setting.
+/// </summary>
+        public string Escape(Type clrType)
+        {
+            return Escape(clrType, FullyQualifySystemTypes);
+        }
+
+        /// <summary>
+///   Returns the name of the Type object formatted for
+///   use in source code.
+/// </summary>
+        public string Escape(Type clrType, bool fullyQualifySystemTypes)
+        {
+            if (clrType == null)
+            {
+                return null;
+            }
+
+            string typeName;
+            if (fullyQualifySystemTypes)
+            {
+                typeName = "global::" + clrType.FullName;
+            }
+            else
+            {
+                if (clrType.IsGenericType && clrType.GetGenericTypeDefinition() == typeof (Nullable<>))
+                {
+                    typeName = _code.GetTypeOutput(new CodeTypeReference(clrType.GetGenericArguments()[0])) + "?";
+                }
+                else
+                {
+					typeName = _code.GetTypeOutput(new CodeTypeReference(clrType));
+                }
+            }
+            return typeName;
+        }
+
+
+
+        /// <summary>
+///   Returns the passed in identifier with the first letter changed to lowercase
+/// </summary>
+        public string CamelCase(string identifier)
+        {
+            if (String.IsNullOrEmpty(identifier))
+            {
+                return identifier;
+            }
+
+            if (identifier.Length == 1)
+            {
+                return identifier[0].ToString(CultureInfo.InvariantCulture).ToLowerInvariant();
+            }
+
+            return identifier[0].ToString(CultureInfo.InvariantCulture).ToLowerInvariant() + identifier.Substring(1);
+        }
+
+        /// <summary>
+///   If the value parameter is null or empty an empty string is returned,
+///   otherwise it retuns value with a single space concatenated on the end.
+/// </summary>
+        public string SpaceAfter(string value)
+        {
+            return StringAfter(value, " ");
+        }
+
+        /// <summary>
+///   If the value parameter is null or empty an empty string is returned,
+///   otherwise it retuns value with a single space concatenated on the end.
+/// </summary>
+        public string SpaceBefore(string value)
+        {
+            return StringBefore(" ", value);
+        }
+
+        /// <summary>
+///   If the value parameter is null or empty an empty string is returned,
+///   otherwise it retuns value with append concatenated on the end.
+/// </summary>
+        public string StringAfter(string value, string append)
+        {
+            if (String.IsNullOrEmpty(value))
+            {
+                return String.Empty;
+            }
+
+            return value + append;
+        }
+
+        /// <summary>
+///   If the value parameter is null or empty an empty string is returned,
+///   otherwise it retuns value with prepend concatenated on the front.
+/// </summary>
+        public string StringBefore(string prepend, string value)
+        {
+            if (String.IsNullOrEmpty(value))
+            {
+                return String.Empty;
+            }
+
+            return prepend + value;
+        }
+
+        
+
+        /// <summary>
+///   Retuns as full of a name as possible, if a namespace is provided
+///   the namespace and name are combined with a period, otherwise just
+///   the name is returned.
+/// </summary>
+        public string CreateFullName(string namespaceName, string name)
+        {
+            if (String.IsNullOrEmpty(namespaceName))
+            {
+                return name;
+            }
+
+            return namespaceName + "." + name;
+        }
+
+        /// <summary>
+///   Retuns a literal representing the supplied value.
+/// </summary>
+        public string CreateLiteral(object value)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            var type = value.GetType();
+            if (type.IsEnum)
+            {
+                return type.FullName + "." + value;
+            }
+            if (type == typeof (Guid))
+            {
+                return string.Format(CultureInfo.InvariantCulture,
+                        "new Guid(\"{0}\")",
+                        ((Guid) value).ToString("D", CultureInfo.InvariantCulture));
+            }
+            if (type == typeof (DateTime))
+            {
+                return string.Format(CultureInfo.InvariantCulture,
+                        "new DateTime({0}, DateTimeKind.Unspecified)",
+                        ((DateTime) value).Ticks);
+            }
+            if (type == typeof (byte[]))
+            {
+                var arrayInit = string.Join(", ", ((byte[]) value).Select(b => b.ToString(CultureInfo.InvariantCulture)).ToArray());
+                return string.Format(CultureInfo.InvariantCulture, "new Byte[] {{{0}}}", arrayInit);
+            }
+            if (type == typeof (DateTimeOffset))
+            {
+                var dto = (DateTimeOffset) value;
+                return string.Format(CultureInfo.InvariantCulture,
+                        "new DateTimeOffset({0}, new TimeSpan({1}))",
+                        dto.Ticks,
+                        dto.Offset.Ticks);
+            }
+            if (type == typeof (TimeSpan))
+            {
+                return string.Format(CultureInfo.InvariantCulture,
+                        "new TimeSpan({0})",
+                        ((TimeSpan) value).Ticks);
+            }
+
+            var expression = new CodePrimitiveExpression(value);
+            var writer = new StringWriter();
+            var code = new CSharpCodeProvider();
+            code.GenerateCodeFromExpression(expression, writer, new CodeGeneratorOptions());
+            return writer.ToString();
+        }
+    }
+
+#>
