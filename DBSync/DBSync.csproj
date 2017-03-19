@@ -75,6 +75,7 @@
     <Compile Include="ForeignKeyAliasInfo.cs" />
     <Compile Include="ForeignKeyDirection.cs" />
     <Compile Include="ForeignKeyInfo.cs" />
+    <Compile Include="Graph\GraphTraverser.cs" />
     <Compile Include="ITableOrAlias.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

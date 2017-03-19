@@ -174,7 +174,7 @@ namespace DBSync
                     }
                     else if (data is DateTime)
                     {
-                        bw.Write(((DateTime) (data)).Ticks);
+                        bw.Write(((DateTime) data).Ticks);
                     }
                     else if (data is byte[])
                     {
