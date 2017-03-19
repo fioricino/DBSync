@@ -44,8 +44,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AliasInfo.cs" />
-    <Compile Include="ColumnInfo.cs" />
+    <Compile Include="DOBuilder\ScopeDOBuilder.cs" />
+    <Compile Include="DomainObjects\AliasDO.cs" />
+    <Compile Include="DomainObjects\AllScopesDO.cs" />
+    <Compile Include="DomainObjects\ColumnDO.cs" />
+    <Compile Include="DomainObjects\FilterColumnDO.cs" />
+    <Compile Include="DomainObjects\ScopeDO.cs" />
+    <Compile Include="DomainObjects\TableDO.cs" />
+    <Compile Include="Interfaces\ISqlColumn.cs" />
+    <Compile Include="Interfaces\ISqlTable.cs" />
+    <Compile Include="MsSql\MsSqlMetadataReader.cs" />
+    <Compile Include="MsSql\Objects\MsSqlColumn.cs" />
+    <Compile Include="MsSql\Objects\MsSqlTable.cs" />
+    <Compile Include="ScopeConf\Objects\AliasConfig.cs" />
+    <Compile Include="ScopeConf\Objects\FilterColumnConfig.cs" />
+    <Compile Include="ScopeConf\Objects\ForeignKeyConfig.cs" />
+    <Compile Include="ScopeConf\Objects\ScopeConfig.cs" />
+    <Compile Include="ScopeConf\Objects\AllScopesConfig.cs" />
+    <Compile Include="ScopeConf\Objects\ScopeType.cs" />
+    <Compile Include="ScopeConf\Objects\SelectMetaDataGenerationPattern.cs" />
+    <Compile Include="ScopeConf\Objects\SyncConflictResolutionPolicy.cs" />
+    <Compile Include="ScopeConf\Objects\TableConfig.cs" />
+    <Compile Include="ScopeConf\Reader\XmlScopeConfigurationReader.cs" />
+    <Compile Include="SqlInfo\AliasInfo.cs" />
+    <Compile Include="SqlInfo\ColumnInfo.cs" />
     <Compile Include="DatasetSerializer.cs" />
     <Compile Include="DataSets\CashDS.cs">
       <SubType>Component</SubType>
@@ -70,18 +92,18 @@
     </Compile>
     <Compile Include="DBAnalyzer.cs" />
     <Compile Include="Edge.cs" />
-    <Compile Include="FilterColumnInfo.cs" />
-    <Compile Include="FKDescription.cs" />
-    <Compile Include="ForeignKeyAliasInfo.cs" />
-    <Compile Include="ForeignKeyDirection.cs" />
-    <Compile Include="ForeignKeyInfo.cs" />
-    <Compile Include="ITableOrAlias.cs" />
+    <Compile Include="SqlInfo\FilterColumnInfo.cs" />
+    <Compile Include="SqlInfo\FKDescription.cs" />
+    <Compile Include="SqlInfo\ForeignKeyAliasInfo.cs" />
+    <Compile Include="SqlInfo\ForeignKeyDirection.cs" />
+    <Compile Include="SqlInfo\ForeignKeyInfo.cs" />
+    <Compile Include="SqlInfo\ITableOrAlias.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScopeConfiguration.cs" />
-    <Compile Include="ScopeInfo.cs" />
-    <Compile Include="ScopeType.cs" />
-    <Compile Include="SelectMetaDataGenerationPattern.cs" />
+    <Compile Include="SqlInfo\ScopeConfiguration.cs" />
+    <Compile Include="SqlInfo\ScopeInfo.cs" />
+    <Compile Include="SqlInfo\ScopeType.cs" />
+    <Compile Include="SqlInfo\SelectMetaDataGenerationPattern.cs" />
     <Compile Include="SGRoute.cs" />
     <Compile Include="SyncConflictResolutionPolicy.cs" />
     <Compile Include="SyncDataContainer.cs" />
@@ -89,14 +111,16 @@
     <Compile Include="SyncMetaDataHelper.cs" />
     <Compile Include="SyncScript.cs" />
     <Compile Include="SyncScripts.cs" />
-    <Compile Include="TableInfo.cs" />
+    <Compile Include="SqlInfo\TableInfo.cs" />
     <Compile Include="Vertex.cs" />
-    <Compile Include="WhereClause.cs" />
+    <Compile Include="SqlInfo\WhereClause.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="scopes.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

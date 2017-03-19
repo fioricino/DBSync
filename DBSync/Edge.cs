@@ -1,17 +1,17 @@
 ﻿namespace DBSync
 {
-    public sealed class Edge<TV, TE>
+    public sealed class Edge<TVertex, TEdge>
     {
-        public Edge(Vertex<TV, TE> start, Vertex<TV, TE> end, TE value)
+        public Edge(Vertex<TVertex, TEdge> start, Vertex<TVertex, TEdge> end, TEdge value)
         {
             Start = start;
             End = end;
             Value = value;
         }
         #region Public properties
-        public Vertex<TV, TE> Start { get; private set; }
-        public Vertex<TV, TE> End { get; private set; }
-        public TE Value { get; private set; }
+        public Vertex<TVertex, TEdge> Start { get; private set; }
+        public Vertex<TVertex, TEdge> End { get; private set; }
+        public TEdge Value { get; private set; }
         #endregion
         #region Public methods
         public override string ToString()

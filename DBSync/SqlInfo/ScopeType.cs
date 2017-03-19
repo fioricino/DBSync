@@ -1,4 +1,4 @@
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     /// <summary>
     /// defines a synchronization scope types

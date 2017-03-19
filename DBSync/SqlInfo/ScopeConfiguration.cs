@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     [Serializable]
     public class ScopeConfiguration

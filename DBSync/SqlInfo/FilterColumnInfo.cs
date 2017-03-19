@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     [Serializable]
     public class FilterColumnInfo

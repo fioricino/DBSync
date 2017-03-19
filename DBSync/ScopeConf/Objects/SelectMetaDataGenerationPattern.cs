@@ -1,4 +1,4 @@
-﻿namespace DBSync
+﻿namespace DBSync.ScopeConf.Objects
 {
     public enum SelectMetaDataGenerationPattern
     {

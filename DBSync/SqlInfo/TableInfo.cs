@@ -4,24 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     [Serializable]
     public class TableInfo : ITableOrAlias
     {
-        public TableInfo()
-        {
-            Columns = new List<ColumnInfo>();
-            ForeignKeys = new List<ForeignKeyInfo>();
-            FilterColumns = new List<FilterColumnInfo>();
-            Aliases = new List<AliasInfo>();
-        }
-
         [XmlAttribute]
         public string Name { get; set; }
 
         [XmlIgnore]
-        public string NameForTempTable { get { return String.Format("@{0}_FOR_DELETE", Name); } }
+        public string NameForTempTable => $"@{Name}_FOR_DELETE";
 
         [XmlAttribute]
         public bool IsRoot { get; set; }
@@ -34,16 +26,13 @@ namespace DBSync
 
         [XmlAttribute]
         public bool IsSkippedOnDelete { get; set; }
-
-        //[XmlAttribute]
-        //public bool IsSkippedOnSync { get; set; }
         
         [XmlAttribute]
         public SyncConflictResolutionPolicy ConflictResolutionPolicy { get; set; }
 
-        public List<FilterColumnInfo> FilterColumns { get; set; }
+        public List<FilterColumnInfo> FilterColumns { get; set; } = new List<FilterColumnInfo>();
 
-        public List<AliasInfo> Aliases { get; set; }
+        public List<AliasInfo> Aliases { get; set; } = new List<AliasInfo>();
 
         [XmlIgnore]
         public IEnumerable<TableInfo> ParentInfos
@@ -58,10 +47,10 @@ namespace DBSync
         public int? Level { get; set; }
         
         [XmlIgnore]
-        public List<ColumnInfo> Columns { get; set; }
+        public List<ColumnInfo> Columns { get; set; } = new List<ColumnInfo>();
 
         [XmlIgnore]
-        public List<ForeignKeyInfo> ForeignKeys { get; set; }
+        public List<ForeignKeyInfo> ForeignKeys { get; set; } = new List<ForeignKeyInfo>();
 
         [XmlIgnore]
         public IEnumerable<ColumnInfo> FKColumns
@@ -139,10 +128,7 @@ namespace DBSync
         }
 
         [XmlIgnore]
-        public string QuotedName
-        {
-            get { return String.Format("[{0}]", Name); }
-        }
+        public string QuotedName => $"[{Name}]";
 
         [XmlIgnore]
         public ScopeInfo Scope { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace DBSync
+﻿namespace DBSync.SqlInfo
 {
     public interface ITableOrAlias
     {

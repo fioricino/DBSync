@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSync.ScopeConf.Objects
 {
     [Serializable]
-    public class FKDescription
+    public class ForeignKeyConfig
     {
         [XmlAttribute]
         public string Table { get; set; }

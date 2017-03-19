@@ -3,19 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     [Serializable]
     public class ScopeInfo
     {
-        public ScopeInfo()
-        {
-            Tables = new List<TableInfo>();
-            ReversedForeignKeys = new List<FKDescription>();
-            FilterColumns = new List<FilterColumnInfo>();
-            ArtificialForeignKeys = new List<FKDescription>();
-        }
-
         [XmlAttribute]
         public ScopeType ScopeType { get; set; }
 
@@ -28,15 +20,15 @@ namespace DBSync
         [XmlAttribute]
         public SelectMetaDataGenerationPattern MetaDataGenerationPattern { get; set; }
 
-        public List<FilterColumnInfo> FilterColumns { get; set; }
+        public List<FilterColumnInfo> FilterColumns { get; set; } = new List<FilterColumnInfo>();
 
-        public List<FKDescription> ReversedForeignKeys { get; set; }
+        public List<FKDescription> ReversedForeignKeys { get; set; } = new List<FKDescription>();
 
-        public List<FKDescription> ArtificialForeignKeys { get; set; }
-        
+        public List<FKDescription> ArtificialForeignKeys { get; set; } = new List<FKDescription>();
+
         public List<FKDescription> IgnoredForeignKeys { get; set; }
             
-        public List<TableInfo> Tables { get; set; }
+        public List<TableInfo> Tables { get; set; } = new List<TableInfo>();
 
         //[XmlIgnore]
         //public IEnumerable<TableInfo> RootTables

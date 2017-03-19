@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 using DBSync.DataSets;
+using DBSync.SqlInfo;
 
 namespace DBSync
 {

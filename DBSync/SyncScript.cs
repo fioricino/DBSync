@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DBSync.SqlInfo;
 
 namespace DBSync
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     public class ForeignKeyInfo
     {

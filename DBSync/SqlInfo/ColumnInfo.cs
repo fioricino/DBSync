@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DBSync
+namespace DBSync.SqlInfo
 {
     public class ColumnInfo
     {
         public ColumnInfo(TableInfo parent)
         {
             Table = parent;
-            Precisions = new List<string>();
         }
 
         public string Name { get; set; }
 
         public bool IsPk { get; set; }
 
-        public bool IsFk { get { return ReferencedColumn != null; } }
+        public bool IsFk => ReferencedColumn != null;
 
-        public bool IsGuid
-        {
-            get { return DataType == "uniqueidentifier"; }
-        }
+        public bool IsGuid => DataType == "uniqueidentifier";
 
         public string DataType { get; set; }
 
@@ -28,7 +24,7 @@ namespace DBSync
 
         public byte Scale { get; set; }
 
-        public List<string> Precisions { get; set; } 
+        public List<string> Precisions { get; set; } = new List<string>();
 
         public int? MaxLength { get; set; }
 
@@ -40,10 +36,7 @@ namespace DBSync
 
         public bool IsReadOnly { get; set; }
 
-        public string QuotedName
-        {
-            get { return String.Format("[{0}]", Name); }
-        }
+        public string QuotedName => $"[{Name}]";
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -53,7 +46,7 @@ namespace DBSync
         /// </returns>
         public override string ToString()
         {
-            return String.Format("{0}.{1}", Table, Name);
+            return $"{Table}.{Name}";
         }
 
         public string ToSqlString()
