@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
+using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
@@ -21,6 +22,7 @@ namespace DBSyncNew
         private ObservableCollection<TableInfo> levelInfo = new ObservableCollection<TableInfo>();
         private string connectionString;
         private ScopeConfiguration scopes;
+        private GraphGenerator<AliasInfo, ForeignKeyAliasInfo> graphGenerator = new GraphGenerator<AliasInfo, ForeignKeyAliasInfo>(); 
 
         public DBAnalyzer(string permissionsSqlFileName ,
         string uniqueColumnsFileName,
@@ -240,7 +242,7 @@ namespace DBSyncNew
         {
             var rootAliases = scope.RootAliases;
 
-            var tableGraph = GetDigraph(scope.Aliases);
+            var tableGraph = graphGenerator.GenerateGraph(scope.Aliases);
 
 
             var routes = GetAllDirectedRoutes(tableGraph, rootAliases);
@@ -449,36 +451,7 @@ namespace DBSyncNew
             return result;
         }
 
-        private List<Vertex<AliasInfo, ForeignKeyAliasInfo>> GetDigraph(IEnumerable<AliasInfo> tables)
-        {
-            var dict = tables.ToDictionary(table => table.NameOrAlias, table => new Vertex<AliasInfo, ForeignKeyAliasInfo>(table));
-            foreach (var vertex in dict.Values)
-            {
-                foreach (var key in vertex.Value.ForeignKeys.Where(c => tables.Contains(c.ReferencedAlias) && tables.Contains(c.Alias)))
-                {
-                    var start = dict.Values.Single(v => v.Value == key.Alias);
-                    //.Direction == ForeignKeyDirection.Direct ? dict.Values.Single(v => v.Value == key.Column.Table) : dict.Values.Single(v => v.Value == key.ReferencedColumn.Table);
-                    var end = dict.Values.Single(v => v.Value == key.ReferencedAlias);
-                    
-                        //key.Direction == ForeignKeyDirection.Direct ? dict.Values.Single(v => v.Value == key.ReferencedColumn.Table) : dict.Values.Single(v => v.Value == key.Column.Table);
-                    AddEdge(end, start, key);
-                }
-            }
-            return dict.Values.ToList();
-        }
 
-        private static void AddEdge(Vertex<AliasInfo, ForeignKeyAliasInfo> end, Vertex<AliasInfo, ForeignKeyAliasInfo> start, ForeignKeyAliasInfo value)
-        {
-            var edge = new Edge<AliasInfo, ForeignKeyAliasInfo>(start, end, value);
-            if (!start.Edges.Any(e => e.Start == start && e.End == end && e.Value == value))
-            {
-                start.Edges.Add(edge);
-            }
-            if (!end.Edges.Any(e => e.Start == start && e.End == end && e.Value == value))
-            {
-                end.Edges.Add(edge);
-            }
-        }
 
         private TableInfo[] GetMetadataTables()
         {

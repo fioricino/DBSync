@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
     [Serializable]
-    public class AliasInfo : ITableOrAlias
+    public class AliasInfo : AbstractVertex<AliasInfo, ForeignKeyAliasInfo>, ITableOrAlias
     {
         public AliasInfo()
         {
@@ -67,6 +68,11 @@ namespace DBSyncNew
             }
         }
 
+        public override bool Equals(AliasInfo other)
+        {
+            return other != null && other.NameOrAlias == NameOrAlias;
+        }
+
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
@@ -77,6 +83,8 @@ namespace DBSyncNew
         {
             return NameWithAlias;
         }
+
+        public override IEnumerable<ForeignKeyAliasInfo> OutgoingEdges { get { return ForeignKeys; } }
 
     }
 }

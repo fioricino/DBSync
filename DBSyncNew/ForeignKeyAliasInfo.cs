@@ -1,8 +1,9 @@
 ﻿using System;
+using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
-    public class ForeignKeyAliasInfo
+    public class ForeignKeyAliasInfo : AbstractEdge<AliasInfo>
     {
         public ForeignKeyAliasInfo()
         {
@@ -31,5 +32,7 @@ namespace DBSyncNew
         }
 
 
+        public override AliasInfo Start { get { return Alias; } }
+        public override AliasInfo End { get { return ReferencedAlias; } }
     }
 }

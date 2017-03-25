@@ -69,12 +69,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DBAnalyzer.cs" />
-    <Compile Include="Edge.cs" />
+    <Compile Include="Graph\Edge.cs" />
     <Compile Include="FilterColumnInfo.cs" />
     <Compile Include="FKDescription.cs" />
     <Compile Include="ForeignKeyAliasInfo.cs" />
     <Compile Include="ForeignKeyDirection.cs" />
     <Compile Include="ForeignKeyInfo.cs" />
+    <Compile Include="Graph\GraphGenerator.cs" />
+    <Compile Include="Graph\AbstractEdge.cs" />
+    <Compile Include="Graph\AbstractVertex.cs" />
     <Compile Include="ITableOrAlias.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,7 +93,7 @@
     <Compile Include="SyncScript.cs" />
     <Compile Include="SyncScripts.cs" />
     <Compile Include="TableInfo.cs" />
-    <Compile Include="Vertex.cs" />
+    <Compile Include="Graph\Vertex.cs" />
     <Compile Include="WhereClause.cs" />
   </ItemGroup>
   <ItemGroup>
