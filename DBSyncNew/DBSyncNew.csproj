@@ -76,8 +76,8 @@
     <Compile Include="ForeignKeyDirection.cs" />
     <Compile Include="ForeignKeyInfo.cs" />
     <Compile Include="Graph\GraphGenerator.cs" />
-    <Compile Include="Graph\AbstractEdge.cs" />
-    <Compile Include="Graph\AbstractVertex.cs" />
+    <Compile Include="Graph\EdgeSource.cs" />
+    <Compile Include="Graph\VertexSource.cs" />
     <Compile Include="ITableOrAlias.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

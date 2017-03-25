@@ -6,7 +6,7 @@ using DBSyncNew.Graph;
 namespace DBSyncNew
 {
     [Serializable]
-    public class AliasInfo : AbstractVertex<AliasInfo, ForeignKeyAliasInfo>, ITableOrAlias
+    public class AliasInfo : VertexSource<AliasInfo, ForeignKeyAliasInfo>, ITableOrAlias
     {
         public AliasInfo()
         {

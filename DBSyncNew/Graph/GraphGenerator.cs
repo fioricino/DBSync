@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace DBSyncNew.Graph
 {
     public class GraphGenerator<TVertex, TEdge>
-        where TVertex : AbstractVertex<TVertex, TEdge>
-        where TEdge : AbstractEdge<TVertex>
+        where TVertex : VertexSource<TVertex, TEdge>
+        where TEdge : EdgeSource<TVertex>
 
     {
         //TODO performance
@@ -37,7 +37,6 @@ namespace DBSyncNew.Graph
         private void AddEdge(Vertex<TVertex, TEdge> end, Vertex<TVertex, TEdge> start, TEdge value)
         {
             var edge = new Edge<TVertex, TEdge>(start, end, value);
-            //TODO Equals
             if (!start.Edges.Any(e => e.Start == start && e.End == end && EqualityComparer<TEdge>.Default.Equals(e.Value, value)))
             {
                 start.Edges.Add(edge);

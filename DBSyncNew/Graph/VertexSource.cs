@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DBSyncNew.Graph
 {
-    public abstract class AbstractVertex<TVertex, TEdge> : IEquatable<TVertex> where TEdge : AbstractEdge<TVertex> 
+    public abstract class VertexSource<TVertex, TEdge> : IEquatable<TVertex> where TEdge : EdgeSource<TVertex> 
         where TVertex : IEquatable<TVertex>
     {
          public abstract IEnumerable<TEdge> OutgoingEdges { get; }

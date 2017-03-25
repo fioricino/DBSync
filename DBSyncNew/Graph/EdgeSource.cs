@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace DBSyncNew.Graph
 {
-    public abstract class AbstractEdge<TVertex> : IEquatable<AbstractEdge<TVertex>>
+    public abstract class EdgeSource<TVertex> : IEquatable<EdgeSource<TVertex>>
         where TVertex : IEquatable<TVertex>
     {
         public abstract TVertex Start { get; }
 
         public abstract TVertex End { get; }
 
-        public bool Equals(AbstractEdge<TVertex> other)
+        public bool Equals(EdgeSource<TVertex> other)
         {
             return EqualityComparer<TVertex>.Default.Equals(Start, End);
         }

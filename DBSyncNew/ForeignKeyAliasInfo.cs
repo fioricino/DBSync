@@ -3,7 +3,7 @@ using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
-    public class ForeignKeyAliasInfo : AbstractEdge<AliasInfo>
+    public class ForeignKeyAliasInfo : EdgeSource<AliasInfo>
     {
         public ForeignKeyAliasInfo()
         {
