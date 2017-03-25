@@ -7,7 +7,7 @@
     <ProjectGuid>{DB30CC1A-C491-4690-BC18-2E2765A41DAC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBSync</RootNamespace>
+    <RootNamespace>DBSyncOld</RootNamespace>
     <AssemblyName>DBSync</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

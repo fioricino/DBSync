@@ -1,4 +1,4 @@
-﻿namespace DBSync
+﻿namespace DBSyncOld
 {
     public sealed class Edge<TV, TE>
     {

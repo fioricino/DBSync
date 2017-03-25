@@ -3,9 +3,9 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Resources;
-using DBSync.DataSets;
+using DBSyncOld.DataSets;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public static class SyncMetaDataHelper
     {

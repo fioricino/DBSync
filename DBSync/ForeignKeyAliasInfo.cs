@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public class ForeignKeyAliasInfo
     {
