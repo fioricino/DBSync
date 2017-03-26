@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using DBSyncNew.Graph;
 
@@ -72,6 +73,8 @@ namespace DBSyncNew
         {
             return other != null && other.NameOrAlias == NameOrAlias;
         }
+
+        public override bool IsReferenced { get { return FilterColumns.Any(f => f.IsReferenced); } }
 
         /// <summary>
         /// Returns a string that represents the current object.

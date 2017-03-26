@@ -78,6 +78,7 @@
     <Compile Include="Graph\GraphGenerator.cs" />
     <Compile Include="Graph\EdgeSource.cs" />
     <Compile Include="Graph\GraphTraverser.cs" />
+    <Compile Include="Graph\IReversable.cs" />
     <Compile Include="Graph\VertexSource.cs" />
     <Compile Include="ITableOrAlias.cs" />
     <Compile Include="Program.cs" />

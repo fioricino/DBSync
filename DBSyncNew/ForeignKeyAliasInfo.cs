@@ -3,7 +3,7 @@ using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
-    public class ForeignKeyAliasInfo : EdgeSource<AliasInfo>
+    public class ForeignKeyAliasInfo : EdgeSource<AliasInfo>, IReversable<ForeignKeyAliasInfo>
     {
         public ForeignKeyAliasInfo()
         {
@@ -18,7 +18,19 @@ namespace DBSyncNew
 
         public AliasInfo ReferencedAlias { get; set; }
 
-        public ForeignKeyDirection Direction { get; set; }
+        public override ForeignKeyDirection Direction { get; set; }
+
+        public ForeignKeyAliasInfo Reversed()
+        {
+            return new ForeignKeyAliasInfo()
+            {
+                Alias = this.ReferencedAlias,
+                ReferencedAlias = Alias,
+                Column = ReferencedColumn,
+                ReferencedColumn = Column,
+                Direction = Direction
+            };
+        }
 
         /// <summary>
         /// Returns a string that represents the current object.

@@ -15,7 +15,7 @@ namespace DBSyncNew.Graph
         public List<Vertex<TVertex, TEdge>> GenerateGraph(IEnumerable<TVertex> vertices)
         {
             var verticesList = vertices.ToList();
-            var dict = verticesList.Select(table => new Vertex<TVertex, TEdge>(table)).ToList();
+            var dict = verticesList.Select(table => new Vertex<TVertex, TEdge>(table, table.IsReferenced)).ToList();
             foreach (var vertex in dict)
             {
                 foreach (
@@ -36,7 +36,7 @@ namespace DBSyncNew.Graph
 
         private void AddEdge(Vertex<TVertex, TEdge> end, Vertex<TVertex, TEdge> start, TEdge value)
         {
-            var edge = new Edge<TVertex, TEdge>(start, end, value);
+            var edge = new Edge<TVertex, TEdge>(start, end, value, value.Direction);
             if (!start.Edges.Any(e => e.Start == start && e.End == end && EqualityComparer<TEdge>.Default.Equals(e.Value, value)))
             {
                 start.Edges.Add(edge);

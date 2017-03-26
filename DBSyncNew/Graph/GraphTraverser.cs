@@ -6,39 +6,38 @@ using System.Threading.Tasks;
 
 namespace DBSyncNew.Graph
 {
-    public class GraphTraverser
+    public class GraphTraverser<TVertex, TEdge> where TVertex : IEquatable<TVertex> where TEdge : IReversable<TEdge>, new()
     {
-        public List<SGRoute> GetAllDirectedRoutes(List<Vertex<AliasInfo, ForeignKeyAliasInfo>> graph, IEnumerable<AliasInfo> rootTables)
+        public List<SGRoute<TVertex, TEdge>> GetAllDirectedRoutes(List<Vertex<TVertex, TEdge>> graph, IEnumerable<Vertex<TVertex, TEdge>> rootTables)
         {
-            var result = new List<SGRoute>();
+            var result = new List<SGRoute<TVertex, TEdge>>();
             foreach (var rootTable in rootTables)
             {
-                var rootVertex = graph.First(vertex => vertex.Value == rootTable);
+                var rootVertex = graph.First(vertex => vertex.Equals(rootTable));
                 var vertexRoutes = GetAllDirectedRoutesInternal(rootVertex);
-                result.AddRange(vertexRoutes.Select(list => SGRoute.Create(rootTable, list.Select(edge => edge.Value).ToList())).ToList());
+                result.AddRange(vertexRoutes.Select(list => SGRoute<TVertex, TEdge>.Create(rootTable, list)).ToList());
                 //Add itself route
 
-                //var fakeColumn = new ColumnInfo(rootTable) {};
-                var column = rootTable.Table.FilterColumns.FirstOrDefault(c => c.IsReferenced);
+                if (rootTable.IsReferenced)
+                {
+                    
+                }
+                //var column = rootTable.Table.FilterColumns.FirstOrDefault(c => c.IsReferenced);
+           
+                var fakeFK = new Edge<TVertex, TEdge>(rootTable, rootTable, new TEdge(), ForeignKeyDirection.Direct);
                 //if (column != null)
                 //{
-                //    fakeColumn.Name = column.ColumnName;
+                //    fakeFK.Column = fakeFK.ReferencedColumn = column.ColumnName;
                 //}
-                var fakeFK = new ForeignKeyAliasInfo() { Alias = rootTable, ReferencedAlias = rootTable };
-                if (column != null)
-                {
-                    fakeFK.Column = fakeFK.ReferencedColumn = column.ColumnName;
-                }
-                //, Column = column.ColumnName, ReferencedColumn = column.ColumnName};
-                result.Add(new SGRoute(new List<ForeignKeyAliasInfo> { fakeFK }, rootTable));
+                result.Add(new SGRoute<TVertex, TEdge>(new List<Edge<TVertex, TEdge>> { fakeFK }, rootTable));
             }
 
             return result;
         }
 
-        private static List<List<Edge<AliasInfo, ForeignKeyAliasInfo>>> GetAllDirectedRoutesInternal(Vertex<AliasInfo, ForeignKeyAliasInfo> vertex)
+        private static List<List<Edge<TVertex, TEdge>>> GetAllDirectedRoutesInternal(Vertex<TVertex, TEdge> vertex)
         {
-            var result = new List<List<Edge<AliasInfo, ForeignKeyAliasInfo>>>();
+            var result = new List<List<Edge<TVertex, TEdge>>>();
 
             //var vertexWithRef = vertexesWithRoundReferences.FirstOrDefault(vRef => vRef.Vertex == vertex);
             //if (vertexWithRef != null)
@@ -47,13 +46,13 @@ namespace DBSyncNew.Graph
             //}
             foreach (var edge in vertex.Edges)
             {
-                Vertex<AliasInfo, ForeignKeyAliasInfo> nextVertex = null;
-                if (edge.Value.Direction == ForeignKeyDirection.Direct && vertex != edge.End)
+                Vertex<TVertex, TEdge> nextVertex = null;
+                if (edge.Direction == ForeignKeyDirection.Direct && !EqualityComparer<Vertex<TVertex, TEdge>>.Default.Equals(vertex, edge.End))
                 {
                     //Direct edge
                     nextVertex = edge.End;
                 }
-                else if (edge.Value.Direction == ForeignKeyDirection.Reversed && vertex != edge.Start)
+                else if (edge.Direction == ForeignKeyDirection.Reversed && !EqualityComparer<Vertex<TVertex, TEdge>>.Default.Equals(vertex, edge.Start))
                 {
                     //Referenced edge
                     nextVertex = edge.Start;
@@ -70,7 +69,7 @@ namespace DBSyncNew.Graph
                 //    continue;
                 //}
 
-                result.Add(new List<Edge<AliasInfo, ForeignKeyAliasInfo>> { edge });
+                result.Add(new List<Edge<TVertex, TEdge>> { edge });
                 var nextRoutes = GetAllDirectedRoutesInternal(nextVertex).ToList();
                 foreach (var nextRoute in nextRoutes)
                 {

@@ -23,7 +23,7 @@ namespace DBSyncNew
         private string connectionString;
         private ScopeConfiguration scopes;
         private GraphGenerator<AliasInfo, ForeignKeyAliasInfo> graphGenerator = new GraphGenerator<AliasInfo, ForeignKeyAliasInfo>(); 
-        private GraphTraverser graphTraverser = new  GraphTraverser();
+        private GraphTraverser<AliasInfo, ForeignKeyAliasInfo> graphTraverser = new  GraphTraverser<AliasInfo, ForeignKeyAliasInfo>();
 
         public DBAnalyzer(string permissionsSqlFileName ,
         string uniqueColumnsFileName,
@@ -245,7 +245,8 @@ namespace DBSyncNew
 
             IEnumerable<AliasInfo> rootAliases = scope.RootAliases;
 
-            List<SGRoute> routes = graphTraverser.GetAllDirectedRoutes(tableGraph, rootAliases);
+            List<SGRoute<AliasInfo, ForeignKeyAliasInfo>> routes = graphTraverser.GetAllDirectedRoutes(tableGraph, rootAliases.Select(r => tableGraph.Single(t => 
+            EqualityComparer<AliasInfo>.Default.Equals(t.Value, r))));
 
             foreach (var route in routes)
             {
@@ -257,7 +258,7 @@ namespace DBSyncNew
                 var sbuilder = new StringBuilder();
 
                 //Print first table
-                sbuilder.Append(route.Directed[0].Alias);
+                sbuilder.Append(route.Directed[0].Start.Value);
 
                 sbuilder.AppendLine();
 
@@ -265,24 +266,22 @@ namespace DBSyncNew
                 {
                     var key = route.Directed[i];
 
-                    AppendJoin(sbuilder, key);
+                    AppendJoin(sbuilder, key.Value);
                 }
 
                 var lastKey = route.Directed[route.Directed.Count - 1];
 
-                var filterColumnInfo = route.RootTable.FilterColumns.SingleOrDefault(c => c.IsReferenced);
+                var filterColumnInfo = route.RootTable.Value.FilterColumns.SingleOrDefault(c => c.IsReferenced);
                 var goesFromRoot = 
-                    //lastKey.Column.Table.IsRoot
-                    //||
-                                   filterColumnInfo != null && lastKey.ReferencedColumn != filterColumnInfo.ColumnName;
+                                   filterColumnInfo != null && lastKey.Value.ReferencedColumn != filterColumnInfo.ColumnName;
 
-                var isSelf = lastKey.Alias.IsRoot;
+                var isSelf = lastKey.Start.Value.IsRoot;
 
                 if (goesFromRoot && !isSelf
                     //lastKey.Column.Table != lastKey.ReferencedColumn.Table
                     /*Special case for print rotTble it self*/)
                 {
-                    AppendJoin(sbuilder, lastKey);
+                    AppendJoin(sbuilder, lastKey.Value);
                 }
                 fromClause = sbuilder.ToString().Trim(' ', '\t', '\n', '\r');
 
@@ -293,15 +292,15 @@ namespace DBSyncNew
                 //}
 
                 var whereClauses =
-                    route.AllTables.SelectMany(t => t.FilterColumns)
+                    route.AllVertices.SelectMany(t => t.Value.FilterColumns)
                         //.Union(
-                        //    route.AllTables.Where(t => !t.IgnoreParentFilter).SelectMany(t => t.Table.FilterColumns)
-                                .Union(sgTable.Table.Scope.FilterColumns)
+                        //    route.AllVertices.Where(t => !t.IgnoreParentFilter).SelectMany(t => t.Table.FilterColumns)
+                                .Union(sgTable.Value.Table.Scope.FilterColumns)
                                 .Distinct()
                         .Select(
                             filter =>
                                 !goesFromRoot && !isSelf && filter.IsReferenced
-                                    ? GetWhereClause(lastKey.Alias.NameOrAlias, lastKey.Column, filter.FilterClause, filter.IsSkippedOnDelete)
+                                    ? GetWhereClause(lastKey.Start.Value.NameOrAlias, lastKey.Value.Column, filter.FilterClause, filter.IsSkippedOnDelete)
                                     : GetNonReferencedWhereClause(filter.Table.NameOrAlias, filter))
                         .ToList();
 
@@ -311,7 +310,7 @@ namespace DBSyncNew
                     //}
 
 
-                sgTable.Scripts.Add(new SyncScript(fromClause, whereClauses));
+                sgTable.Value.Scripts.Add(new SyncScript(fromClause, whereClauses));
             }
         }
 

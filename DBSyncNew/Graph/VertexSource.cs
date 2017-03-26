@@ -8,5 +8,7 @@ namespace DBSyncNew.Graph
     {
          public abstract IEnumerable<TEdge> OutgoingEdges { get; }
         public abstract bool Equals(TVertex other);
+
+        public abstract bool IsReferenced { get; }
     }
 }
