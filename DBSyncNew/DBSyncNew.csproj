@@ -47,7 +47,11 @@
     <Compile Include="AliasInfo.cs" />
     <Compile Include="ColumnInfo.cs" />
     <Compile Include="Database\Interfaces\IDBColumn.cs" />
+    <Compile Include="Database\Interfaces\IDBMetadata.cs" />
     <Compile Include="Database\Interfaces\IDBTable.cs" />
+    <Compile Include="Database\MsSql\MsSqlColumnAdapter.cs" />
+    <Compile Include="Database\MsSql\MsSqlMetadataAdapter.cs" />
+    <Compile Include="Database\MsSql\MsSqlTableAdapter.cs" />
     <Compile Include="DatasetSerializer.cs" />
     <Compile Include="DataSets\CashDS.cs">
       <SubType>Component</SubType>
@@ -208,9 +212,7 @@
       <LastGenOutput>MetaDataGenerator.tmp</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\MsSql\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
