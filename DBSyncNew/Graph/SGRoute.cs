@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DBSyncNew.Graph;
 
-namespace DBSyncNew
+namespace DBSyncNew.Graph
 {
     public sealed class SGRoute<TVertex, TEdge> where TVertex : IEquatable<TVertex> where TEdge : IReversable<TEdge>
     {
