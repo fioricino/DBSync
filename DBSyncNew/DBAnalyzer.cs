@@ -628,9 +628,10 @@ AND t.type = 'U'", sqlConnection);
             sb.AppendLine("DELETE FROM [dbo].[SYS_TUEV_TABLES]");
             sb.AppendLine("SET IDENTITY_INSERT dbo.SYS_TUEV_TABLES ON");
             sb.AppendLine();
-            for (int index = 0; index < levelInfo.Count; index++)
+            var orderedTables = levelInfo.OrderBy(t => t.Name).ToList();
+            for (int index = 0; index < orderedTables.Count; index++)
             {
-                TableInfo tableLevelInfo = levelInfo[index];
+                TableInfo tableLevelInfo = orderedTables[index];
                 string insertCommandText = string.Format(
                     @"INSERT INTO [dbo].[SYS_TUEV_TABLES] ([ID], [TABLE_NAME], [SCOPE_TYPE], [LEVEL], [IS_DATE_FILTERED]) VALUES({0},'{1}',{2},{3},{4});",
                     index, tableLevelInfo.Name, (int)tableLevelInfo.ScopeType, tableLevelInfo.Level, 0);
