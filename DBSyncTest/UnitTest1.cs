@@ -24,7 +24,7 @@ namespace DBSyncTest
         {
             foreach (DBSyncOld.ScopeType scopeType in Enum.GetValues(typeof (DBSyncOld.ScopeType)))
             {
-                if (scopeType == ScopeType.Historical) continue;
+                if (scopeType == ScopeType.Historical || scopeType == ScopeType.None) continue;
                 
                 string dataSetMetadataOld = dbAnalyzerOld.GenerateDataSetMetaData(scopeType);
                 var scopeTypeNew = (DBSyncNew.ScopeType) Enum.Parse(typeof (DBSyncNew.ScopeType), scopeType.ToString());
@@ -39,7 +39,7 @@ namespace DBSyncTest
         {
             foreach (DBSyncOld.ScopeType scopeType in Enum.GetValues(typeof(DBSyncOld.ScopeType)))
             {
-                if (scopeType == ScopeType.Historical) continue;
+                if (scopeType == ScopeType.Historical || scopeType == ScopeType.None) continue;
 
                 Tuple<string, string> dataSetMetadataOld = dbAnalyzerOld.GenerateDataSetSelectMetaData(scopeType);
                 var scopeTypeNew = (DBSyncNew.ScopeType)Enum.Parse(typeof(DBSyncNew.ScopeType), scopeType.ToString());
@@ -54,7 +54,7 @@ namespace DBSyncTest
         {
             foreach (DBSyncOld.ScopeType scopeType in Enum.GetValues(typeof(DBSyncOld.ScopeType)))
             {
-                if (scopeType == ScopeType.Historical) continue;
+                if (scopeType == ScopeType.Historical || scopeType == ScopeType.None) continue;
 
                 string dataSetMetadataOld = dbAnalyzerOld.GenerateInsertMetaData(scopeType);
                 var scopeTypeNew = (DBSyncNew.ScopeType)Enum.Parse(typeof(DBSyncNew.ScopeType), scopeType.ToString());

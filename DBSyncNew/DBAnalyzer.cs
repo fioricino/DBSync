@@ -30,7 +30,7 @@ namespace DBSyncNew
             Errors = new List<string>();
             this.connectionString = connectionString;
 
-            InitScopes(scopeConfigurationSource);
+            scopes = ReadScopesFromXml(scopeConfigurationSource);
 
             InitLevelInfo();
 
@@ -38,6 +38,185 @@ namespace DBSyncNew
         }
 
         public List<string> Errors { get; private set; }
+
+        private void InitLevelInfo()
+        {
+            DataTable mdt;
+            DataTable mdc;
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+
+                mdt = ReadTableDataFromDB(sqlConnection);
+
+                mdc = ReadColumnDataFromDB(sqlConnection);
+            }
+
+            foreach (DataRow tableRow in mdt.Rows)
+            {
+                //init base table data
+                var tableName = tableRow["TABLE_NAME"].ToString();
+
+                var tableInfo = scopes.Findtable(tableName).ToList();
+
+                if (!tableInfo.Any())
+                {
+                    //table is present in DB, b
+                    tableInfo.Add(new TableInfo() { Scope = scopes.Scopes.Single(s => s.ScopeType == ScopeType.None), Name = tableName });
+                }
+
+                foreach (var info in tableInfo)
+                {
+                    levelInfo.Add(info);
+                }
+            }
+
+
+            //init columns
+            foreach (var tableInfo in levelInfo)
+            {
+                var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == tableInfo.Name);
+
+                foreach (DataRow columnRow in columnRows)
+                {
+                    var columnInfo = new ColumnInfo(tableInfo)
+                    {
+                        Name = columnRow.Field<string>("COLUMN_NAME"),
+                        IsPk = columnRow.Field<bool>("IS_PK"),
+                        IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
+                        DataType = columnRow.Field<string>("COLUMN_TYPE"),
+                        IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
+                        Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
+                        Scale = columnRow.Field<byte>("COLUMN_SCALE"),
+                        MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
+                    };
+                    tableInfo.Columns.Add(columnInfo);
+                }
+            }
+
+            //init relations
+            var allColumns = levelInfo.SelectMany(l => l.Columns).ToList();
+            foreach (var row in mdc.Rows.Cast<DataRow>().Where(row => !(row["REFERENCED_COLUMN"] is DBNull)))
+            {
+                var columnName = row["COLUMN_NAME"].ToString();
+                var tableName = row["TABLE_NAME"].ToString();
+                var referencedColumnName = row["REFERENCED_COLUMN"].ToString();
+                var referencedTableName = row["REFERENCED_TABLE"].ToString();
+
+                if (!scopes.Findtable(tableName).Any() || !scopes.Findtable(referencedTableName).Any())
+                {
+                    continue;
+                }
+
+                var columns = allColumns.Where(c => c.Name == columnName && c.Table.Name == tableName);
+                foreach (var column in columns)
+                {
+                    var referencedColumn = allColumns.Single(c => c.Name == referencedColumnName && c.Table.Name == referencedTableName
+                        && (c.Table.Scope.ScopeType == column.Table.Scope.ScopeType || c.Table.Scope.ScopeType == ScopeType.Core));
+
+
+                    AddFkRelation(column, referencedColumn);
+
+
+                }
+
+            }
+            foreach (var scope in scopes.Scopes)
+            {
+                foreach (var aritificalForeignKey in scope.ArtificialForeignKeys)
+                {
+                    var column = scope.Tables.Single(t => t.Name == aritificalForeignKey.Table)
+                        .Columns.Single(c => c.Name == aritificalForeignKey.Column);
+                    var referencedColumn = scope.Tables.Single(t => t.Name == aritificalForeignKey.ReferencedTable)
+                        .Columns.Single(c => c.Name == aritificalForeignKey.ReferencedColumn);
+
+                    AddFkRelation(column, referencedColumn);
+                }
+            }
+
+            //calculate levels
+            foreach (var tableInfo in levelInfo)
+            {
+                tableInfo.Level = CalculateLevel(tableInfo, 0);
+            }
+
+            foreach (var scope in scopes.Scopes)
+            {
+                scope.Tables.Clear();
+                scope.Tables.AddRange(levelInfo.Where(t => t.ScopeType == scope.ScopeType));
+            }
+        }
+
+        private static DataTable ReadColumnDataFromDB(SqlConnection sqlConnection)
+        {
+            DataTable mdc;
+//black magic
+            var columnCommand = new SqlCommand(@"SELECT DISTINCT 
+c.name COLUMN_NAME, 
+tp.name COLUMN_TYPE,
+COLUMNPROPERTY(c.object_id, c.name, 'charmaxlen') MAX_LENGTH,
+c.precision COLUMN_PRECISION,
+c.scale COLUMN_SCALE,
+c.is_nullable IS_NULLABLE,
+CONVERT(BIT, CASE WHEN (c.is_identity = 1 OR tp.name = 'timestamp') THEN 1 ELSE 0 END) IS_READONLY,
+CONVERT(BIT, COALESCE(ix.is_primary_key, 0)) IS_PK,
+t.name TABLE_NAME,
+tt.name REFERENCED_TABLE,
+cc.NAME REFERENCED_COLUMN,
+c.column_id ORDINAL_NUMBER
+
+FROM sys.columns c
+LEFT JOIN sys.types tp
+ON c.system_type_id = tp.system_type_id
+AND c.user_type_id = tp.user_type_id
+LEFT JOIN
+(SELECT ic.column_id, ic.object_id, is_primary_key 
+FROM sys.index_columns ic
+JOIN sys.indexes i
+ON i.index_id = ic.index_id
+AND i.object_id = ic.object_id
+AND i.is_primary_key = 1) ix
+ON c.column_id = ix.column_id
+AND c.object_id = ix.object_id
+
+LEFT JOIN sys.tables t
+ON t.object_id = c.object_id
+LEFT JOIN sys.foreign_key_columns f
+ON f.parent_object_id = c.object_id
+AND f.parent_column_id = c.column_id
+LEFT JOIN sys.tables tt
+ON f.referenced_object_id = tt.object_id
+LEFT JOIN sys.columns cc
+ON f.referenced_object_id = cc.object_id
+AND f.referenced_column_id = cc.column_id
+WHERE t.schema_id = 1
+AND t.type = 'U'
+ORDER BY TABLE_NAME, ORDINAL_NUMBER
+                                                                ", sqlConnection);
+
+
+            var columnReader = columnCommand.ExecuteReader();
+            mdc = new DataTable();
+            mdc.Load(columnReader);
+            return mdc;
+        }
+
+        private static DataTable ReadTableDataFromDB(SqlConnection sqlConnection)
+        {
+            DataTable mdt;
+            var tableCommand =
+                new SqlCommand(@"SELECT distinct t.name TABLE_NAME
+FROM sys.tables t
+
+WHERE t.schema_id = 1
+AND t.type = 'U'", sqlConnection);
+
+            var tableReader = tableCommand.ExecuteReader();
+            mdt = new DataTable();
+            mdt.Load(tableReader);
+            return mdt;
+        }
+
 
         public string GenerateSqlMetaData()
         {
@@ -350,181 +529,25 @@ namespace DBSyncNew
         }
 
 
-        private void InitScopes(string scopeConfigurationSource)
+        private ScopeConfiguration ReadScopesFromXml(string scopeConfigurationSource)
         {
+            ScopeConfiguration result;
             var serializer = new XmlSerializer(typeof(ScopeConfiguration));
 
             using (var file = File.OpenRead(scopeConfigurationSource))
             {
-                scopes = (ScopeConfiguration)serializer.Deserialize(file);
+                result = (ScopeConfiguration)serializer.Deserialize(file);
             }
-            scopes.SetRelations();
-            if (scopes.Scopes.All(s => s.ScopeType != ScopeType.None))
+            result.SetRelations();
+            if (result.Scopes.All(s => s.ScopeType != ScopeType.None))
             {
-                scopes.Scopes.Add(new ScopeInfo() {ScopeType = ScopeType.None});
+                result.Scopes.Add(new ScopeInfo() {ScopeType = ScopeType.None});
             }
+
+            return result;
         }
 
-        private void InitLevelInfo()
-        {
-            DataTable mdt;
-            DataTable mdc;
-            using (var sqlConnection = new SqlConnection(connectionString))
-            {
-                var tableCommand =
-                    new SqlCommand(@"SELECT distinct t.name TABLE_NAME
-FROM sys.tables t
-
-WHERE t.schema_id = 1
-AND t.type = 'U'", sqlConnection);
-
-                //black magic
-                var columnCommand = new SqlCommand(@"SELECT DISTINCT 
-c.name COLUMN_NAME, 
-tp.name COLUMN_TYPE,
-COLUMNPROPERTY(c.object_id, c.name, 'charmaxlen') MAX_LENGTH,
-c.precision COLUMN_PRECISION,
-c.scale COLUMN_SCALE,
-c.is_nullable IS_NULLABLE,
-CONVERT(BIT, CASE WHEN (c.is_identity = 1 OR tp.name = 'timestamp') THEN 1 ELSE 0 END) IS_READONLY,
-CONVERT(BIT, COALESCE(ix.is_primary_key, 0)) IS_PK,
-t.name TABLE_NAME,
-tt.name REFERENCED_TABLE,
-cc.NAME REFERENCED_COLUMN,
-c.column_id ORDINAL_NUMBER
-
-FROM sys.columns c
-LEFT JOIN sys.types tp
-ON c.system_type_id = tp.system_type_id
-AND c.user_type_id = tp.user_type_id
-LEFT JOIN
-(SELECT ic.column_id, ic.object_id, is_primary_key 
-FROM sys.index_columns ic
-JOIN sys.indexes i
-ON i.index_id = ic.index_id
-AND i.object_id = ic.object_id
-AND i.is_primary_key = 1) ix
-ON c.column_id = ix.column_id
-AND c.object_id = ix.object_id
-
-LEFT JOIN sys.tables t
-ON t.object_id = c.object_id
-LEFT JOIN sys.foreign_key_columns f
-ON f.parent_object_id = c.object_id
-AND f.parent_column_id = c.column_id
-LEFT JOIN sys.tables tt
-ON f.referenced_object_id = tt.object_id
-LEFT JOIN sys.columns cc
-ON f.referenced_object_id = cc.object_id
-AND f.referenced_column_id = cc.column_id
-WHERE t.schema_id = 1
-AND t.type = 'U'
-ORDER BY TABLE_NAME, ORDINAL_NUMBER
-                                                                ", sqlConnection);
-
-                sqlConnection.Open();
-                var tableReader = tableCommand.ExecuteReader();
-                mdt = new DataTable();
-                mdt.Load(tableReader);
-
-                var columnReader = columnCommand.ExecuteReader();
-                mdc = new DataTable();
-                mdc.Load(columnReader);
-            }
-	     
-		        foreach (DataRow tableRow in mdt.Rows)
-		        {
-			        //init base table data
-			        var tableName = tableRow["TABLE_NAME"].ToString();
-
-                    var tableInfo = scopes.Findtable(tableName).ToList();
-
-		            if (!tableInfo.Any())
-		            {
-		                tableInfo.Add(new TableInfo() {Scope = scopes.Scopes.Single(s => s.ScopeType == ScopeType.None), Name = tableName});
-		            }
-
-		            foreach (var info in tableInfo)
-		            {
-                        levelInfo.Add(info);
-		            }
-                }
-	       
-	       
-	        //init columns
-            foreach (var tableInfo in levelInfo)
-            {
-                var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == tableInfo.Name);
-
-                foreach (DataRow columnRow in columnRows)
-                {
-                    var columnInfo = new ColumnInfo(tableInfo)
-                    {
-                        Name = columnRow.Field<string>("COLUMN_NAME"),
-                        IsPk = columnRow.Field<bool>("IS_PK"),
-                        IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
-                        DataType = columnRow.Field<string>("COLUMN_TYPE"),
-                        IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
-                        Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
-                        Scale = columnRow.Field<byte>("COLUMN_SCALE"),
-                        MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
-                    };
-                    tableInfo.Columns.Add(columnInfo);
-                }
-            }
-
-            //init relations
-            var allColumns = levelInfo.SelectMany(l => l.Columns).ToList();
-            foreach (var row in mdc.Rows.Cast<DataRow>().Where(row => !(row["REFERENCED_COLUMN"] is DBNull)))
-            {
-                var columnName = row["COLUMN_NAME"].ToString();
-                var tableName = row["TABLE_NAME"].ToString();
-                var referencedColumnName = row["REFERENCED_COLUMN"].ToString();
-                var referencedTableName = row["REFERENCED_TABLE"].ToString();
-
-                if (!scopes.Findtable(tableName).Any() || !scopes.Findtable(referencedTableName).Any())
-                {
-                    continue;
-                }
-
-                var columns = allColumns.Where(c => c.Name == columnName && c.Table.Name == tableName);
-                foreach (var column in columns)
-                {
-                    var referencedColumn = allColumns.Single(c => c.Name == referencedColumnName && c.Table.Name == referencedTableName
-                        && (c.Table.Scope.ScopeType == column.Table.Scope.ScopeType || c.Table.Scope.ScopeType == ScopeType.Core));
-
-
-                    AddFkRelation(column, referencedColumn);
-
-                   
-                }
-               
-            }
-            foreach (var scope in scopes.Scopes)
-            {
-                foreach (var aritificalForeignKey in scope.ArtificialForeignKeys)
-                {
-                    var column = scope.Tables.Single(t => t.Name == aritificalForeignKey.Table)
-                        .Columns.Single(c => c.Name == aritificalForeignKey.Column);
-                    var referencedColumn = scope.Tables.Single(t => t.Name == aritificalForeignKey.ReferencedTable)
-                        .Columns.Single(c => c.Name == aritificalForeignKey.ReferencedColumn);
-
-                    AddFkRelation(column, referencedColumn);
-                }
-            }
-
-            //calculate levels
-            foreach (var tableInfo in levelInfo)
-            {
-                tableInfo.Level = CalculateLevel(tableInfo, 0);
-            }
-
-            foreach (var scope in scopes.Scopes)
-            {
-                scope.Tables.Clear();
-                scope.Tables.AddRange(levelInfo.Where(t => t.ScopeType == scope.ScopeType));
-            }
-        }
+   
 
         private static void AddFkRelation(ColumnInfo column, ColumnInfo referencedColumn)
         {
