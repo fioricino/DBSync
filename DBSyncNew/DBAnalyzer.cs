@@ -10,33 +10,24 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
 using DBSyncNew.Graph;
+using DBSyncNew.Scripts;
 
 namespace DBSyncNew
 {
     public class DBAnalyzer
     {
-        private string permissionsSqlFileName;
-        private string uniqueColumnsFileName;
-        private string notNullColumnsFileName;
-        private string scriptFilesFolder;
         private ObservableCollection<TableInfo> levelInfo = new ObservableCollection<TableInfo>();
         private string connectionString;
         private ScopeConfiguration scopes;
         private GraphGenerator<AliasInfo, ForeignKeyAliasInfo> graphGenerator = new GraphGenerator<AliasInfo, ForeignKeyAliasInfo>(); 
         private GraphTraverser<AliasInfo, ForeignKeyAliasInfo> graphTraverser = new  GraphTraverser<AliasInfo, ForeignKeyAliasInfo>();
+        private ScriptGenerator scriptGenerator = new ScriptGenerator();
 
-        public DBAnalyzer(string permissionsSqlFileName ,
-        string uniqueColumnsFileName,
-        string notNullColumnsFileName,
-        string scriptFilesFolder,
+        public DBAnalyzer(
 		string scopeConfigurationSource,
             string connectionString)
         {
             Errors = new List<string>();
-            this.permissionsSqlFileName = permissionsSqlFileName;
-            this.uniqueColumnsFileName = uniqueColumnsFileName;
-            this.notNullColumnsFileName = notNullColumnsFileName;
-            this.scriptFilesFolder = scriptFilesFolder;
             this.connectionString = connectionString;
 
             InitScopes(scopeConfigurationSource);
@@ -47,7 +38,12 @@ namespace DBSyncNew
         }
 
         public List<string> Errors { get; private set; }
-        
+
+        public string GenerateSqlMetaData()
+        {
+            return GenerateTuevTablesScript();
+        }
+
         /// <summary>
         /// used in MetaDataGenerator.tt
         /// </summary>
@@ -266,7 +262,7 @@ namespace DBSyncNew
                 {
                     var key = route.Directed[i];
 
-                    AppendJoin(sbuilder, key.Value);
+                    scriptGenerator.AppendJoin(sbuilder, key.Value);
                 }
 
                 var lastKey = route.Directed[route.Directed.Count - 1];
@@ -281,7 +277,7 @@ namespace DBSyncNew
                     //lastKey.Column.Table != lastKey.ReferencedColumn.Table
                     /*Special case for print rotTble it self*/)
                 {
-                    AppendJoin(sbuilder, lastKey.Value);
+                    scriptGenerator.AppendJoin(sbuilder, lastKey.Value);
                 }
                 fromClause = sbuilder.ToString().Trim(' ', '\t', '\n', '\r');
 
@@ -319,15 +315,6 @@ namespace DBSyncNew
             return new WhereClause(clause.Replace("#COLUMN#", String.Format("[{0}].[{1}]", tableName, columnName)), isSkippedOnDelete);
         }
 
-        public string GenerateSqlMetaData()
-        {
-            var result = new StringBuilder();
-
-            result.Append(GenerateTuevTablesScript());
-
-            return result.ToString();
-        }
-
         public string GenerateInsertMetaData(ScopeType scope)
         {
             var result = new StringBuilder();
@@ -362,62 +349,6 @@ namespace DBSyncNew
             return result.ToString();
         }
 
-
-        private static void AppendJoin(StringBuilder sbuilder, ForeignKeyAliasInfo key)
-        {
-            sbuilder.Append(" JOIN ");
-            sbuilder.Append(key.ReferencedAlias.NameWithAlias);
-            sbuilder.Append(" ON ");
-            sbuilder.Append(string.Format("{0}.{1} = {2}.{3}",
-                key.Alias.NameOrAlias,
-                key.Column,
-                key.ReferencedAlias.NameOrAlias,
-                key.ReferencedColumn));
-            sbuilder.AppendLine();
-        }
-
-      
-
-      
-
-
-
-        private TableInfo[] GetMetadataTables()
-        {
-            var tableNames = levelInfo.Where(x => x.IsTableMetadata).ToArray();
-
-            return tableNames.ToArray();
-        }
-
-        private string GetPermissionScript()
-        {
-            var fileText = GetScriptFileText(permissionsSqlFileName);
-            var db = new SqlConnectionStringBuilder(connectionString).InitialCatalog;
-            return String.Format(fileText, db);
-        }
-
-        private string GetUniqueColumnsScript()
-        {
-            return GetScriptFileText(uniqueColumnsFileName);
-        }
-
-        private string GetNotNullColumnsScript()
-        {
-            return GetScriptFileText(notNullColumnsFileName);
-        }
-
-        private string GetScriptFileText(string fileName)
-        {
-            string folder = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string filePath = System.IO.Path.Combine(folder, scriptFilesFolder, fileName);
-
-            if (!File.Exists(filePath))
-            {
-                throw new ApplicationException(string.Format("File not found:\n{0}", filePath));
-            }
-
-            return File.ReadAllText(filePath, Encoding.UTF8);
-        }
 
         private void InitScopes(string scopeConfigurationSource)
         {

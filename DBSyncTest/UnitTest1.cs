@@ -15,7 +15,7 @@ namespace DBSyncTest
         public static void InitClass(TestContext context)
         {
             dbAnalyzerOld = new DBSyncOld.DBAnalyzer("", "", "", "", "Resources/scopes.xml", "Server=(local); Initial catalog=TUEV_SUED; Integrated Security=true");
-            dbAnalyzerNew = new DBSyncNew.DBAnalyzer("", "", "", "", "Resources/scopes.xml", "Server=(local); Initial catalog=TUEV_SUED; Integrated Security=true");
+            dbAnalyzerNew = new DBSyncNew.DBAnalyzer("Resources/scopes.xml", "Server=(local); Initial catalog=TUEV_SUED; Integrated Security=true");
         }
 
   

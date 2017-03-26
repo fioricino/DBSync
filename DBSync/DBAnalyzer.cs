@@ -320,11 +320,7 @@ namespace DBSyncOld
 
         public string GenerateSqlMetaData()
         {
-            var result = new StringBuilder();
-
-            result.Append(GenerateTuevTablesScript());
-
-            return result.ToString();
+            return GenerateTuevTablesScript();
         }
 
         public string GenerateInsertMetaData(ScopeType scope)

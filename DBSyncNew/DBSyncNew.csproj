@@ -86,6 +86,7 @@
     <Compile Include="ScopeConfiguration.cs" />
     <Compile Include="ScopeInfo.cs" />
     <Compile Include="ScopeType.cs" />
+    <Compile Include="Scripts\ScriptGenerator.cs" />
     <Compile Include="SelectMetaDataGenerationPattern.cs" />
     <Compile Include="Graph\SGRoute.cs" />
     <Compile Include="SyncConflictResolutionPolicy.cs" />
