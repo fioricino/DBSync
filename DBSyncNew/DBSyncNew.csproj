@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="AliasInfo.cs" />
     <Compile Include="ColumnInfo.cs" />
+    <Compile Include="Database\Interfaces\IDBColumn.cs" />
+    <Compile Include="Database\Interfaces\IDBTable.cs" />
     <Compile Include="DatasetSerializer.cs" />
     <Compile Include="DataSets\CashDS.cs">
       <SubType>Component</SubType>
@@ -207,7 +209,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database\Interfaces\" />
     <Folder Include="Database\MsSql\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

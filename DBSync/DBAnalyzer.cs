@@ -539,7 +539,8 @@ namespace DBSyncOld
 FROM sys.tables t
 
 WHERE t.schema_id = 1
-AND t.type = 'U'", sqlConnection);
+AND t.type = 'U'
+ORDER BY TABLE_NAME", sqlConnection);
 
                 //black magic
                 var columnCommand = new SqlCommand(@"SELECT DISTINCT 

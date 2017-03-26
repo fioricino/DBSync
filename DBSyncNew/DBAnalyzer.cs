@@ -41,27 +41,23 @@ namespace DBSyncNew
 
         private void InitLevelInfo()
         {
-            DataTable sqlTables;
-            DataTable sqlRows;
+            DataTable sqlColumns;
             using (var sqlConnection = new SqlConnection(connectionString))
             {
                 sqlConnection.Open();
 
-                sqlTables = ReadTableDataFromDB(sqlConnection);
-
-                sqlRows = ReadColumnDataFromDB(sqlConnection);
+                sqlColumns = ReadColumnDataFromDB(sqlConnection);
             }
 
-            foreach (DataRow tableRow in sqlTables.Rows)
+            foreach (var tableRow in sqlColumns.Rows.Cast<DataRow>().GroupBy(dr => dr.Field<string>("TABLE_NAME")))
             {
-                //init base table data
-                var tableName = tableRow["TABLE_NAME"].ToString();
+                var tableName = tableRow.Key;
 
                 var tableInfo = scopes.Findtable(tableName).ToList();
 
                 foreach (var info in tableInfo)
                 {
-                    InitColumnsFromDB(sqlRows, info);
+                    InitColumnsFromDB(sqlColumns, info);
 
                     levelInfo.Add(info);
                 }
@@ -75,7 +71,7 @@ namespace DBSyncNew
 
             }
 
-            InitRelationsFromDB(sqlRows);
+            InitRelationsFromDB(sqlColumns);
 
             InitArtificialRelations();
 
