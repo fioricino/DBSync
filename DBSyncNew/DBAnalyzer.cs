@@ -41,18 +41,18 @@ namespace DBSyncNew
 
         private void InitLevelInfo()
         {
-            DataTable mdt;
-            DataTable mdc;
+            DataTable sqlTables;
+            DataTable sqlRows;
             using (var sqlConnection = new SqlConnection(connectionString))
             {
                 sqlConnection.Open();
 
-                mdt = ReadTableDataFromDB(sqlConnection);
+                sqlTables = ReadTableDataFromDB(sqlConnection);
 
-                mdc = ReadColumnDataFromDB(sqlConnection);
+                sqlRows = ReadColumnDataFromDB(sqlConnection);
             }
 
-            foreach (DataRow tableRow in mdt.Rows)
+            foreach (DataRow tableRow in sqlTables.Rows)
             {
                 //init base table data
                 var tableName = tableRow["TABLE_NAME"].ToString();
@@ -61,23 +61,7 @@ namespace DBSyncNew
 
                 foreach (var info in tableInfo)
                 {
-                    var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == info.Name);
-
-                    foreach (DataRow columnRow in columnRows)
-                    {
-                        var columnInfo = new ColumnInfo(info)
-                        {
-                            Name = columnRow.Field<string>("COLUMN_NAME"),
-                            IsPk = columnRow.Field<bool>("IS_PK"),
-                            IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
-                            DataType = columnRow.Field<string>("COLUMN_TYPE"),
-                            IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
-                            Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
-                            Scale = columnRow.Field<byte>("COLUMN_SCALE"),
-                            MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
-                        };
-                        info.Columns.Add(columnInfo);
-                    }
+                    InitColumnsFromDB(sqlRows, info);
 
                     levelInfo.Add(info);
                 }
@@ -91,34 +75,24 @@ namespace DBSyncNew
 
             }
 
+            InitRelationsFromDB(sqlRows);
 
-            //init relations
-            var allColumns = levelInfo.SelectMany(l => l.Columns).ToList();
-            foreach (var row in mdc.Rows.Cast<DataRow>().Where(row => !(row["REFERENCED_COLUMN"] is DBNull)))
+            InitArtificialRelations();
+
+            foreach (var tableInfo in levelInfo)
             {
-                var columnName = row["COLUMN_NAME"].ToString();
-                var tableName = row["TABLE_NAME"].ToString();
-                var referencedColumnName = row["REFERENCED_COLUMN"].ToString();
-                var referencedTableName = row["REFERENCED_TABLE"].ToString();
-
-                if (!scopes.Findtable(tableName).Any() || !scopes.Findtable(referencedTableName).Any())
-                {
-                    continue;
-                }
-
-                var columns = allColumns.Where(c => c.Name == columnName && c.Table.Name == tableName);
-                foreach (var column in columns)
-                {
-                    var referencedColumn = allColumns.Single(c => c.Name == referencedColumnName && c.Table.Name == referencedTableName
-                        && (c.Table.Scope.ScopeType == column.Table.Scope.ScopeType || c.Table.Scope.ScopeType == ScopeType.Core));
-
-
-                    AddFkRelation(column, referencedColumn);
-
-
-                }
-
+                tableInfo.Level = CalculateLevel(tableInfo, 0);
             }
+
+            foreach (var scope in scopes.Scopes)
+            {
+                scope.Tables.Clear();
+                scope.Tables.AddRange(levelInfo.Where(t => t.ScopeType == scope.ScopeType));
+            }
+        }
+
+        private void InitArtificialRelations()
+        {
             foreach (var scope in scopes.Scopes)
             {
                 foreach (var aritificalForeignKey in scope.ArtificialForeignKeys)
@@ -131,17 +105,55 @@ namespace DBSyncNew
                     AddFkRelation(column, referencedColumn);
                 }
             }
+        }
 
-            //calculate levels
-            foreach (var tableInfo in levelInfo)
+        private void InitRelationsFromDB(DataTable sqlRows)
+        {
+            foreach (var row in sqlRows.Rows.Cast<DataRow>().Where(row => !(row["REFERENCED_COLUMN"] is DBNull)))
             {
-                tableInfo.Level = CalculateLevel(tableInfo, 0);
+                var columnName = row["COLUMN_NAME"].ToString();
+                var tableName = row["TABLE_NAME"].ToString();
+                var referencedColumnName = row["REFERENCED_COLUMN"].ToString();
+                var referencedTableName = row["REFERENCED_TABLE"].ToString();
+
+                var tableInfos = scopes.Findtable(tableName).ToList();
+                var referencedTableInfos = scopes.Findtable(referencedTableName).ToList();
+
+                foreach (var tableInfo in tableInfos)
+                {
+                    var column = tableInfo.Columns.Single(c => c.Name == columnName);
+
+                    //TODO WARN
+                    foreach (
+                        var referencedTableInfo in
+                            referencedTableInfos.Where(r => r.ScopeType == tableInfo.ScopeType || r.ScopeType == ScopeType.Core)
+                        )
+                    {
+                        var referencedColumn = referencedTableInfo.Columns.Single(c => c.Name == referencedColumnName);
+                        AddFkRelation(column, referencedColumn);
+                    }
+                }
             }
+        }
 
-            foreach (var scope in scopes.Scopes)
+        private static void InitColumnsFromDB(DataTable mdc, TableInfo info)
+        {
+            var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == info.Name);
+
+            foreach (DataRow columnRow in columnRows)
             {
-                scope.Tables.Clear();
-                scope.Tables.AddRange(levelInfo.Where(t => t.ScopeType == scope.ScopeType));
+                var columnInfo = new ColumnInfo(info)
+                {
+                    Name = columnRow.Field<string>("COLUMN_NAME"),
+                    IsPk = columnRow.Field<bool>("IS_PK"),
+                    IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
+                    DataType = columnRow.Field<string>("COLUMN_TYPE"),
+                    IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
+                    Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
+                    Scale = columnRow.Field<byte>("COLUMN_SCALE"),
+                    MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
+                };
+                info.Columns.Add(columnInfo);
             }
         }
 

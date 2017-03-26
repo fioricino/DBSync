@@ -64,6 +64,7 @@ namespace DBSyncTest
             }
         }
 
+        [Ignore]
         [TestMethod]
         public void TestGenerateSqlMetaData()
         {
