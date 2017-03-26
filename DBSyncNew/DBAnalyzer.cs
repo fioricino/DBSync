@@ -59,40 +59,38 @@ namespace DBSyncNew
 
                 var tableInfo = scopes.Findtable(tableName).ToList();
 
-                if (!tableInfo.Any())
-                {
-                    //table is present in DB, b
-                    tableInfo.Add(new TableInfo() { Scope = scopes.Scopes.Single(s => s.ScopeType == ScopeType.None), Name = tableName });
-                }
-
                 foreach (var info in tableInfo)
                 {
+                    var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == info.Name);
+
+                    foreach (DataRow columnRow in columnRows)
+                    {
+                        var columnInfo = new ColumnInfo(info)
+                        {
+                            Name = columnRow.Field<string>("COLUMN_NAME"),
+                            IsPk = columnRow.Field<bool>("IS_PK"),
+                            IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
+                            DataType = columnRow.Field<string>("COLUMN_TYPE"),
+                            IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
+                            Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
+                            Scale = columnRow.Field<byte>("COLUMN_SCALE"),
+                            MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
+                        };
+                        info.Columns.Add(columnInfo);
+                    }
+
                     levelInfo.Add(info);
                 }
+
+                //TODO WARN
+                //if (!tableInfo.Any())
+                //{
+                //    //table is present in DB, b
+                //    tableInfo.Add(new TableInfo() { Scope = scopes.Scopes.Single(s => s.ScopeType == ScopeType.None), Name = tableName });
+                //}
+
             }
 
-
-            //init columns
-            foreach (var tableInfo in levelInfo)
-            {
-                var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == tableInfo.Name);
-
-                foreach (DataRow columnRow in columnRows)
-                {
-                    var columnInfo = new ColumnInfo(tableInfo)
-                    {
-                        Name = columnRow.Field<string>("COLUMN_NAME"),
-                        IsPk = columnRow.Field<bool>("IS_PK"),
-                        IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
-                        DataType = columnRow.Field<string>("COLUMN_TYPE"),
-                        IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
-                        Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
-                        Scale = columnRow.Field<byte>("COLUMN_SCALE"),
-                        MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
-                    };
-                    tableInfo.Columns.Add(columnInfo);
-                }
-            }
 
             //init relations
             var allColumns = levelInfo.SelectMany(l => l.Columns).ToList();
