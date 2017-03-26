@@ -46,10 +46,13 @@
   <ItemGroup>
     <Compile Include="AliasInfo.cs" />
     <Compile Include="ColumnInfo.cs" />
+    <Compile Include="Database\DBAdapterFactory.cs" />
+    <Compile Include="Database\Interfaces\IDBAdapter.cs" />
     <Compile Include="Database\Interfaces\IDBColumn.cs" />
     <Compile Include="Database\Interfaces\IDBMetadata.cs" />
     <Compile Include="Database\Interfaces\IDBTable.cs" />
     <Compile Include="Database\MsSql\MsSqlColumnAdapter.cs" />
+    <Compile Include="Database\MsSql\MsSqlDBAdapter.cs" />
     <Compile Include="Database\MsSql\MsSqlMetadataAdapter.cs" />
     <Compile Include="Database\MsSql\MsSqlTableAdapter.cs" />
     <Compile Include="DatasetSerializer.cs" />
