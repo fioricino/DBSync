@@ -9,6 +9,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
+using DBSyncNew.Database.Interfaces;
+using DBSyncNew.Database.MsSql;
 using DBSyncNew.Graph;
 using DBSyncNew.Scripts;
 
@@ -49,15 +51,17 @@ namespace DBSyncNew
                 sqlColumns = ReadColumnDataFromDB(sqlConnection);
             }
 
-            foreach (var tableRow in sqlColumns.Rows.Cast<DataRow>().GroupBy(dr => dr.Field<string>("TABLE_NAME")))
+            IDBMetadata dbMetadata = new MsSqlMetadataAdapter(sqlColumns);
+
+            foreach (var dbTable in dbMetadata)
             {
-                var tableName = tableRow.Key;
+                var tableName = dbTable.Key;
 
                 var tableInfo = scopes.Findtable(tableName).ToList();
 
                 foreach (var info in tableInfo)
                 {
-                    InitColumnsFromDB(sqlColumns, info);
+                    InitColumnsFromDB(dbTable.Value, info);
 
                     levelInfo.Add(info);
                 }
@@ -68,7 +72,6 @@ namespace DBSyncNew
                 //    //table is present in DB, b
                 //    tableInfo.Add(new TableInfo() { Scope = scopes.Scopes.Single(s => s.ScopeType == ScopeType.None), Name = tableName });
                 //}
-
             }
 
             InitRelationsFromDB(sqlColumns);
@@ -132,22 +135,20 @@ namespace DBSyncNew
             }
         }
 
-        private static void InitColumnsFromDB(DataTable mdc, TableInfo info)
+        private static void InitColumnsFromDB(List<IDBColumn> dbColumns, TableInfo info)
         {
-            var columnRows = mdc.Rows.Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString() == info.Name);
-
-            foreach (DataRow columnRow in columnRows)
+            foreach (var dbColumn in dbColumns)
             {
                 var columnInfo = new ColumnInfo(info)
                 {
-                    Name = columnRow.Field<string>("COLUMN_NAME"),
-                    IsPk = columnRow.Field<bool>("IS_PK"),
-                    IsNullable = columnRow.Field<bool>("IS_NULLABLE"),
-                    DataType = columnRow.Field<string>("COLUMN_TYPE"),
-                    IsReadOnly = columnRow.Field<bool>("IS_READONLY"),
-                    Precision = columnRow.Field<byte>("COLUMN_PRECISION"),
-                    Scale = columnRow.Field<byte>("COLUMN_SCALE"),
-                    MaxLength = columnRow.Field<int?>("MAX_LENGTH"),
+                    Name = dbColumn.Name,
+                    IsPk = dbColumn.IsPrimaryKey,
+                    IsNullable = dbColumn.IsNullable,
+                    DataType = dbColumn.DataType,
+                    IsReadOnly = dbColumn.IsReadOnly,
+                    Precision = dbColumn.Precision,
+                    Scale = dbColumn.Scale,
+                    MaxLength = dbColumn.MaxLength
                 };
                 info.Columns.Add(columnInfo);
             }
@@ -161,8 +162,8 @@ namespace DBSyncNew
 c.name COLUMN_NAME, 
 tp.name COLUMN_TYPE,
 COLUMNPROPERTY(c.object_id, c.name, 'charmaxlen') MAX_LENGTH,
-c.precision COLUMN_PRECISION,
-c.scale COLUMN_SCALE,
+c.precision PRECISION,
+c.scale SCALE,
 c.is_nullable IS_NULLABLE,
 CONVERT(BIT, CASE WHEN (c.is_identity = 1 OR tp.name = 'timestamp') THEN 1 ELSE 0 END) IS_READONLY,
 CONVERT(BIT, COALESCE(ix.is_primary_key, 0)) IS_PK,
