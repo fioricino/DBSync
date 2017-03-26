@@ -74,7 +74,7 @@ namespace DBSyncNew
                 //}
             }
 
-            InitRelationsFromDB(sqlColumns);
+            InitRelationsFromDB(dbMetadata);
 
             InitArtificialRelations();
 
@@ -106,30 +106,29 @@ namespace DBSyncNew
             }
         }
 
-        private void InitRelationsFromDB(DataTable sqlRows)
+        //TODO performance
+        private void InitRelationsFromDB(IDBMetadata dbMetadata)
         {
-            foreach (var row in sqlRows.Rows.Cast<DataRow>().Where(row => !(row["REFERENCED_COLUMN"] is DBNull)))
+            foreach (var table in dbMetadata)
             {
-                var columnName = row["COLUMN_NAME"].ToString();
-                var tableName = row["TABLE_NAME"].ToString();
-                var referencedColumnName = row["REFERENCED_COLUMN"].ToString();
-                var referencedTableName = row["REFERENCED_TABLE"].ToString();
-
-                var tableInfos = scopes.Findtable(tableName).ToList();
-                var referencedTableInfos = scopes.Findtable(referencedTableName).ToList();
-
-                foreach (var tableInfo in tableInfos)
+                foreach (var dbColumn in table.Value.Where(c => c.ReferencedColumn != null))
                 {
-                    var column = tableInfo.Columns.Single(c => c.Name == columnName);
+                    var tableInfos = scopes.Findtable(dbColumn.TableName).ToList();
+                    var referencedTableInfos = scopes.Findtable(dbColumn.ReferencedTable).ToList();
 
-                    //TODO WARN
-                    foreach (
-                        var referencedTableInfo in
-                            referencedTableInfos.Where(r => r.ScopeType == tableInfo.ScopeType || r.ScopeType == ScopeType.Core)
-                        )
+                    foreach (var tableInfo in tableInfos)
                     {
-                        var referencedColumn = referencedTableInfo.Columns.Single(c => c.Name == referencedColumnName);
-                        AddFkRelation(column, referencedColumn);
+                        var column = tableInfo.Columns.Single(c => c.Name == dbColumn.Name);
+
+                        //TODO WARN
+                        foreach (
+                            var referencedTableInfo in
+                                referencedTableInfos.Where(r => r.ScopeType == tableInfo.ScopeType || r.ScopeType == ScopeType.Core)
+                            )
+                        {
+                            var referencedColumn = referencedTableInfo.Columns.Single(c => c.Name == dbColumn.ReferencedColumn);
+                            AddFkRelation(column, referencedColumn);
+                        }
                     }
                 }
             }
