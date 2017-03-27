@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 
 namespace DBSyncNew
 {
-    [Serializable]
     public class ScopeConfiguration
     {
         public ScopeConfiguration()
@@ -15,7 +14,6 @@ namespace DBSyncNew
 
         public List<ScopeInfo> Scopes { get; set; }
 
-        [XmlAttribute]
         SyncConflictResolutionPolicy ConflictResolutionPolicy { get; set; }
 
         public void SetRelations()

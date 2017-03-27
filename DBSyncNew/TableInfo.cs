@@ -7,7 +7,6 @@ using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
-    [Serializable]
     public class TableInfo : ITableOrAlias
     {
         public TableInfo()
@@ -18,32 +17,24 @@ namespace DBSyncNew
             Aliases = new List<AliasInfo>();
         }
 
-        [XmlAttribute]
         public string Name { get; set; }
 
-        [XmlIgnore]
         public string NameForTempTable { get { return String.Format("@{0}_FOR_DELETE", Name); } }
 
-        [XmlAttribute]
         public bool IsRoot { get; set; }
         
-        [XmlAttribute]
         public bool IgnoreKey { get; set; }
 
-        [XmlAttribute]
         public bool KeepRowVersion { get; set; }
 
-        [XmlAttribute]
         public bool IsSkippedOnDelete { get; set; }
         
-        [XmlAttribute]
         public SyncConflictResolutionPolicy ConflictResolutionPolicy { get; set; }
 
         public List<FilterColumnInfo> FilterColumns { get; set; }
 
         public List<AliasInfo> Aliases { get; set; }
 
-        [XmlIgnore]
         public IEnumerable<TableInfo> ParentInfos
         {
             get
@@ -52,100 +43,81 @@ namespace DBSyncNew
             }
         }
 
-        [XmlIgnore]
         public int? Level { get; set; }
         
-        [XmlIgnore]
         public List<ColumnInfo> Columns { get; set; }
 
-        [XmlIgnore]
         public List<ForeignKeyInfo> ForeignKeys { get; set; }
 
-        [XmlIgnore]
         public IEnumerable<ColumnInfo> FKColumns
         {
             get { return Columns.Where(c => c.ReferencedColumn != null); }
         }
 
-        [XmlIgnore]
         public bool IsCoreData
         {
             get { return ScopeType == ScopeType.Core;}
         }
 
-        [XmlIgnore]
         public bool IsFluentData
         {
             get { return ScopeType != ScopeType.Core && ScopeType != ScopeType.None; }
         }
 
-        [XmlIgnore]
         public ScopeType ScopeType { get { return Scope.ScopeType; } }
 
-        [XmlIgnore]
         public bool IsGuid
         {
             get { return Columns.Any(c => c.IsGuid); }
         }
 
-        [XmlIgnore]
         public IEnumerable<ColumnInfo> PKColumns
         {
             get { return Columns.Where(c => c.IsPk); }
         }
 
-        [XmlIgnore]
         public IEnumerable<ColumnInfo> NotPKColumns
         {
             get { return SyncColumns.Where(c => !c.IsPk); }
         }
 
-        [XmlIgnore]
         public IEnumerable<ColumnInfo> SyncColumns
         {
             get { return Columns.Where(c => !c.IsReadOnly); }
         }
 
-        [XmlIgnore]
         public bool PossibleWrongKey
         {
             get { return !IgnoreKey && (IsCoreData && IsGuid || IsFluentData && !IsGuid); }
         }
 
-        [XmlIgnore]
         public bool PossibleWrongConflictResolution
         {
             get { return ConflictResolutionPolicy == SyncConflictResolutionPolicy.LastChangeDate && Columns.All(c => c.Name != "CHANGE_DATE"); }
         }
 
-        [XmlIgnore]
         public bool IsTableMetadata
         {
             get { return IsCoreData  && !Name.StartsWith("DRL_"); }
         }
 
-        [XmlIgnore]
         public string StoredProcedureName
         {
             get { return SyncMetaDataHelper.GetSPName(Name); }
         }
 
-        [XmlIgnore]
         public string TVPName
         {
             get { return SyncMetaDataHelper.GetTVPName(Name); }
         }
 
-        [XmlIgnore]
         public string QuotedName
         {
             get { return String.Format("[{0}]", Name); }
         }
 
-        [XmlIgnore]
         public ScopeInfo Scope { get; set; }
 
-        [XmlIgnore]
         public string NameOrAlias { get { return Name; } }
 
 

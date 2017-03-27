@@ -6,7 +6,6 @@ using DBSyncNew.Graph;
 
 namespace DBSyncNew
 {
-    [Serializable]
     public class AliasInfo : VertexSource<AliasInfo, ForeignKeyAliasInfo>, ITableOrAlias
     {
         public AliasInfo()
@@ -16,21 +15,17 @@ namespace DBSyncNew
             FilterColumns = new List<FilterColumnInfo>();
         }
 
-        [XmlAttribute]
         public string Name { get; set; }
 
         public List<FilterColumnInfo> FilterColumns { get; set; }
         
-        [XmlAttribute]
         public bool IsRoot { get; set; }
 
-        [XmlIgnore]
         public TableInfo Table { get; set; }
 
         /// <summary>
         /// Gets table name with alias
         /// </summary>
-        [XmlIgnore]
         public string NameOrAlias
         {
             get
@@ -41,13 +36,11 @@ namespace DBSyncNew
             }
         }
 
-        [XmlIgnore]
         public List<ForeignKeyAliasInfo> ForeignKeys { get; set; }
 
         /// <summary>
         /// Gets table name with alias
         /// </summary>
-        [XmlIgnore]
         public string NameWithAlias
         {
             get
@@ -58,7 +51,6 @@ namespace DBSyncNew
             }
         }
 
-        [XmlIgnore]
         public List<SyncScript> Scripts { get; private set; }
 
         public void SetRelations()

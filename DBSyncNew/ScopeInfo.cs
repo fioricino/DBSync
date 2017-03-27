@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 
 namespace DBSyncNew
 {
-    [Serializable]
     public class ScopeInfo
     {
         public ScopeInfo()
@@ -16,16 +15,12 @@ namespace DBSyncNew
             ArtificialForeignKeys = new List<FKDescription>();
         }
 
-        [XmlAttribute]
         public ScopeType ScopeType { get; set; }
 
-        [XmlAttribute]
         public string FilterColumnName { get; set; }
 
-        [XmlAttribute]
         public string FilterClause { get; set; }
 
-        [XmlAttribute]
         public SelectMetaDataGenerationPattern MetaDataGenerationPattern { get; set; }
 
         public List<FilterColumnInfo> FilterColumns { get; set; }
@@ -44,25 +39,21 @@ namespace DBSyncNew
         //    get { return Tables.Where(t => t.IsRoot); }
         //}
 
-        [XmlIgnore]
         public IEnumerable<AliasInfo> Aliases
         {
             get { return Tables.SelectMany(t => t.Aliases); }
         }
 
-        [XmlIgnore]
         public IEnumerable<AliasInfo> RootAliases
         {
             get { return Aliases.Where(a => a.IsRoot); }
         }
 
-        [XmlIgnore]
         public bool HasRoot
         {
             get { return RootAliases.Any(); }
         }
 
-        [XmlIgnore]
         public IEnumerable<TableInfo> OrderedTables
         {
             get
