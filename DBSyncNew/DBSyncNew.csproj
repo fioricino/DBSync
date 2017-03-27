@@ -46,6 +46,12 @@
   <ItemGroup>
     <Compile Include="AliasInfo.cs" />
     <Compile Include="ColumnInfo.cs" />
+    <Compile Include="Configuration\AliasConfig.cs" />
+    <Compile Include="Configuration\FilterColumnConfig.cs" />
+    <Compile Include="Configuration\ForeignKeyConfig.cs" />
+    <Compile Include="Configuration\ScopeConfig.cs" />
+    <Compile Include="Configuration\ScopesConfig.cs" />
+    <Compile Include="Configuration\TableConfig.cs" />
     <Compile Include="Database\DBAdapterFactory.cs" />
     <Compile Include="Database\Interfaces\IDBAdapter.cs" />
     <Compile Include="Database\Interfaces\IDBColumn.cs" />

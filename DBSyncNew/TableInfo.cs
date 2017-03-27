@@ -35,9 +35,6 @@ namespace DBSyncNew
 
         [XmlAttribute]
         public bool IsSkippedOnDelete { get; set; }
-
-        //[XmlAttribute]
-        //public bool IsSkippedOnSync { get; set; }
         
         [XmlAttribute]
         public SyncConflictResolutionPolicy ConflictResolutionPolicy { get; set; }
