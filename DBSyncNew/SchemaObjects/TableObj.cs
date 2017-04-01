@@ -22,6 +22,7 @@ namespace DBSyncNew.SchemaObjects
             ConflictResolutionPolicy = builder.TableConfig.ConflictResolutionPolicy;
             FilterColumns =
                 builder.TableConfig.FilterColumns.Select(f => new FilterColumnObj.Builder(f, this).Build()).ToList();
+            //TODO check if table from config not present
             Columns = builder.DBTables[builder.TableConfig.Name].Select(c => new ColumnObj.Builder(this, c).Build()).ToList();
         }
 

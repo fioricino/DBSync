@@ -75,10 +75,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\scopes.xml">
+    <Content Include="..\DBSyncNew\scopes.xml">
+      <Link>Resources\New\scopes.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\scopes_old.xml">
+    <Content Include="..\DBSync\scopes.xml">
+      <Link>Resources\Old\scopes.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

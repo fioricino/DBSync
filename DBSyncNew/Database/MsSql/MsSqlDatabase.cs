@@ -12,6 +12,7 @@ namespace DBSyncNew.Database.MsSql
     public class MsSqlDatabase : IDatabase
     {
         //TODO add schema
+        //TODO move to resources
         private const string SelectColumnsCommand = @"SELECT  
 c.name COLUMN_NAME, 
 tp.name COLUMN_TYPE,
@@ -21,7 +22,7 @@ c.scale SCALE,
 c.is_nullable IS_NULLABLE,
 CONVERT(BIT, CASE WHEN (c.is_identity = 1 OR tp.name = 'timestamp') THEN 1 ELSE 0 END) IS_READONLY,
 CONVERT(BIT, COALESCE(ix.is_primary_key, 0)) IS_PK,
-t.name TABLE_NAME,
+t.name TABLE_NAME
 
 FROM sys.columns c
 JOIN sys.types tp
@@ -41,7 +42,7 @@ JOIN sys.tables t
 ON t.object_id = c.object_id
 WHERE t.schema_id = 1
 AND t.type = 'U'
-ORDER BY TABLE_NAME, ORDINAL_NUMBER";
+ORDER BY TABLE_NAME, c.column_id";
 
         private const string SelectFkCommand = @"SELECT DISTINCT 
 c.name COLUMN_NAME, 
