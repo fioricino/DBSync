@@ -21,7 +21,7 @@ namespace DBSyncNew
 
         public string FilterClause { get; set; }
 
-        public SelectMetaDataGenerationPattern MetaDataGenerationPattern { get; set; }
+        public MetaDataGenerationPattern MetaDataGenerationPattern { get; set; }
 
         public List<FilterColumnInfo> FilterColumns { get; set; }
 

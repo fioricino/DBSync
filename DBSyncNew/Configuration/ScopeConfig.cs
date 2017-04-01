@@ -13,6 +13,7 @@ namespace DBSyncNew.Configuration
         [XmlAttribute]
         public ScopeType ScopeType { get; set; }
 
+        //TODO use this
         [XmlAttribute]
         public string FilterColumnName { get; set; }
 
@@ -20,12 +21,13 @@ namespace DBSyncNew.Configuration
         public string FilterClause { get; set; }
 
         [XmlAttribute]
-        public SelectMetaDataGenerationPattern MetaDataGenerationPattern { get; set; }
+        public MetaDataGenerationPattern MetaDataGenerationPattern { get; set; }
 
         public List<FilterColumnConfig> FilterColumns { get; set; }
 
         public List<ForeignKeyConfig> ReversedForeignKeys { get; set; }
 
+        //TODO skip if duplicated
         public List<ForeignKeyConfig> ArtificialForeignKeys { get; set; }
 
         public List<ForeignKeyConfig> IgnoredForeignKeys { get; set; }

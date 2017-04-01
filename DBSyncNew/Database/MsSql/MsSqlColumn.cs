@@ -8,11 +8,11 @@ using DBSyncNew.Database.Interfaces;
 
 namespace DBSyncNew.Database.MsSql
 {
-    public class MsSqlColumnAdapter : IDBColumn
+    public class MsSqlColumn : IDBColumn
     {
         private DataRow dataRow;
 
-        public MsSqlColumnAdapter(DataRow dataRow)
+        public MsSqlColumn(DataRow dataRow)
         {
             this.dataRow = dataRow;
         }

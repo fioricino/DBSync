@@ -4,12 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBSyncNew.SchemaObjects;
 
 namespace DBSyncNew.Scripts
 {
     public class ScriptGenerator
     {
-        public void AppendJoin(StringBuilder sbuilder, ForeignKeyAliasInfo key)
+        public void AppendJoin(StringBuilder sbuilder, ForeignKeyObj key)
         {
             sbuilder.Append(" JOIN ");
             sbuilder.Append(key.ReferencedAlias.NameWithAlias);

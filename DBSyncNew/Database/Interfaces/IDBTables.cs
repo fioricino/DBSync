@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DBSyncNew.Database.Interfaces
 {
-    public interface IDBMetadata : IDictionary<string, List<IDBColumn>>
+    public interface IDBTables : IDictionary<string, List<IDBColumn>>
     {
          
     }

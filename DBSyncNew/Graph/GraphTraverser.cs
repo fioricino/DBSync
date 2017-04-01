@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBSyncNew.SchemaObjects;
 
 namespace DBSyncNew.Graph
 {
-    public class GraphTraverser<TVertex, TEdge> where TVertex : IEquatable<TVertex> where TEdge : IReversable<TEdge>, new()
+    public class GraphTraverser<TVertex, TEdge> where TVertex : IEquatable<TVertex> where TEdge : IReversable<TEdge>
+        //TODO remove
+        , new()
     {
         public List<SGRoute<TVertex, TEdge>> GetAllDirectedRoutes(List<Vertex<TVertex, TEdge>> graph, IEnumerable<Vertex<TVertex, TEdge>> rootTables)
         {

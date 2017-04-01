@@ -10,6 +10,7 @@ namespace DBSyncNew.Graph
 
         public abstract TVertex End { get; }
 
+        //TODO remove setter, remove
         public abstract ForeignKeyDirection Direction { get; set; }
 
         public bool Equals(EdgeSource<TVertex> other)

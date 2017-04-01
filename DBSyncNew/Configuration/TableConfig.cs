@@ -17,6 +17,15 @@ namespace DBSyncNew.Configuration
         public bool IsSkippedOnDelete { get; set; }
 
         [XmlAttribute]
+        public bool IsRoot { get; set; }
+
+        [XmlAttribute]
+        public bool IgnoreKey { get; set; }
+
+        [XmlAttribute]
+        public bool KeepRowVersion { get; set; }
+
+        [XmlAttribute]
         public SyncConflictResolutionPolicy ConflictResolutionPolicy { get; set; }
 
         public List<FilterColumnConfig> FilterColumns { get; } = new List<FilterColumnConfig>();

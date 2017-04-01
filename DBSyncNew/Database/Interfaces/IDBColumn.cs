@@ -18,7 +18,5 @@
 
         int? MaxLength { get; }
         string TableName { get; }
-        string ReferencedColumn { get; }
-        string ReferencedTable { get; }
     }
 }

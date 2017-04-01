@@ -62,23 +62,23 @@ namespace DBSyncTest.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
-        ///&lt;ScopeConfiguration xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+        ///&lt;ScopesConfig xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
         ///	&lt;Scopes&gt;
-        ///		&lt;ScopeInfo ScopeType=&quot;Core&quot; MetaDataGenerationPattern=&quot;Scope&quot;&gt;
+        ///		&lt;ScopeConfig ScopeType=&quot;Core&quot; MetaDataGenerationPattern=&quot;Scope&quot;&gt;
         ///
         ///      &lt;FilterColumns&gt;
-        ///        &lt;FilterColumnInfo ColumnName=&quot;ROW_VERSION&quot; FilterClause=&quot;#COLUMN# BETWEEN {0} AND {1}&quot;/&gt;
+        ///        &lt;FilterColumnConfig ColumnName=&quot;ROW_VERSION&quot; FilterClause=&quot;#COLUMN# BETWEEN {0} AND {1}&quot;/&gt;
         ///      &lt;/FilterColumns&gt;
         ///      
         ///      &lt;Tables&gt;
         ///
-        ///				&lt;TableInfo Name=&quot;EMP_CASH_PERMISSION&quot;/&gt;
-        ///				&lt;TableInfo Name=&quot;EMP_CORE_ADDRESS&quot;/&gt;
-        ///				&lt;TableInfo Name=&quot;EMP_CORE_A [rest of string was truncated]&quot;;.
+        ///				&lt;TableConfig Name=&quot;EMP_CASH_PERMISSION&quot;/&gt;
+        ///				&lt;TableConfig Name=&quot;EMP_CORE_ADDRESS&quot;/&gt;
+        ///				&lt;TableConfig Name=&quot;EMP_CO [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string scopes {
+        internal static string scopes_old {
             get {
-                return ResourceManager.GetString("scopes", resourceCulture);
+                return ResourceManager.GetString("scopes_old", resourceCulture);
             }
         }
     }

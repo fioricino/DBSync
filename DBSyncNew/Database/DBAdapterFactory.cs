@@ -10,9 +10,9 @@ namespace DBSyncNew.Database
 {
     public class DBAdapterFactory
     {
-        private static Dictionary<string, Func<string, IDBAdapter>> adapters = new Dictionary<string, Func<string, IDBAdapter>>();
+        private static Dictionary<string, Func<string, IDatabase>> adapters = new Dictionary<string, Func<string, IDatabase>>();
 
-        public static void RegisterAdapter(string name, Func<string, IDBAdapter> constructor)
+        public static void RegisterAdapter(string name, Func<string, IDatabase> constructor)
         {
             if (adapters.ContainsKey(name))
             {
@@ -21,7 +21,7 @@ namespace DBSyncNew.Database
             adapters.Add(name, constructor);
         }
 
-        public static IDBAdapter GetDBAdapter(string name, string connectionString)
+        public static IDatabase GetDBAdapter(string name, string connectionString)
         {
             if (!adapters.ContainsKey(name))
             {

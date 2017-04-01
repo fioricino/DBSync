@@ -4,6 +4,7 @@
     {
         None,
         Direct,
+        //TODO rename
         Reversed,
         Ignored,
     }

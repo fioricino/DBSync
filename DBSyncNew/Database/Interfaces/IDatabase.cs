@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DBSyncNew.Database.Interfaces
 {
-    public interface IDBAdapter
+    public interface IDatabase
     {
-        IDBMetadata GetDbMetadata();
+        IDBTables Tables { get; }
+
+        List<IDBForeignKey> ForeignKeys { get; }
     }
 }

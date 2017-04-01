@@ -1,6 +1,6 @@
 ﻿namespace DBSyncNew
 {
-    public enum SelectMetaDataGenerationPattern
+    public enum MetaDataGenerationPattern
     {
         Scope,
         Table

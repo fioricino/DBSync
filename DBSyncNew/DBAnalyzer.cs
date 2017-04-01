@@ -9,170 +9,55 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
+using DBSyncNew.Configuration;
 using DBSyncNew.Database;
 using DBSyncNew.Database.Interfaces;
 using DBSyncNew.Database.MsSql;
 using DBSyncNew.Graph;
+using DBSyncNew.SchemaObjects;
 using DBSyncNew.Scripts;
 
 namespace DBSyncNew
 {
     public class DBAnalyzer
     {
-        private ObservableCollection<TableInfo> levelInfo = new ObservableCollection<TableInfo>();
+        //private ObservableCollection<TableInfo> levelInfo = new ObservableCollection<TableInfo>();
         private string connectionString;
-        private ScopeConfiguration scopes;
-        private GraphGenerator<AliasInfo, ForeignKeyAliasInfo> graphGenerator = new GraphGenerator<AliasInfo, ForeignKeyAliasInfo>(); 
-        private GraphTraverser<AliasInfo, ForeignKeyAliasInfo> graphTraverser = new  GraphTraverser<AliasInfo, ForeignKeyAliasInfo>();
+        private AllScopesObj scopes;
+        private GraphGenerator<AliasObj, ForeignKeyObj> graphGenerator = new GraphGenerator<AliasObj, ForeignKeyObj>(); 
+        private GraphTraverser<AliasObj, ForeignKeyObj> graphTraverser = new  GraphTraverser<AliasObj, ForeignKeyObj>();
         private ScriptGenerator scriptGenerator = new ScriptGenerator();
+        private ConfigurationReader configurationReader = new ConfigurationReader();
 
         public DBAnalyzer(
 		string scopeConfigurationSource,
             string connectionString)
         {
             //todo move
-            DBAdapterFactory.RegisterAdapter("mssql", cs => new MsSqlDBAdapter(cs));
+            DBAdapterFactory.RegisterAdapter("mssql", cs => new MsSqlDatabase(cs));
             Errors = new List<string>();
             this.connectionString = connectionString;
 
-            scopes = ReadScopesFromXml(scopeConfigurationSource);
-
-            InitLevelInfo();
+            scopes = InitScopes(scopeConfigurationSource, connectionString);
 
             FindPossibleErrors();
         }
 
+        private AllScopesObj InitScopes(string scopeConfigurationSource, string connectionString)
+        {
+            ScopesConfig scopesFromXml = configurationReader.ReadXmlConfiguration(scopeConfigurationSource);
+            IDatabase database = DBAdapterFactory.GetDBAdapter("mssql", connectionString);
+
+            return new AllScopesObj.Builder(scopesFromXml, database).Build();
+        }
+
         public List<string> Errors { get; private set; }
 
-        private void InitLevelInfo()
-        {
-            var dbAdapter = DBAdapterFactory.GetDBAdapter("mssql", connectionString);
-
-            var dbMetadata = dbAdapter.GetDbMetadata();
-
-            foreach (var dbTable in dbMetadata)
-            {
-                var tableName = dbTable.Key;
-
-                var tableInfo = scopes.Findtable(tableName).ToList();
-
-                foreach (var info in tableInfo)
-                {
-                    InitColumnsFromDB(dbTable.Value, info);
-
-                    levelInfo.Add(info);
-                }
-
-                //TODO WARN
-                //if (!tableInfo.Any())
-                //{
-                //    //table is present in DB, b
-                //    tableInfo.Add(new TableInfo() { Scope = scopes.Scopes.Single(s => s.ScopeType == ScopeType.None), Name = tableName });
-                //}
-            }
-
-            InitRelationsFromDB(dbMetadata);
-
-            InitArtificialRelations();
-
-            foreach (var tableInfo in levelInfo)
-            {
-                tableInfo.Level = CalculateLevel(tableInfo, 0);
-            }
-
-            foreach (var scope in scopes.Scopes)
-            {
-                scope.Tables.Clear();
-                scope.Tables.AddRange(levelInfo.Where(t => t.ScopeType == scope.ScopeType));
-            }
-        }
-
-        private void InitArtificialRelations()
-        {
-            foreach (var scope in scopes.Scopes)
-            {
-                foreach (var aritificalForeignKey in scope.ArtificialForeignKeys)
-                {
-                    var column = scope.Tables.Single(t => t.Name == aritificalForeignKey.Table)
-                        .Columns.Single(c => c.Name == aritificalForeignKey.Column);
-                    var referencedColumn = scope.Tables.Single(t => t.Name == aritificalForeignKey.ReferencedTable)
-                        .Columns.Single(c => c.Name == aritificalForeignKey.ReferencedColumn);
-
-                    AddFkRelation(column, referencedColumn);
-                }
-            }
-        }
-
-        //TODO performance
-        private void InitRelationsFromDB(IDBMetadata dbMetadata)
-        {
-            foreach (var table in dbMetadata)
-            {
-                foreach (var dbColumn in table.Value.Where(c => c.ReferencedColumn != null))
-                {
-                    var tableInfos = scopes.Findtable(dbColumn.TableName).ToList();
-                    var referencedTableInfos = scopes.Findtable(dbColumn.ReferencedTable).ToList();
-
-                    foreach (var tableInfo in tableInfos)
-                    {
-                        var column = tableInfo.Columns.Single(c => c.Name == dbColumn.Name);
-
-                        //TODO WARN
-                        foreach (
-                            var referencedTableInfo in
-                                referencedTableInfos.Where(r => r.ScopeType == tableInfo.ScopeType || r.ScopeType == ScopeType.Core)
-                            )
-                        {
-                            var referencedColumn = referencedTableInfo.Columns.Single(c => c.Name == dbColumn.ReferencedColumn);
-                            AddFkRelation(column, referencedColumn);
-                        }
-                    }
-                }
-            }
-        }
-
-        private static void InitColumnsFromDB(List<IDBColumn> dbColumns, TableInfo info)
-        {
-            foreach (var dbColumn in dbColumns)
-            {
-                var columnInfo = new ColumnInfo(info)
-                {
-                    Name = dbColumn.Name,
-                    IsPk = dbColumn.IsPrimaryKey,
-                    IsNullable = dbColumn.IsNullable,
-                    DataType = dbColumn.DataType,
-                    IsReadOnly = dbColumn.IsReadOnly,
-                    Precision = dbColumn.Precision,
-                    Scale = dbColumn.Scale,
-                    MaxLength = dbColumn.MaxLength
-                };
-                info.Columns.Add(columnInfo);
-            }
-        }
-
-   
-
-        private static DataTable ReadTableDataFromDB(SqlConnection sqlConnection)
-        {
-            DataTable mdt;
-            var tableCommand =
-                new SqlCommand(@"SELECT distinct t.name TABLE_NAME
-FROM sys.tables t
-
-WHERE t.schema_id = 1
-AND t.type = 'U'", sqlConnection);
-
-            var tableReader = tableCommand.ExecuteReader();
-            mdt = new DataTable();
-            mdt.Load(tableReader);
-            return mdt;
-        }
-
-
-        public string GenerateSqlMetaData()
-        {
-            return GenerateTuevTablesScript();
-        }
+        //TODO think
+        //public string GenerateSqlMetaData()
+        //{
+        //    return GenerateTuevTablesScript();
+        //}
 
         /// <summary>
         /// used in MetaDataGenerator.tt
@@ -217,7 +102,7 @@ AND t.type = 'U'", sqlConnection);
             }
         }
 
-        public SelectMetaDataGenerationPattern GetMetaDataGenerationPattern(ScopeType scopeType)
+        public MetaDataGenerationPattern GetMetaDataGenerationPattern(ScopeType scopeType)
         {
             return scopes.Scopes.Single(s => s.ScopeType == scopeType).MetaDataGenerationPattern;
         }
@@ -271,21 +156,21 @@ AND t.type = 'U'", sqlConnection);
         }
 
 
-        private string GenerateCreateTableScript(TableInfo table)
+        private string GenerateCreateTableScript(TableObj table)
         {
             return String.Format("DECLARE {0} TABLE({1})", table.NameForTempTable,
                         String.Join(", ",
                             table.PKColumns.Select(c => String.Format("{0} {1}", c.Name, c.DataType))));
         }
 
-        private string GenerateDeleteScript(TableInfo table)
+        private string GenerateDeleteScript(TableObj table)
         {
             return String.Format("DELETE {0} FROM {0} tab JOIN {1} idlist ON {2}", table.Name, table.NameForTempTable,
                         String.Join(" AND ",
                             table.PKColumns.Select(c => String.Format("tab.{0} = idlist.{0}", c.Name))));
         }
 
-        private string GenerateSelectScript(TableInfo table, bool useDistinct, bool isForDelete)
+        private string GenerateSelectScript(TableObj table, bool useDistinct, bool isForDelete)
         {
             var sb = new StringBuilder();
 
@@ -345,7 +230,7 @@ AND t.type = 'U'", sqlConnection);
             return sb.ToString();
         }
 
-        private void GenerateNonRootedScopeSelectScripts(ScopeInfo scope)
+        private void GenerateNonRootedScopeSelectScripts(ScopeObj scope)
         {
             foreach (var table in scope.Tables)
             {
@@ -360,19 +245,19 @@ AND t.type = 'U'", sqlConnection);
             }
         }
 
-        private WhereClause GetNonReferencedWhereClause(string tableName, FilterColumnInfo filter)
+        private WhereClause GetNonReferencedWhereClause(string tableName, FilterColumnObj filter)
         {
             return GetWhereClause(tableName, filter.ColumnName, filter.FilterClause, filter.IsSkippedOnDelete);
         }
 
-        private void GenerateRootedScopeSelectScripts(ScopeInfo scope)
+        private void GenerateRootedScopeSelectScripts(ScopeObj scope)
         {
-            List<Vertex<AliasInfo, ForeignKeyAliasInfo>> tableGraph = graphGenerator.GenerateGraph(scope.Aliases);
+            List<Vertex<AliasObj, ForeignKeyObj>> tableGraph = graphGenerator.GenerateGraph(scope.Aliases);
 
-            IEnumerable<AliasInfo> rootAliases = scope.RootAliases;
+            IEnumerable<AliasObj> rootAliases = scope.RootAliases;
 
-            List<SGRoute<AliasInfo, ForeignKeyAliasInfo>> routes = graphTraverser.GetAllDirectedRoutes(tableGraph, rootAliases.Select(r => tableGraph.Single(t => 
-            EqualityComparer<AliasInfo>.Default.Equals(t.Value, r))));
+            List<SGRoute<AliasObj, ForeignKeyObj>> routes = graphTraverser.GetAllDirectedRoutes(tableGraph, rootAliases.Select(r => tableGraph.Single(t => 
+            EqualityComparer<AliasObj>.Default.Equals(t.Value, r))));
 
             foreach (var route in routes)
             {
@@ -456,7 +341,7 @@ AND t.type = 'U'", sqlConnection);
             return result.ToString();
         }
 
-        private string GenerateTableInsertMetaData(TableInfo table)
+        private string GenerateTableInsertMetaData(TableObj table)
         {
             var result = new StringBuilder();
 
@@ -480,23 +365,7 @@ AND t.type = 'U'", sqlConnection);
         }
 
 
-        private ScopeConfiguration ReadScopesFromXml(string scopeConfigurationSource)
-        {
-            ScopeConfiguration result;
-            var serializer = new XmlSerializer(typeof(ScopeConfiguration));
-
-            using (var file = File.OpenRead(scopeConfigurationSource))
-            {
-                result = (ScopeConfiguration)serializer.Deserialize(file);
-            }
-            result.SetRelations();
-            if (result.Scopes.All(s => s.ScopeType != ScopeType.None))
-            {
-                result.Scopes.Add(new ScopeInfo() {ScopeType = ScopeType.None});
-            }
-
-            return result;
-        }
+ 
 
    
 
@@ -542,55 +411,57 @@ AND t.type = 'U'", sqlConnection);
             return maxLevel;
         }
 
+        //TODO add validator
         private void FindPossibleErrors()
         {
-            foreach (var info in levelInfo)
+            foreach (var info in scopes.Scopes.SelectMany(s => s.Tables))
             {
                 foreach (var parentInfo in info.ParentInfos)
                 {
-                    if (parentInfo.ScopeType != ScopeType.Core && parentInfo.ScopeType != info.ScopeType)
+                    if (parentInfo.Scope.ScopeType != ScopeType.Core && parentInfo.Scope.ScopeType != info.Scope.ScopeType)
                     {
                         throw new Exception(String.Format("Table {0} in scope {1} has dependency on table {2} in scope {3}.",
-                            info.Name, info.ScopeType, parentInfo.Name, parentInfo.ScopeType));
+                            info.Name, info.Scope.ScopeType, parentInfo.Name, parentInfo.Scope.ScopeType));
                     }
                 }
 
                 if (info.PossibleWrongKey)
                 {
-                    throw new Exception(String.Format("Table {0} in scope {1} has PK of type {2} GUID", info.Name, info.ScopeType, 
+                    throw new Exception(String.Format("Table {0} in scope {1} has PK of type {2} GUID", info.Name, info.Scope.ScopeType, 
                         info.IsGuid ? "" : "other than"));
                 }
 
                 if (info.PossibleWrongConflictResolution)
                 {
-                    throw new Exception(String.Format("Table {0} in scope {1} has invalid conflict resolution policy.", info.Name, info.ScopeType));
+                    throw new Exception(String.Format("Table {0} in scope {1} has invalid conflict resolution policy.", info.Name, info.Scope.ScopeType));
                 }
             }
         }
 
-        private string GenerateTuevTablesScript()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine("USE TUEV_SUED");
-            sb.AppendLine("GO");
-            sb.AppendLine();
-            sb.AppendLine("print '---- SYS_TUEV_TABLES script started -----'");
-            sb.AppendLine();
-            sb.AppendLine("DELETE FROM [dbo].[SYS_TUEV_TABLES]");
-            sb.AppendLine("SET IDENTITY_INSERT dbo.SYS_TUEV_TABLES ON");
-            sb.AppendLine();
-            var orderedTables = levelInfo.OrderBy(t => t.Name).ToList();
-            for (int index = 0; index < orderedTables.Count; index++)
-            {
-                TableInfo tableLevelInfo = orderedTables[index];
-                string insertCommandText = string.Format(
-                    @"INSERT INTO [dbo].[SYS_TUEV_TABLES] ([ID], [TABLE_NAME], [SCOPE_TYPE], [LEVEL], [IS_DATE_FILTERED]) VALUES({0},'{1}',{2},{3},{4});",
-                    index, tableLevelInfo.Name, (int)tableLevelInfo.ScopeType, tableLevelInfo.Level, 0);
-                sb.AppendLine(insertCommandText);
-            }
-            sb.AppendLine();
-            sb.AppendLine("SET IDENTITY_INSERT dbo.SYS_TUEV_TABLES OFF");
-            return sb.ToString();
-        }
+        //TODO think
+        //private string GenerateTuevTablesScript()
+        //{
+        //    var sb = new StringBuilder();
+        //    sb.AppendLine("USE TUEV_SUED");
+        //    sb.AppendLine("GO");
+        //    sb.AppendLine();
+        //    sb.AppendLine("print '---- SYS_TUEV_TABLES script started -----'");
+        //    sb.AppendLine();
+        //    sb.AppendLine("DELETE FROM [dbo].[SYS_TUEV_TABLES]");
+        //    sb.AppendLine("SET IDENTITY_INSERT dbo.SYS_TUEV_TABLES ON");
+        //    sb.AppendLine();
+        //    var orderedTables = levelInfo.OrderBy(t => t.Name).ToList();
+        //    for (int index = 0; index < orderedTables.Count; index++)
+        //    {
+        //        TableInfo tableLevelInfo = orderedTables[index];
+        //        string insertCommandText = string.Format(
+        //            @"INSERT INTO [dbo].[SYS_TUEV_TABLES] ([ID], [TABLE_NAME], [SCOPE_TYPE], [LEVEL], [IS_DATE_FILTERED]) VALUES({0},'{1}',{2},{3},{4});",
+        //            index, tableLevelInfo.Name, (int)tableLevelInfo.ScopeType, tableLevelInfo.Level, 0);
+        //        sb.AppendLine(insertCommandText);
+        //    }
+        //    sb.AppendLine();
+        //    sb.AppendLine("SET IDENTITY_INSERT dbo.SYS_TUEV_TABLES OFF");
+        //    return sb.ToString();
+        //}
     }
 }
