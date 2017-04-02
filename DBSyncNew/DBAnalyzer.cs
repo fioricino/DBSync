@@ -191,22 +191,24 @@ namespace DBSyncNew
                     throw new InvalidOperationException(String.Format("Table {0} has no scripts.", alias.NameOrAlias));
                 }
 
-                for (int index = 0; index < alias.Scripts.Count; index++)
+                var scripts = alias.Scripts.OrderByDescending(s => s.FromCause.Length).ToList();
+                for (int index = 0; index < scripts.Count; index++)
                 {
-                    var script = alias.Scripts[index];
+                    var script = scripts[index];
                     sb.AppendFormat("SELECT {0} {1} ", useDistinct ? "DISTINCT" : "", selectedColumns);
 
                     sb.AppendLine();
                     sb.AppendLine("FROM " + script.FromCause);
                     var whereClauses = script.WhereCause.Where(c => !isForDelete || !c.IsSkippedOnDelete)
                             .Select(wc => wc.Clause)
+                            .OrderByDescending(wc => wc)
                             .ToList();
                     if (whereClauses.Count > 0)
                     {
                         sb.AppendLine("WHERE ");
                         sb.AppendLine(String.Join("\nAND ", whereClauses));
 
-                        if (index < alias.Scripts.Count - 1)
+                        if (index < scripts.Count - 1)
                         {
                             sb.AppendLine();
 

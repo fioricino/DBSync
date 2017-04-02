@@ -19,6 +19,13 @@ namespace DBSyncNew.SchemaObjects
             Table = builder.TableObj;
         }
 
+        private AliasObj(TableBuilder builder)
+        {
+            IsRoot = builder.TableObj.IsRoot;
+            FilterColumns = builder.TableObj.FilterColumns;
+            Table = builder.TableObj;
+        }
+
         public string Name { get; }
 
         public string NameOrAlias
@@ -33,6 +40,8 @@ namespace DBSyncNew.SchemaObjects
 
         }
 
+        public int Level { get { return Table.Level; } }
+
         /// <summary>
         /// Gets table name with alias
         /// </summary>
@@ -44,6 +53,11 @@ namespace DBSyncNew.SchemaObjects
                     ? Table.Name
                     : String.Format("{0} AS {1}", Table.Name, Name);
             }
+        }
+
+        public override string ToString()
+        {
+            return NameWithAlias;
         }
 
         //TODO remove
@@ -59,6 +73,21 @@ namespace DBSyncNew.SchemaObjects
 
         //TODO remove setter
         public List<ForeignKeyObj> ForeignKeys { get; } = new List<ForeignKeyObj>();
+
+        public class TableBuilder
+        {
+            public TableBuilder(TableObj tableObj)
+            {
+                TableObj = tableObj;
+            }
+
+            public TableObj TableObj { get; }
+
+            public AliasObj Build()
+            {
+                return new AliasObj(this);
+            }
+        }
 
         public class Builder
         {

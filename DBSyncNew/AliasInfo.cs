@@ -36,6 +36,8 @@ namespace DBSyncNew
             }
         }
 
+        public int Level { get; }
+
         public List<ForeignKeyAliasInfo> ForeignKeys { get; set; }
 
         /// <summary>

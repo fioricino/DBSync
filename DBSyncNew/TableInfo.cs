@@ -43,7 +43,7 @@ namespace DBSyncNew
             }
         }
 
-        public int? Level { get; set; }
+        public int Level { get; set; }
         
         public List<ColumnInfo> Columns { get; set; }
 
