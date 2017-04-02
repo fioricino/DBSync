@@ -44,8 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AliasInfo.cs" />
-    <Compile Include="ColumnInfo.cs" />
     <Compile Include="Configuration\AliasConfig.cs" />
     <Compile Include="Configuration\ConfigurationReader.cs" />
     <Compile Include="Configuration\FilterColumnConfig.cs" />
@@ -86,11 +84,8 @@
     </Compile>
     <Compile Include="DBAnalyzer.cs" />
     <Compile Include="Graph\Edge.cs" />
-    <Compile Include="FilterColumnInfo.cs" />
     <Compile Include="FKDescription.cs" />
-    <Compile Include="ForeignKeyAliasInfo.cs" />
     <Compile Include="ForeignKeyDirection.cs" />
-    <Compile Include="ForeignKeyInfo.cs" />
     <Compile Include="Graph\GraphGenerator.cs" />
     <Compile Include="Graph\EdgeSource.cs" />
     <Compile Include="Graph\GraphTraverser.cs" />
@@ -106,8 +101,6 @@
     <Compile Include="SchemaObjects\ForeignKeyObj.cs" />
     <Compile Include="SchemaObjects\ScopeObj.cs" />
     <Compile Include="SchemaObjects\TableObj.cs" />
-    <Compile Include="ScopeConfiguration.cs" />
-    <Compile Include="ScopeInfo.cs" />
     <Compile Include="ScopeType.cs" />
     <Compile Include="Scripts\ScriptGenerator.cs" />
     <Compile Include="MetaDataGenerationPattern.cs" />
@@ -118,7 +111,6 @@
     <Compile Include="SyncMetaDataHelper.cs" />
     <Compile Include="SyncScript.cs" />
     <Compile Include="SyncScripts.cs" />
-    <Compile Include="TableInfo.cs" />
     <Compile Include="Graph\Vertex.cs" />
     <Compile Include="WhereClause.cs" />
   </ItemGroup>

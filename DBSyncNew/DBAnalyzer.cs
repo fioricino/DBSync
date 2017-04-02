@@ -371,48 +371,6 @@ namespace DBSyncNew
 
    
 
-        private static void AddFkRelation(ColumnInfo column, ColumnInfo referencedColumn)
-        {
-            column.ReferencedColumn = referencedColumn;
-            var fk = new ForeignKeyInfo()
-                     {
-                         Column = column,
-                         ReferencedColumn = referencedColumn,
-                     };
-            column.Table.ForeignKeys.Add(fk);
-            column.ReferencedColumn.Table.ForeignKeys.Add(fk);
-
-            foreach (var alias in column.Table.Aliases)
-            {
-                foreach (var refAlias in referencedColumn.Table.Aliases)
-                {
-                    var direction = column.Table.Scope.GetForeignKeyDirection(column.Name, alias.NameOrAlias,
-                        referencedColumn.Name, refAlias.NameOrAlias);
-                    var aliasFk = new ForeignKeyAliasInfo()
-                    {
-                        Column = fk.Column.Name,
-                        ReferencedColumn = fk.ReferencedColumn.Name,
-                        Alias = alias,
-                        ReferencedAlias = refAlias,
-                        Direction = direction
-                    };
-                    refAlias.ForeignKeys.Add(aliasFk);
-                    alias.ForeignKeys.Add(aliasFk);
-                }
-            }
-        }
-
-        private int CalculateLevel(TableInfo tableInfo, int stackLevel)
-        {
-            var maxLevel = stackLevel;
-            foreach (var parentInfo in tableInfo.ParentInfos)
-            {
-                var level = CalculateLevel(parentInfo, stackLevel + 1);
-                maxLevel = Math.Max(level, maxLevel);
-            }
-            return maxLevel;
-        }
-
         //TODO add validator
         private void FindPossibleErrors()
         {
