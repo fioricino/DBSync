@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DBSyncNew.Database.Interfaces;
+using DBSyncNew.Database.Read.Interfaces;
 
-namespace DBSyncNew.Database.MsSql
+namespace DBSyncNew.Database.Read.MsSql
 {
     public class MsSqlDatabase : IDatabase
     {

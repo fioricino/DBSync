@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DBSyncNew.Database.Interfaces;
+﻿using System.Data;
+using DBSyncNew.Database.Read.Interfaces;
 
-namespace DBSyncNew.Database.MsSql
+namespace DBSyncNew.Database.Read.MsSql
 {
     public class MsSqlColumn : IDBColumn
     {

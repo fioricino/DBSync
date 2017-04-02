@@ -11,11 +11,11 @@ using System.Text;
 using System.Xml.Serialization;
 using DBSyncNew.Configuration;
 using DBSyncNew.Database;
-using DBSyncNew.Database.Interfaces;
-using DBSyncNew.Database.MsSql;
+using DBSyncNew.Database.Generate.MsSql;
+using DBSyncNew.Database.Read.Interfaces;
+using DBSyncNew.Database.Read.MsSql;
 using DBSyncNew.Graph;
 using DBSyncNew.SchemaObjects;
-using DBSyncNew.Scripts;
 
 namespace DBSyncNew
 {
@@ -26,7 +26,7 @@ namespace DBSyncNew
         private AllScopesObj scopes;
         private GraphGenerator<AliasObj, ForeignKeyObj> graphGenerator = new GraphGenerator<AliasObj, ForeignKeyObj>(); 
         private GraphTraverser<AliasObj, ForeignKeyObj> graphTraverser = new  GraphTraverser<AliasObj, ForeignKeyObj>();
-        private ScriptGenerator scriptGenerator = new ScriptGenerator();
+        private MsSqlScriptGenerator msSqlScriptGenerator = new MsSqlScriptGenerator();
         private ConfigurationReader configurationReader = new ConfigurationReader();
 
         public DBAnalyzer(
@@ -158,14 +158,14 @@ namespace DBSyncNew
 
         private string GenerateCreateTableScript(TableObj table)
         {
-            return String.Format("DECLARE {0} TABLE({1})", table.NameForTempTable,
+            return String.Format("DECLARE {0} TABLE({1})", msSqlScriptGenerator.GetNameForTempTable(table.Name),
                         String.Join(", ",
                             table.PKColumns.Select(c => String.Format("{0} {1}", c.Name, c.DataType))));
         }
 
         private string GenerateDeleteScript(TableObj table)
         {
-            return String.Format("DELETE {0} FROM {0} tab JOIN {1} idlist ON {2}", table.Name, table.NameForTempTable,
+            return String.Format("DELETE {0} FROM {0} tab JOIN {1} idlist ON {2}", table.Name, msSqlScriptGenerator.GetNameForTempTable(table.Name),
                         String.Join(" AND ",
                             table.PKColumns.Select(c => String.Format("tab.{0} = idlist.{0}", c.Name))));
         }
@@ -271,7 +271,7 @@ namespace DBSyncNew
                 var sbuilder = new StringBuilder();
 
                 //Print first table
-                sbuilder.Append(route.Directed[0].Start.Value);
+                sbuilder.Append(msSqlScriptGenerator.GetNameWithAlias(route.Directed[0].Start.Value));
 
                 sbuilder.AppendLine();
 
@@ -279,7 +279,7 @@ namespace DBSyncNew
                 {
                     var key = route.Directed[i];
 
-                    scriptGenerator.AppendJoin(sbuilder, key.Value);
+                    msSqlScriptGenerator.AppendJoin(sbuilder, key.Value);
                 }
 
                 var lastKey = route.Directed[route.Directed.Count - 1];
@@ -294,7 +294,7 @@ namespace DBSyncNew
                     //lastKey.Column.Table != lastKey.ReferencedColumn.Table
                     /*Special case for print rotTble it self*/)
                 {
-                    scriptGenerator.AppendJoin(sbuilder, lastKey.Value);
+                    msSqlScriptGenerator.AppendJoin(sbuilder, lastKey.Value);
                 }
                 fromClause = sbuilder.ToString().Trim(' ', '\t', '\n', '\r');
 
@@ -329,7 +329,7 @@ namespace DBSyncNew
 
         private WhereClause GetWhereClause(string tableName, string columnName, string clause, bool isSkippedOnDelete)
         {
-            return new WhereClause(clause.Replace("#COLUMN#", String.Format("[{0}].[{1}]", tableName, columnName)), isSkippedOnDelete);
+            return new WhereClause(clause.Replace("#COLUMN#", msSqlScriptGenerator.GetFullColumnName(tableName, columnName)), isSkippedOnDelete);
         }
 
         public string GenerateInsertMetaData(ScopeType scope)
@@ -338,38 +338,11 @@ namespace DBSyncNew
             var tables = scopes.Scopes.Single(s => s.ScopeType == scope).OrderedTables;
             foreach (var table in tables)
             {
-                result.AppendLine(GenerateTableInsertMetaData(table));
+                result.AppendLine(msSqlScriptGenerator.GenerateTableInsertMetaData(table));
             }
             return result.ToString();
         }
-
-        private string GenerateTableInsertMetaData(TableObj table)
-        {
-            var result = new StringBuilder();
-
-            result.AppendLine(table.GetDropSPStatement());
-            result.AppendLine("GO");
-            result.AppendLine();
-
-            result.AppendLine(table.GetDropTVPStatement());
-            result.AppendLine("GO");
-            result.AppendLine();
-
-            result.AppendLine(table.GetTVPStatement());
-            result.AppendLine("GO");
-            result.AppendLine();
-
-            result.AppendLine(table.GetSPStatement());
-            result.AppendLine("GO");
-            result.AppendLine();
-
-            return result.ToString();
-        }
-
-
- 
-
-   
+  
 
         //TODO add validator
         private void FindPossibleErrors()

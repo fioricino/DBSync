@@ -1,4 +1,4 @@
-﻿namespace DBSyncNew.Database.Interfaces
+﻿namespace DBSyncNew.Database.Read.Interfaces
 {
     public interface IDBColumn
     {

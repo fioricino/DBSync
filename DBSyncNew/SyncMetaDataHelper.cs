@@ -95,25 +95,7 @@ namespace DBSyncNew
             return selectStatement;
         }
       
-        public static string GetSPName(this DataTable dataTable)
-        {
-            return GetSPName(dataTable.TableName);
-        }
-
-        public static string GetSPName(string tableName)
-        {
-            return String.Format("SYNC_MERGE_{0}", tableName);
-        }
-
-        public static string GetTVPName(this DataTable dataTable)
-        {
-            return GetTVPName(dataTable.TableName);
-        }
-
-        public static string GetTVPName(string tableName)
-        {
-            return String.Format("TVP_{0}", tableName);
-        }
+      
 
     }
 }

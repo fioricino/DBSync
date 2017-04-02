@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DBSyncNew.Configuration;
-using DBSyncNew.Database.Interfaces;
+using DBSyncNew.Database.Read.Interfaces;
 using DBSyncNew.Graph;
 
 namespace DBSyncNew.SchemaObjects

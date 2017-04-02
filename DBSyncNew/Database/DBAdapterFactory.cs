@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DBSyncNew.Database.Interfaces;
-using DBSyncNew.Database.MsSql;
+using DBSyncNew.Database.Read.Interfaces;
 
 namespace DBSyncNew.Database
 {
+    //TODO split source and destination
     public class DBAdapterFactory
     {
         private static Dictionary<string, Func<string, IDatabase>> adapters = new Dictionary<string, Func<string, IDatabase>>();

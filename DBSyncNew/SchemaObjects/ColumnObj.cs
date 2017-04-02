@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DBSyncNew.Database.Interfaces;
+using DBSyncNew.Database.Read.Interfaces;
 
 namespace DBSyncNew.SchemaObjects
 {
@@ -33,6 +33,7 @@ namespace DBSyncNew.SchemaObjects
             get { return DataType == "uniqueidentifier"; }
         }
 
+        //TODO extract object
         public string DataType { get; }
 
         public byte Precision { get; }
@@ -48,67 +49,7 @@ namespace DBSyncNew.SchemaObjects
 
         public bool IsReadOnly { get; }
 
-        public string QuotedName
-        {
-            get { return String.Format("[{0}]", Name); }
-        }
-
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>
-        /// A string that represents the current object.
-        /// </returns>
-        public override string ToString()
-        {
-            return String.Format("{0}.{1}", Table, Name);
-        }
-
-        public string ToSqlString()
-        {
-            return String.Format("[{0}] {1} {2} {3}", Name, DataType, GetDataTypeModifiers(),
-                IsNullable ? "NULL" : "NOT NULL");
-        }
-
-        private string GetDataTypeModifiers()
-        {
-            var result = new List<string>();
-
-            switch (DataType)
-            {
-                case "int":
-                case "smallint":
-                case "uniqueidentifier":
-                case "tinyint":
-                case "date":
-                case "bigint":
-                case "bit":
-                case "datetime":
-                case "xml":
-                case "timestamp":
-                case "money":
-                    break;
-                case "datetime2":
-                case "time":
-                    result.Add(Scale.ToString());
-                    break;
-                case "decimal":
-                    result.Add(Precision.ToString());
-                    result.Add(Scale.ToString());
-                    break;
-                case "varbinary":
-                case "varchar":
-                case "char":
-                case "nvarchar":
-                    result.Add(MaxLength.ToString().Replace("-1", "max"));
-                    break;
-                default:
-                    throw new InvalidOperationException(String.Format("Data type {0} not implemented.", DataType));
-            }
-
-            return result.Count == 0 ? String.Empty : String.Format("({0})", String.Join(",", result));
-        }
-
+      
         public class Builder
         {
             public Builder(TableObj table, IDBColumn dbColumn)

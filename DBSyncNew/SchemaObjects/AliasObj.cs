@@ -36,28 +36,6 @@ namespace DBSyncNew.SchemaObjects
                     ? Table.Name
                     : Name;
             }
-
-
-        }
-
-        public int Level { get { return Table.Level; } }
-
-        /// <summary>
-        /// Gets table name with alias
-        /// </summary>
-        public string NameWithAlias
-        {
-            get
-            {
-                return String.IsNullOrEmpty(Name)
-                    ? Table.Name
-                    : String.Format("{0} AS {1}", Table.Name, Name);
-            }
-        }
-
-        public override string ToString()
-        {
-            return NameWithAlias;
         }
 
         //TODO remove
