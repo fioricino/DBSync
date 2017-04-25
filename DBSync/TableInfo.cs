@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSyncOld
 {
     [Serializable]
     public class TableInfo : ITableOrAlias

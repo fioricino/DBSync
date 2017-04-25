@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DBSync
+namespace DBSyncOld
 {
     /// <summary>
     ///Represents a "synchronization chunk" (data which synchronized in one isolated transaction) 

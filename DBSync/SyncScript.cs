@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public sealed class SyncScript
     {
