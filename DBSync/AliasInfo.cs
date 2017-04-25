@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace DBSync
+namespace DBSyncOld
 {
     [Serializable]
     public class AliasInfo : ITableOrAlias

@@ -11,7 +11,7 @@ using System.Text;
 using System.Xml.Serialization;
 using DBSync.Graph;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public class DBAnalyzer
     {
@@ -168,22 +168,24 @@ namespace DBSync
                     throw new InvalidOperationException(String.Format("Table {0} has no scripts.", alias.NameOrAlias));
                 }
 
-                for (int index = 0; index < alias.Scripts.Count; index++)
+                var scripts = alias.Scripts.OrderByDescending(s => s.FromCause.Length).ToList();
+                for (int index = 0; index < scripts.Count; index++)
                 {
-                    var script = alias.Scripts[index];
+                    var script = scripts[index];
                     sb.AppendFormat("SELECT {0} {1} ", useDistinct ? "DISTINCT" : "", selectedColumns);
 
                     sb.AppendLine();
                     sb.AppendLine("FROM " + script.FromCause);
                     var whereClauses = script.WhereCause.Where(c => !isForDelete || !c.IsSkippedOnDelete)
                             .Select(wc => wc.Clause)
+                            .OrderByDescending(wc => wc)
                             .ToList();
                     if (whereClauses.Count > 0)
                     {
                         sb.AppendLine("WHERE ");
                         sb.AppendLine(String.Join("\nAND ", whereClauses));
 
-                        if (index < alias.Scripts.Count - 1)
+                        if (index < scripts.Count - 1)
                         {
                             sb.AppendLine();
 
@@ -211,11 +213,7 @@ namespace DBSync
 
         public string GenerateSqlMetaData()
         {
-            var result = new StringBuilder();
-
-            result.Append(GenerateTuevTablesScript());
-
-            return result.ToString();
+            return GenerateTuevTablesScript();
         }
 
         public string GenerateInsertMetaData(ScopeType scope)
@@ -279,7 +277,8 @@ namespace DBSync
 FROM sys.tables t
 
 WHERE t.schema_id = 1
-AND t.type = 'U'", sqlConnection);
+AND t.type = 'U'
+ORDER BY TABLE_NAME", sqlConnection);
 
                 //black magic
                 var columnCommand = new SqlCommand(@"SELECT DISTINCT 
@@ -508,9 +507,10 @@ ORDER BY TABLE_NAME, ORDINAL_NUMBER
             sb.AppendLine("DELETE FROM [dbo].[SYS_TUEV_TABLES]");
             sb.AppendLine("SET IDENTITY_INSERT dbo.SYS_TUEV_TABLES ON");
             sb.AppendLine();
-            for (int index = 0; index < levelInfo.Count; index++)
+            var orderedTables = levelInfo.OrderBy(t => t.Name).ToList();
+            for (int index = 0; index < orderedTables.Count; index++)
             {
-                TableInfo tableLevelInfo = levelInfo[index];
+                TableInfo tableLevelInfo = orderedTables[index];
                 string insertCommandText = string.Format(
                     @"INSERT INTO [dbo].[SYS_TUEV_TABLES] ([ID], [TABLE_NAME], [SCOPE_TYPE], [LEVEL], [IS_DATE_FILTERED]) VALUES({0},'{1}',{2},{3},{4});",
                     index, tableLevelInfo.Name, (int)tableLevelInfo.ScopeType, tableLevelInfo.Level, 0);

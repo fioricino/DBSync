@@ -1,0 +1,2117 @@
+<?xml version="1.0" encoding="utf-16"?>
+<xs:schema id="OrderDS" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="OrderDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="INS_INSPECTION_REPORT_BINARY_DATA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="DATA" type="xs:base64Binary" />
+              <xs:element name="FILE_SIZE" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_ACCOUNT_PARAMETER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CASH_FLAG" type="xs:boolean" />
+              <xs:element name="COLLECTION_LIST" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_ORDER_FOLDER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="16" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_ORDER_HISTORY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ACTION">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="FIELD_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NEW_VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DB_USER_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OBJECT_ID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_BODY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_CLASS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_EMISSION_CLASS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_FUEL_TYPE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_MILE_AGE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="MILE_AGE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="16" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UNIT" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_PRODUCER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_TYPE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_COMMON_BINARY_DATA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="FILE_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATA_TYPE" type="xs:int" minOccurs="0" />
+              <xs:element name="FILE_SIZE" type="xs:int" />
+              <xs:element name="SYS_INFO_KEY_ID" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KBA_STATS_VALIDATION_EXPORT_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="INS_COMMON_BINARY_DATA_VALUE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="IS_CANCELLED" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_DEFECT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_DEFECT_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RILI_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SERVICE_TYPE" type="xs:int" minOccurs="0" />
+              <xs:element name="CLASSIFICATION" type="xs:int" minOccurs="0" />
+              <xs:element name="TEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INS_SEVERITY_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_SPECIAL" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_INSPECTION_LABEL">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_AVAILABLE_INSPECTION_TEXT_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_GIVEN" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_INSPECTION_TEXT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="SYS_INFO_KEY_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="TEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_ADDRESS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="NAME_1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NAME_2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NAME_3" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STREET" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="220" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ZIP_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ZIP_BOX" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TELEFON_1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FAX" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MOBILE_TELEFON" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BOX" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TELEFON_2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CITY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="160" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SYS_COUNTRY_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="EMAIL" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UST_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_LEGAL_FOREIGN" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_INSPECTION_LOCATION" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_DEVICE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="TAG" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_TAG" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SERIAL_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRODUCER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MANUFACTURE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OPERATING_PRESSURE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CAPACITY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IS_VALID" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VHL_MILE_AGE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="LAST_INSPECTION_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VEHICLE_LAST_INSPECTION_DATE_FORMAT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_PRODUCER_TYPE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="VHL_PRODUCER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="VHL_TYPE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ABE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_INSPECTION_RESULT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="EXAMINATED_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FSDHU_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FINAL_DEFECT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="INTERMEDIATE_DEFECT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_LABEL_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="INS_NEXT_INSPECTION_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="NEXT_SP_INSPECTION" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FINAL_SEVERITY_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="INTERMEDIATE_SEVERITY_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOM_VALID_PERIOD" type="xs:int" minOccurs="0" />
+              <xs:element name="INS_VALID_PERIOD_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="PRINT_AU_DATA" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_PERSON">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_ADDRESS_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_VERSION">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="VERSION_TYPE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TEXT_VARIANT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TEXT_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VHL_PRODUCER_TYPE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_ASA_ERROR_DATA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ERROR_CODE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ERROR_TEXT">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_MANUAL" type="xs:boolean" />
+              <xs:element name="ERROR_CLASS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_ASA_PROBE_SIGNAL_DATA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="TITLE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UNIT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LOWLIM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HIGHLIM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RESULT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LOC" type="xs:int" />
+              <xs:element name="IS_MANUAL" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_EG_DOC_VEHICLE_DATA">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="PROPERTY_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PROPERTY_VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="400" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_EXECUTABLE_INSPECTION_STEP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_AVAILABLE_INSPECTION_STEP_ID" type="xs:int" />
+              <xs:element name="INSPECTED_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_EXECUTED" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_FOUND_DEFECT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIME_FOR_FIXING" type="xs:duration" minOccurs="0" />
+              <xs:element name="INS_DEFECT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="DEFECT_TREE_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INSPECTION_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="REPAIR_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IS_FREE_TEXT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_FOUND_OPTICAL_DEFECT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INS_OPTICAL_DEFECT_ID" type="xs:int" />
+              <xs:element name="VALUE_X" type="xs:decimal" />
+              <xs:element name="VALUE_Y" type="xs:decimal" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_INSPECTION_REPORT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="REPORT_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="17" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="REPORT_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_REPORT_STATUS_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATED_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_PRINTED" type="xs:boolean" />
+              <xs:element name="CHILD_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PBZ_EXPORT_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_REPORT_BINARY_DATA_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="DATA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_HISTORICAL" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_MEASURED_VALUE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_MEASURABLE_VALUE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="120" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_MANUAL" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_OTHER_VALUE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_NOT_MEASURABLE_VALUE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_PFP_DEFECT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_PFP_POSITION_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_OK" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DESCRIPTION">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="800" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_PFP_NOTE_DEFECT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="TEXT">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_ORDER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORDER_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ORDER_STATUS_ID" type="xs:int" />
+              <xs:element name="ORD_ORDER_TYPE_ID" type="xs:int" />
+              <xs:element name="OPEN_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CLOSED_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ORD_BILL_TYPE_ID" type="xs:int" />
+              <xs:element name="ORDER_FREETEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ACCOUNT_PARAMETER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_CUSTOMER_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="EMP_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ORD_ORDER_FOLDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SAP_STATUS" type="xs:int" minOccurs="0" />
+              <xs:element name="ORD_ADDRESS_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_ORDER_CANCELATION_REASON_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ORD_CANCELATION_REASON_TEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1024" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORDER_PARENT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="INCLUDE_TAX" type="xs:boolean" />
+              <xs:element name="PROCESSED_ESCALATION_LEVEL" type="xs:int" minOccurs="0" />
+              <xs:element name="PBZ_EXPORT_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CUSTOMER_REMARK" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="180" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CANCEL_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IS_COLLECTION_LIST_CHOISE_SAVED" type="xs:boolean" />
+              <xs:element name="IS_CUSTOMER_WITH_ADDRESS_VALID" type="xs:boolean" />
+              <xs:element name="INVOICE_RECIPIENT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EMP_CORE_ADDRESS_ID" type="xs:int" />
+              <xs:element name="IS_FOLDER_SET_MANUALLY" type="xs:boolean" />
+              <xs:element name="SOURCE_ORDER_CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SYS_SYNC_STATUS_ID" type="xs:int" />
+              <xs:element name="KSS_INVOICE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IN_PROCESSING" type="xs:boolean" />
+              <xs:element name="SYNC_DATE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_AXLE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="AXLE_LOAD" type="xs:int" minOccurs="0" />
+              <xs:element name="VHL_VERSION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_VEHICLE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="VIN" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="REGISTRATION_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="REGISTRATION_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LAST_INSPECTION_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VEHICLE_YEAR" type="xs:int" minOccurs="0" />
+              <xs:element name="VHL_MILE_AGE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VHL_BODY_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VHL_CLASS_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VHL_FUEL_TYPE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VHL_EMISSION_CLASS_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VHL_VERSION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VEHICLE_APPROVED" type="xs:boolean" />
+              <xs:element name="MAX_PERMITTED_WEIGHT" type="xs:int" minOccurs="0" />
+              <xs:element name="INS_PRODUCT_OBJECT_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_VALID" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EXPIRATION_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VEHICLE_LAST_INSPECTION_DATE_FORMAT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_ORDER_COMMON_BINARY_DATA_RSP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_COMMON_BINARY_DATA_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_ORDER_INSPECTION_TEXT_RSP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_INSPECTION_TEXT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_HOLDER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_PERSON_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="NEXT_INSPECTION_REMINDER_FLAG" type="xs:boolean" />
+              <xs:element name="LICENCE_PLATE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LICENCE_VIN" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DEVICE_SERIAL_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="IS_VALID" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_ORDER_ADDITIONAL_INFORMATION">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_ORDER_ADDITIONAL_INFORMATION_TYPE_ID" type="xs:int" />
+              <xs:element name="TEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_POSITION">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="SAP_SEQUENCE_NUMBER" type="xs:int" minOccurs="0" />
+              <xs:element name="INS_INSPECTION_RESULT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_PRODUCT_STATUS_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_CORE_DATA_PRODUCT_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="AMOUNT" type="xs:decimal" />
+              <xs:element name="OPEN_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CLOSE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OPEN_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CLOSE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="PRICE_CHANGE_REASON" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRICE" type="xs:decimal" />
+              <xs:element name="ORIGINAL_PRICE" type="xs:decimal" />
+              <xs:element name="MIN_PRICE" type="xs:decimal" />
+              <xs:element name="MAX_PRICE" type="xs:decimal" />
+              <xs:element name="CALCULATED_VAT" type="xs:decimal" />
+              <xs:element name="IS_RECEIPT_PRINTED" type="xs:boolean" />
+              <xs:element name="CHANGE_ABILITY_TYPE" type="xs:int" />
+              <xs:element name="COMMENT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_AREA_OF_WORK_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CANCELATION_REASON" type="xs:int" minOccurs="0" />
+              <xs:element name="INS_TAX_INFO_ID" type="xs:int" />
+              <xs:element name="USER_CHOICE_DISCOUNT" type="xs:boolean" />
+              <xs:element name="PAID_UP" type="xs:decimal" />
+              <xs:element name="FLAG_14C" type="xs:boolean" />
+              <xs:element name="PREVIOUS_DISCOUNT_INFO_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="PREVIOUS_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CREATE_DATE_MANUAL" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VHL_SPECIAL_INFO_READ">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="VHL_SPECIAL_INFO_ID" type="xs:int" />
+              <xs:element name="EMP_EMPLOYEE_ID" type="xs:int" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_EMPLOYEE_PROPORTION">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="EMP_EMPLOYEE_ID" type="xs:int" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="PROPORTION" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_INSPECTION_PRODUCT_INSPECTION_TEXT_RSP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_INSPECTION_TEXT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="INS_POSITION_COMMON_BINARY_DATA_RSP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_COMMON_BINARY_DATA_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_DEVICE_ORDER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_DEVICE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_HOLDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_DISCOUNT_INFO">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="PERCENT" type="xs:decimal" />
+              <xs:element name="DESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_PENALTY" type="xs:boolean" />
+              <xs:element name="SELECTED" type="xs:int" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NECESSITY_TYPE" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_POSITION_CASH_NUMBER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CASH_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="16" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_POSITION_EXECUTABLE_INS_STEPS_RSP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="INS_EXECUTABLE_INSPECTION_STEP_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_PRODUCT_HISTORY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="USER_NUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="USER_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ROLE_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STEP_NAME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_SALE_OF_GOODS_ORDER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_HOLDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SELL_POINT_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORD_VEHICLE_ORDER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="ORD_HOLDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VHL_VEHICLE_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ORD_ORDER_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="IS_HOLDER_VALID" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HISTORY_EXPORT_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OLD_REPORT_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="17" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OLD_REPORT_DATE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_INSPECTION_REPORT_BINARY_DATA" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_ACCOUNT_PARAMETER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_ACCOUNT_PARAMETER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_ORDER_FOLDER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_ORDER_FOLDER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_ORDER_HISTORY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_ORDER_HISTORY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_BODY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_BODY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_CLASS_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_CLASS" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_EMISSION_CLASS_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_EMISSION_CLASS" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_FUEL_TYPE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_FUEL_TYPE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_MILE_AGE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_MILE_AGE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_PRODUCER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_PRODUCER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_TYPE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_TYPE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_COMMON_BINARY_DATA_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_COMMON_BINARY_DATA" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_DEFECT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_DEFECT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_INSPECTION_LABEL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_INSPECTION_LABEL" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_INSPECTION_TEXT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_INSPECTION_TEXT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_ADDRESS_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_ADDRESS" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_DEVICE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_DEVICE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_PRODUCER_TYPE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_PRODUCER_TYPE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_INSPECTION_RESULT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_INSPECTION_RESULT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_PERSON_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_PERSON" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_VERSION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_VERSION" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_ASA_ERROR_DATA_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_ASA_ERROR_DATA" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_ASA_PROBE_SIGNAL_DATA_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_ASA_PROBE_SIGNAL_DATA" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_EG_DOC_VEHICLE_DATA_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_EG_DOC_VEHICLE_DATA" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_EXECUTABLE_INSPECTION_STEP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_EXECUTABLE_INSPECTION_STEP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_FOUND_DEFECT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_FOUND_DEFECT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_FOUND_OPTICAL_DEFECT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_FOUND_OPTICAL_DEFECT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_INSPECTION_REPORT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_INSPECTION_REPORT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_MEASURED_VALUE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_MEASURED_VALUE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_OTHER_VALUE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_OTHER_VALUE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_PFP_DEFECT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_PFP_DEFECT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_PFP_NOTE_DEFECT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_PFP_NOTE_DEFECT" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_ORDER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_ORDER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_AXLE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_AXLE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_VEHICLE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_VEHICLE" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_ORDER_COMMON_BINARY_DATA_RSP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_ORDER_COMMON_BINARY_DATA_RSP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_ORDER_INSPECTION_TEXT_RSP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_ORDER_INSPECTION_TEXT_RSP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_HOLDER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_HOLDER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_ORDER_ADDITIONAL_INFORMATION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_ORDER_ADDITIONAL_INFORMATION" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_POSITION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_POSITION" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="VHL_SPECIAL_INFO_READ_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//VHL_SPECIAL_INFO_READ" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_EMPLOYEE_PROPORTION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_EMPLOYEE_PROPORTION" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_INSPECTION_PRODUCT_INSPECTION_TEXT_RSP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_INSPECTION_PRODUCT_INSPECTION_TEXT_RSP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="INS_POSITION_COMMON_BINARY_DATA_RSP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//INS_POSITION_COMMON_BINARY_DATA_RSP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_DEVICE_ORDER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_DEVICE_ORDER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_DISCOUNT_INFO_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_DISCOUNT_INFO" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_POSITION_CASH_NUMBER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_POSITION_CASH_NUMBER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_POSITION_EXECUTABLE_INS_STEPS_RSP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_POSITION_EXECUTABLE_INS_STEPS_RSP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_PRODUCT_HISTORY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_PRODUCT_HISTORY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_SALE_OF_GOODS_ORDER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_SALE_OF_GOODS_ORDER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="ORD_VEHICLE_ORDER_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ORD_VEHICLE_ORDER" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
+		

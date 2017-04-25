@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public class ColumnInfo
     {

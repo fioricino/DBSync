@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-16"?>
+<xs:schema id="ProtocolDS" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="ProtocolDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SYS_PROTOCOL">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="CLIENT_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="ACTION_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="ACTION_TYPE" type="xs:int" />
+              <xs:element name="ACTION_SCOPE" type="xs:int" />
+              <xs:element name="CLIENT_DB_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SERVER_DB_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ERROR_MSG" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1024" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SYS_SYNC_STATUS_ID" type="xs:int" />
+              <xs:element name="SESSION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ADDITIONAL_INFO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CLIENT_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SERVER_VERSION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CLIENT_SYSTEM_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SYS_LOG_ENTRY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="SYS_ACTION_TYPE_ID" type="xs:int" />
+              <xs:element name="SYS_MODULE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ITEM_ID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MESSAGE_TEXT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SYS_SYNC_STATUS_ID" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//SYS_PROTOCOL" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="SYS_LOG_ENTRY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//SYS_LOG_ENTRY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
+		

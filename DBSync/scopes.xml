@@ -187,7 +187,7 @@
 				<TableInfo Name="SYS_EMERGENCY_KEY"/>
 				<TableInfo Name="SYS_ESCALATION_LEVEL"/>
 				<TableInfo Name="SYS_INFO_KEY"/>
-				<TableInfo Name="SYS_GATEWAY "/>
+				<TableInfo Name="SYS_GATEWAY"/>
 				<TableInfo Name="SYS_KEY"/>
 				<TableInfo Name="SYS_LANGUAGE"/>
 				<TableInfo Name="SYS_LOCATION"/>

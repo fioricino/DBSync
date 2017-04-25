@@ -3,7 +3,7 @@ using System.Collections;
 using System.Data;
 using System.IO;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public static class DatasetSerializer
     {

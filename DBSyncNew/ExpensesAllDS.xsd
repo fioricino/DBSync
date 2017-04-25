@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-16"?>
+<xs:schema id="ExpensesAllDS" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="ExpensesAllDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EXP_WORKING_DAY">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="EMP_EMPLOYEE_ID" type="xs:int" />
+              <xs:element name="DATE" type="xs:dateTime" />
+              <xs:element name="LOGIN_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LOGOUT_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="START_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="END_TIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IS_CLOSED" type="xs:boolean" />
+              <xs:element name="MANUAL_APPROVAL_REQUIRED" type="xs:boolean" />
+              <xs:element name="IS_SENT" type="xs:boolean" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EXP_TRIP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="EXP_WORKING_DAY_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="DISTANCE" type="xs:decimal" />
+              <xs:element name="EXP_TRIP_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="EXP_PASSENGERS_TYPE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IS_WITH_PASSENGERS" type="xs:boolean" />
+              <xs:element name="IS_ACCEPTED" type="xs:boolean" />
+              <xs:element name="SYS_SYNC_STATUS_ID" type="xs:int" />
+              <xs:element name="SYNC_DATE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EXP_WORKING_SPAN">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="EXP_WORKING_DAY_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" />
+              <xs:element name="COST_CENTER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="START_TIME" type="xs:dateTime" />
+              <xs:element name="END_TIME" type="xs:dateTime" />
+              <xs:element name="SPAN_TYPE" type="xs:boolean" />
+              <xs:element name="INS_CORE_DATA_PRODUCT_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="IS_ACCEPTED" type="xs:boolean" />
+              <xs:element name="IS_MODIFIED_MANUALLY" type="xs:boolean" />
+              <xs:element name="PARTICIPATING_INTEREST" type="xs:decimal" />
+              <xs:element name="ORG_COST_CENTER_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="INTERNAL_ORDER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="270" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CHANGE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DELETE_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OWNER_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="VISIBILITY_ORG_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CREATE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="CHANGE_EMPLOYEE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="SOURCE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ORD_ORDER_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DEBITOR_NUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SYS_SYNC_STATUS_ID" type="xs:int" />
+              <xs:element name="PRODUCTIVE_COST" type="xs:decimal" />
+              <xs:element name="ORD_POSITION_ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SYNC_DATE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//EXP_WORKING_DAY" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="EXP_TRIP_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//EXP_TRIP" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+    <xs:unique name="EXP_WORKING_SPAN_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//EXP_WORKING_SPAN" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
+		

@@ -1,0 +1,144 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".tmp" #>
+
+<#@ include file="Configuration.ttinclude" #>
+<#
+	List<string> errors = new List<string>();
+    List<string> keptFiles = new List<string>();
+
+	DBAnalyzer dbAnalyzer = null;
+
+	try {
+	
+	//1. Generate sql metadata
+	fileManager.StartNewFile(sqlTargetFile);
+
+		dbAnalyzer = new DBAnalyzer(permissionsSqlFileName ,
+        uniqueColumnsFileName,
+        notNullColumnsFileName,
+        scriptsFolder,
+		scopeFile,
+            connectionString);
+
+		var scriptText = dbAnalyzer.GenerateSqlMetaData();
+		#>
+		<#=scriptText#>
+		<#
+
+		//2. Generate TVP and SP script
+		fileManager.StartNewFile(ddlTargetFile);
+	foreach (var scope in usedScopes)
+	{
+		var text = dbAnalyzer.GenerateInsertMetaData(scope);
+				#>
+		<#=text#>
+		<#
+	}	
+
+		//3. Generate dataset metadata
+	foreach (var scope in usedScopes)
+	{		
+		var targetFile = String.Format(dsTargetFileTemplate, scope);
+
+        fileManager.StartNewFile(targetFile);
+
+		scriptText = dbAnalyzer.GenerateDataSetMetaData(scope);
+		#><#=scriptText#>
+		<#			
+	}
+
+			//4. Generate select metadata
+	foreach (var scope in usedScopes)
+	{
+		if (dbAnalyzer.GetMetaDataGenerationPattern(scope) == SelectMetaDataGenerationPattern.Scope)
+		{		
+			var scriptTexts = dbAnalyzer.GenerateDataSetSelectMetaData(scope);
+
+			var targetFile = String.Format(selectTargetFileTemplate, scope);
+
+			fileManager.StartNewFile(targetFile, true);
+
+			#><#=scriptTexts.Item1#><#	
+
+			targetFile = String.Format(deleteTargetFileTemplate, scope);
+
+			fileManager.StartNewFile(targetFile, true);
+
+			#><#=scriptTexts.Item2#><#	
+		}		
+
+	}
+		keptFiles.AddRange(fileManager.Process().Select(f => f.Key));
+
+
+
+			var sourceDir = Path.GetDirectoryName(Host.TemplateFile);
+			var codeGen = Path.Combine(sourceDir, "codegen.cmd");
+			var targetDir = Path.Combine(Path.GetDirectoryName(Host.TemplateFile), "..\\DataSets\\");
+			
+			fileManager.CheckoutFileIfRequired(sqlCopyFile);
+			fileManager.CheckoutFileIfRequired(ddlCopyFile);
+
+			File.Copy(sqlTargetFile, sqlCopyFile, true);
+			File.Copy(ddlTargetFile, ddlCopyFile, true);
+
+			foreach (var scope in usedScopes)
+			{
+				var dsName = SyncMetaDataHelper.GetDataSetName(scope);
+				var fileName = Path.Combine(targetDir, dsName + ".cs");
+
+				fileManager.CheckoutFileIfRequired(fileName);
+
+				var process = new System.Diagnostics.Process();
+				process.StartInfo.UseShellExecute = false;
+				process.StartInfo.RedirectStandardError = true;
+				process.StartInfo.RedirectStandardOutput = true;
+				process.StartInfo.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Microsoft SDKs\\Windows\\v7.0A\\Bin\\x64\\xsd.exe");
+				process.StartInfo.Arguments = String.Format("{0}\\{2}.xsd /d /out:{1} /n:TuevSued.V1.IT.NewSyncCommonObjects.DataSets", sourceDir, targetDir, dsName);
+				process.Start();
+				var processError = process.StandardError.ReadToEnd();
+				//var processOutput = process.StandardOutput.ReadToEnd();
+				process.WaitForExit();
+
+			if (!String.IsNullOrEmpty(processError))
+			{
+				errors.Add(processError);
+			}
+				//errors.Add(processOutput);
+
+			if (process.ExitCode != 0)
+			{
+				errors.Add("!!! Dataset generation execution failed. !!!");
+			}
+			}			
+
+
+
+	
+	}
+
+	 catch (Exception exc)
+    {
+		errors.Add(exc.ToString());
+    }
+	finally
+	{
+		if (dbAnalyzer != null)
+		{
+			errors.AddRange(dbAnalyzer.Errors);
+		}	
+		
+        errorManager.StartNewFile(errorFile);
+				
+		foreach (var error in errors)
+		{
+		#>
+			<#=error
+			#>
+		<#
+		}
+
+		errorManager.Process(true, keptFiles.ToArray());		
+
+	}
+#>

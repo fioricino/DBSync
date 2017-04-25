@@ -1,4 +1,4 @@
-namespace DBSync
+namespace DBSyncOld
 {
     /// <summary>
     /// defines a synchronization scope types

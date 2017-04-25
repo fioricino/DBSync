@@ -1,4 +1,4 @@
-﻿namespace DBSync
+﻿namespace DBSyncOld
 {
     public enum SyncConflictResolutionPolicy
     {

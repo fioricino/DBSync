@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<ScopesConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Scopes>
+		<ScopeConfig ScopeType="Core" MetaDataGenerationPattern="Scope">
+
+      <FilterColumns>
+        <FilterColumnConfig ColumnName="ROW_VERSION" FilterClause="#COLUMN# BETWEEN {0} AND {1}"/>
+      </FilterColumns>
+      
+      <Tables>
+
+				<TableConfig Name="EMP_CASH_PERMISSION"/>
+				<TableConfig Name="EMP_CORE_ADDRESS"/>
+				<TableConfig Name="EMP_CORE_ADDRESS_TYPE"/>
+				<TableConfig Name="EMP_CORE_ADDRESS_FEDERAL_STATE_RSP"/>
+				<TableConfig Name="EMP_CORE_ADDRESS_RECOGNITION_RSP"/>
+				<TableConfig Name="EMP_EMPLOYEE"/>
+				<TableConfig Name="EMP_EMPLOYEE_INFO_TYPE"/>
+				<TableConfig Name="EMP_EMPLOYEE_INFO_TYPE_RSP"/>
+			  <TableConfig Name="EMP_EMPLOYEE_ORG_COST_CENTER_RSP"/>
+				<TableConfig Name="EMP_EMPLOYEE_ORG_ORGANIZATIONAL_UNIT_RSP"/>
+        <TableConfig Name="EMP_EMPLOYEE_ORGANIZATIONAL_UNIT_ORDER_LOOKUP_RSP"/>
+				<TableConfig Name="EMP_EMPLOYEE_SYS_ROLE_RSP"/>
+        <TableConfig Name="EMP_EMPLOYEE_TOP_EMPLOYEE_RSP"/>
+				<TableConfig Name="EXP_PASSENGERS_TYPE"/>
+				<TableConfig Name="EXP_TRIP_TYPE"/>
+				<TableConfig Name="INS_AVAILABLE_INSPECTION_STEP"/>
+				<TableConfig Name="INS_AVAILABLE_INSPECTION_TEXT"/>
+				<TableConfig Name="INS_AVAILABLE_INSPECTION_TEXT_VALUE"/>
+				<TableConfig Name="INS_BRAKE_INSPECTION_METHOD"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_ADDITIONAL_PRODUCT_RSP"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_EXPIRATION_INFO"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_GROUP"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_INSPECTION_LOCATION_INFO"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_LOCALIZATION"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_PFP_POSITION_RSP"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_PFP_VEHICLE_TYPE_RSP"/>
+				<TableConfig Name="INS_CORE_DATA_PRODUCT_RECEIPT_TEXT_RSP"/>
+				<TableConfig Name="INS_EG_DOK_SERVICE_TYPE"/>
+				<TableConfig Name="INS_INSPECTION_REPORT_STATUS"/>
+        <TableConfig Name="INS_INSPECTION_REPORT_TEXT_CONFIGURATION"/>
+				<TableConfig Name="INS_INSPECTION_STEP"/>
+				<TableConfig Name="INS_MEASURABLE_VALUE"/>
+				<TableConfig Name="INS_MEASURE_TYPE"/>
+				<TableConfig Name="INS_META_DATA"/>
+				<TableConfig Name="INS_NEXT_INSPECTION"/>
+				<TableConfig Name="INS_NEXT_INSPECTION_PRODUCT_CLASS_RSP"/>
+				<TableConfig Name="INS_NEXT_SP_INTERVAL"/>
+				<TableConfig Name="INS_NOT_MEASURABLE_VALUE"/>
+				<TableConfig Name="INS_OPTICAL_DEFECT"/>
+				<TableConfig Name="INS_PFP_INSPECTION_TYPE"/>
+				<TableConfig Name="INS_PFP_INSPECTION_TYPE_PFP_POSITION_RSP"/>
+				<TableConfig Name="INS_PFP_POSITION"/>
+				<TableConfig Name="INS_PFP_VEHICLE_TYPE"/>
+				<TableConfig Name="INS_PRODUCT_CLASS"/>
+				<TableConfig Name="INS_PRODUCT_CLASS_AVAILABLE_INSPECTION_STEP_RSP"/>
+				<TableConfig Name="INS_PRODUCT_CLASS_DEFECT_IDENTIFICATION"/>
+				<TableConfig Name="INS_PRODUCT_CLASS_INSPECTION_TEXT_RSP"/>
+				<TableConfig Name="INS_PRODUCT_CLASS_LABEL_RSP"/>
+				<TableConfig Name="INS_PRODUCT_CLASS_RECEIPT_TEXT_RSP"/>
+				<TableConfig Name="INS_PRODUCT_CLASS_SUMMARY_FIELD_RSP"/>
+				<TableConfig Name="INS_PRODUCT_COMBINATION"/>
+				<TableConfig Name="INS_PRODUCT_COMBINATION_TYPE"/>
+        <TableConfig Name="INS_PRODUCT_DISCOUNT"/>
+				<TableConfig Name="INS_PRODUCT_MATERIAL_GROUP"/>
+				<TableConfig Name="INS_PRODUCT_OBJECT_CLASS"/>
+				<TableConfig Name="INS_PRODUCT_OBJECT_TYPE"/>
+				<TableConfig Name="INS_PRODUCT_PRICE"/>
+				<TableConfig Name="INS_PRODUCT_REGION_PRICE"/>
+				<TableConfig Name="INS_PRODUCT_TYPE"/>
+        <TableConfig Name="INS_RESULT_COMBINATION_AVALIABLE_INSPECTION_TEXT_RSP"/>
+        <TableConfig Name="INS_SEVERITY_LABEL_RSP"/>
+        <TableConfig Name="INS_SEVERITY_NEXT_INSPECTION_RSP"/>
+        <TableConfig Name="INS_SEVERITY_TYPE"/>
+				<TableConfig Name="INS_SEVERITY_TYPE_PRODUCT_CLASS_RSP"/>
+        <TableConfig Name="INS_SEVERITY_VALID_PERIOD_RSP"/>
+        <TableConfig Name="INS_SPECIFIC_DATA"/>
+				<TableConfig Name="INS_SUMMARY_FIELD"/>
+        <TableConfig Name="INS_TAX_CLASS"/>
+        <TableConfig Name="INS_TAX_CODE"/>
+        <TableConfig Name="INS_TAX_INFO"/>
+        <TableConfig Name="INS_TEMPLATE"/>
+        <TableConfig Name="INS_UNIT_CODE"/>
+        <TableConfig Name="INS_VALID_PERIOD"/>
+				<TableConfig Name="INS_VALID_PERIOD_PRODUCT_CLASS_RSP"/>
+				<TableConfig Name="INS_VAT_TYPE"/>
+				<TableConfig Name="KSS_CASH_STATUS"/>
+				<TableConfig Name="KSS_DOCUMENT_TYPE"/>
+				<TableConfig Name="KSS_EXPENSE_GROUND"/>
+				<TableConfig Name="KSS_OPERATION_STATUS"/>
+				<TableConfig Name="KSS_OPERATION_TYPE"/>
+				<TableConfig Name="KSS_PAYMENT_METHOD"/>
+        <TableConfig Name="ORD_ADDITIONAL_PAYMENTS"/>
+        <TableConfig Name="ORD_AREA_OF_WORK"/>
+				<TableConfig Name="ORD_BILL_TYPE"/>
+				<TableConfig Name="ORD_BILLING_PARAMETER"/>
+				<TableConfig Name="ORD_CONTACT_PERSON"/>
+				<TableConfig Name="ORD_CONTACT_PERSON_FUNCTION"/>
+				<TableConfig Name="ORD_CUSTOMER"/>
+				<TableConfig Name="ORD_CUSTOMER_ADDRESS_RSP"/>
+				<TableConfig Name="ORD_CUSTOMER_INFO"/>
+				<TableConfig Name="ORD_CUSTOMER_INFO_RSP"/>
+				<TableConfig Name="ORD_CUSTOMER_BILLING_PARAMETER_RSP"/>
+				<TableConfig Name="ORD_CUSTOMER_LOCK_INFO"/>
+        <TableConfig Name="ORD_CUSTOMER_ORG_ACCOUNT_TYPE_RSP"/>
+        <TableConfig Name="ORD_CUSTOMER_ORG_UNIT_RSP"/>
+				<TableConfig Name="ORD_CUSTOMER_PARTNER_ROLE_RSP"/>
+				<TableConfig Name="ORD_CUSTOMER_PRICE"/>
+				<TableConfig Name="ORD_CUSTOMER_TAX_INFO"/>
+				<TableConfig Name="ORD_EMAIL"/>
+        <TableConfig Name="ORD_ESCALATION_LEVEL_ACTION"/>
+        <TableConfig Name="ORD_FEDERAL_STATE"/>
+        <TableConfig Name="ORD_ORDER_ADDITIONAL_INFORMATION_TYPE"/>
+        <TableConfig Name="ORD_ORDER_CANCELATION_REASON"/>
+        <TableConfig Name="ORD_ORDER_STATUS"/>
+				<TableConfig Name="ORD_ORDER_TYPE"/>
+				<TableConfig Name="ORD_PARTNER_ROLE"/>
+				<TableConfig Name="ORD_PRODUCT_STATUS"/>
+				<TableConfig Name="ORD_PROVISION_COST"/>
+				<TableConfig Name="ORD_RECOGNITION"/>
+				<TableConfig Name="ORD_RECOGNITION_AREA_OF_WORK_RSP"/>
+				<TableConfig Name="ORD_RECOGNITION_TYPE"/>
+        <TableConfig Name="ORD_SAP_STATUS"/>
+        <TableConfig Name="ORG_ACCOUNT_TYPE"/>
+        <TableConfig Name="ORG_ACCOUNTING_AREA"/>
+				<TableConfig Name="ORG_BANK_INFORMATION"/>
+				<TableConfig Name="ORG_COST_CENTER"/>
+				<TableConfig Name="ORG_COST_CENTER_PRICE"/>
+        <TableConfig Name="ORG_COST_CENTER_RESPONSIBLE_EMPLOYEE_RSP"/>
+        <TableConfig Name="ORG_INFORMATION"/>
+				<TableConfig Name="ORG_INSPECTION_DEVICE"/>
+				<TableConfig Name="ORG_OPEN_TIME_TYPE"/>
+				<TableConfig Name="ORG_ORGANIZATIONAL_UNIT"/>
+				<TableConfig Name="ORG_TYPE"/>
+        <TableConfig Name="ORG_UNIT_ACCOUNT_TYPE_RSP"/>
+        <TableConfig Name="ORG_UNIT_ADDRESS_RSP"/>
+        <TableConfig Name="ORG_UNIT_BANK_INFO_RSP"/>
+        <TableConfig Name="ORG_UNIT_FEDERAL_STATE_RSP"/>
+				<TableConfig Name="ORG_UNIT_INFO_RSP"/>
+				<TableConfig Name="ORG_UNIT_OPEN_TIME_RSP"/>
+        <TableConfig Name="ORG_UNIT_ORG_COST_CENTER_RSP"/>
+        <TableConfig Name="ORG_UNIT_TOP_ORG_UNIT_RSP"/>
+        <TableConfig Name="SYS_ACTION_TYPE"/>
+				<TableConfig Name="SYS_CONFIGURATION"/>
+				<TableConfig Name="SYS_COUNTRY"/>
+				<TableConfig Name="SYS_CURRENCY"/>
+				<TableConfig Name="SYS_DEFAULT_LANGUAGE"/>
+        <TableConfig Name="SYS_DOCUMENT_TEXT_CONFIGURATION"/>
+        <TableConfig Name="SYS_DOCUMENT_TEXT_CONFIGURATION_DOCUMENT_TYPE_RSP"/>
+        <TableConfig Name="SYS_DOCUMENT_TYPE"/>
+				<TableConfig Name="SYS_EMERGENCY_KEY"/>
+        <TableConfig Name="SYS_ENCRYPTION_METADATA"/>
+        <TableConfig Name="SYS_ESCALATION_LEVEL"/>
+        <TableConfig Name="SYS_GATEWAY"/>
+        <TableConfig Name="SYS_INFO_KEY"/>
+				<TableConfig Name="SYS_LANGUAGE"/>
+				<TableConfig Name="SYS_LOCATION"/>
+				<TableConfig Name="SYS_MODULE"/>
+        <TableConfig Name="SYS_NOTIFICATION"/>
+        <TableConfig Name="SYS_NOTIFICATION_TYPE"/>
+        <TableConfig Name="SYS_PAPER_TYPE"/>
+				<TableConfig Name="SYS_PERMISSION"/>
+        <TableConfig Name="SYS_POS_CONFIGURATION"/>
+        <TableConfig Name="SYS_POST_CODE"/>
+				<TableConfig Name="SYS_ROLE"/>
+				<TableConfig Name="SYS_ROLE_SYS_PERMISSION_RSP"/>
+				<TableConfig Name="VHL_CLASS_INS_PRODUCT_OBJECT_TYPE_RSP"/>
+				<TableConfig Name="VHL_COLOR"/>
+        <TableConfig Name="VHL_FUEL_TYPE_FORBIDDEN_INSPECTION_PRODUCT_RSP"/>
+        <TableConfig Name="VHL_SPECIAL_INFO"/>
+			</Tables>
+		</ScopeConfig>
+		<ScopeConfig ScopeType="Expenses" MetaDataGenerationPattern="Scope">
+			<ReversedForeignKeys>
+				<ForeignKeyConfig Table="EXP_TRIP" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="EXP_WORKING_SPAN" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY" ReferencedColumn="ID"/>
+			</ReversedForeignKeys>
+      <IgnoredForeignKeys>
+        <ForeignKeyConfig Table="EXP_WORKING_SPAN1" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY" ReferencedColumn="ID"/>
+        <ForeignKeyConfig Table="EXP_WORKING_SPAN" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY1" ReferencedColumn="ID"/>
+        <ForeignKeyConfig Table="EXP_TRIP" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY1" ReferencedColumn="ID"/>
+        <ForeignKeyConfig Table="EXP_WORKING_SPAN" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+      </IgnoredForeignKeys>
+      <Tables>
+        <TableConfig Name="EXP_WORKING_DAY" IsRoot="true">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="true"/>
+          </FilterColumns>
+          <Aliases>
+            <AliasConfig Name="EXP_WORKING_DAY1" IsRoot="false"/>
+          </Aliases>
+        </TableConfig>
+        <TableConfig Name="EXP_TRIP">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="SYS_SYNC_STATUS_ID" FilterClause="#COLUMN# = {1}"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="EXP_WORKING_SPAN">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="SYS_SYNC_STATUS_ID" FilterClause="#COLUMN# = {1}"/>
+          </FilterColumns>
+          <Aliases>
+            <AliasConfig Name="EXP_WORKING_SPAN1" IsRoot="true">
+              <FilterColumns>
+                <FilterColumnConfig ColumnName="SYS_SYNC_STATUS_ID" FilterClause="#COLUMN# = {1}"/>
+                <FilterColumnConfig ColumnName="CREATE_EMPLOYEE_ID" FilterClause="#COLUMN# = {2}" IsReferenced="true"/>
+              </FilterColumns>
+            </AliasConfig>
+          </Aliases>
+        </TableConfig>
+			</Tables>
+		</ScopeConfig>
+    
+    <ScopeConfig ScopeType="ExpensesAll" MetaDataGenerationPattern="Scope">
+			<ReversedForeignKeys>
+				<ForeignKeyConfig Table="EXP_TRIP" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="EXP_WORKING_SPAN" Column="EXP_WORKING_DAY_ID" ReferencedTable="EXP_WORKING_DAY" ReferencedColumn="ID"/>
+			</ReversedForeignKeys>
+      <Tables>
+        <TableConfig Name="EXP_WORKING_DAY" IsRoot="true">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="true"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="EXP_TRIP">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="SYS_SYNC_STATUS_ID" FilterClause="#COLUMN# = {1}" IsSkippedOnDelete="true"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="EXP_WORKING_SPAN">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="SYS_SYNC_STATUS_ID" FilterClause="#COLUMN# = {1}" IsSkippedOnDelete="true"/>
+          </FilterColumns>
+        </TableConfig>
+			</Tables>
+		</ScopeConfig>
+        
+		<ScopeConfig ScopeType="Login" MetaDataGenerationPattern="Scope">
+      <FilterColumns>
+        <FilterColumnConfig ColumnName="ROW_VERSION" FilterClause="#COLUMN# > {0}" IsReferenced="false"/>
+      </FilterColumns>
+      <Tables>
+        <TableConfig Name="EMP_LOGIN_DATA" IgnoreKey="true" KeepRowVersion="true"/>
+        <TableConfig Name="SYS_PASSWORD" IgnoreKey="true" KeepRowVersion="true"/>
+      </Tables>
+		</ScopeConfig>
+		<ScopeConfig ScopeType="Order" MetaDataGenerationPattern="Scope">
+     
+			<ReversedForeignKeys>
+
+				<ForeignKeyConfig Table="INS_ASA_PROBE_SIGNAL_DATA" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+        <ForeignKeyConfig Table="VHL_SPECIAL_INFO_READ" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_POSITION" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_DISCOUNT_INFO" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_FOUND_OPTICAL_DEFECT" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_MEASURED_VALUE" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_OTHER_VALUE" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_FOUND_DEFECT" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_EMPLOYEE_PROPORTION" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_POSITION_EXECUTABLE_INS_STEPS_RSP" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_POSITION_COMMON_BINARY_DATA_RSP" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_ORDER_INSPECTION_TEXT_RSP" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_INSPECTION_PRODUCT_INSPECTION_TEXT_RSP" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_PRODUCT_HISTORY" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_VEHICLE_ORDER" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_DEVICE_ORDER" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_SALE_OF_GOODS_ORDER" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_HOLDER" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_ORDER_COMMON_BINARY_DATA_RSP" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_PFP_DEFECT" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_ASA_ERROR_DATA" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="VHL_AXLE" Column="VHL_VERSION_ID" ReferencedTable="VHL_VERSION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_EG_DOC_VEHICLE_DATA" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_INSPECTION_REPORT" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="INS_PFP_NOTE_DEFECT" Column="INS_INSPECTION_RESULT_ID" ReferencedTable="INS_INSPECTION_RESULT" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_POSITION_CASH_NUMBER" Column="ORD_POSITION_ID" ReferencedTable="ORD_POSITION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="ORD_ORDER_ADDITIONAL_INFORMATION" Column="ORD_ORDER_ID" ReferencedTable="ORD_ORDER" ReferencedColumn="ID"/>
+			</ReversedForeignKeys>
+
+      <Tables>
+        <TableConfig Name="ORD_ORDER" IsRoot="true">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="true"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="ORD_ORDER_HISTORY" IsRoot="true">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ORD_ORDER_ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="false"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="INS_ASA_PROBE_SIGNAL_DATA"/>
+        <TableConfig Name="VHL_BODY" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_CLASS" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_EMISSION_CLASS" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_FUEL_TYPE" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_PRODUCER" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_AXLE"/>
+				<TableConfig Name="VHL_MILE_AGE"/>
+				<TableConfig Name="VHL_TYPE" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_PRODUCER_TYPE" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_VEHICLE"/>
+				<TableConfig Name="VHL_VERSION" IsSkippedOnDelete="true"/>
+				<TableConfig Name="VHL_SPECIAL_INFO_READ"/>
+				<TableConfig Name="ORD_DEVICE_ORDER"/>
+        <TableConfig Name="ORD_ORDER_ADDITIONAL_INFORMATION"/>
+        <TableConfig Name="ORD_ORDER_FOLDER" IsSkippedOnDelete="true"/>
+				<TableConfig Name="ORD_PERSON"/>
+        <TableConfig Name="ORD_POSITION_CASH_NUMBER"/>
+        <TableConfig Name="ORD_SALE_OF_GOODS_ORDER"/>
+			  <TableConfig Name="ORD_HOLDER"/>
+				<TableConfig Name="ORD_DISCOUNT_INFO"/>
+				<TableConfig Name="ORD_ACCOUNT_PARAMETER"/>
+				<TableConfig Name="ORD_ADDRESS"/>
+				<TableConfig Name="ORD_POSITION_EXECUTABLE_INS_STEPS_RSP"/>
+				<TableConfig Name="ORD_PRODUCT_HISTORY"/>
+				<TableConfig Name="ORD_VEHICLE_ORDER"/>
+				<TableConfig Name="ORD_POSITION"/>
+				<TableConfig Name="ORD_DEVICE"/>
+				<TableConfig Name="INS_INSPECTION_REPORT"/>
+				<TableConfig Name="INS_INSPECTION_REPORT_BINARY_DATA"/>
+				<TableConfig Name="INS_ORDER_COMMON_BINARY_DATA_RSP"/>
+				<TableConfig Name="INS_COMMON_BINARY_DATA"/>
+				<TableConfig Name="INS_EG_DOC_VEHICLE_DATA"/>
+				<TableConfig Name="INS_PFP_DEFECT"/>
+				<TableConfig Name="INS_PFP_NOTE_DEFECT"/>
+				<TableConfig Name="INS_DEFECT" IsSkippedOnDelete="true"/>
+				<TableConfig Name="INS_EXECUTABLE_INSPECTION_STEP"/>
+				<TableConfig Name="INS_INSPECTION_LABEL"/>
+				<TableConfig Name="INS_INSPECTION_TEXT"/>
+				<TableConfig Name="INS_ORDER_INSPECTION_TEXT_RSP"/>
+				<TableConfig Name="INS_INSPECTION_RESULT"/>
+				<TableConfig Name="INS_FOUND_DEFECT"/>
+				<TableConfig Name="INS_FOUND_OPTICAL_DEFECT"/>
+				<TableConfig Name="INS_MEASURED_VALUE"/>
+				<TableConfig Name="INS_OTHER_VALUE"/>
+				<TableConfig Name="INS_POSITION_COMMON_BINARY_DATA_RSP"/>
+				<TableConfig Name="INS_EMPLOYEE_PROPORTION"/>
+				<TableConfig Name="INS_ASA_ERROR_DATA"/>
+				<TableConfig Name="INS_INSPECTION_PRODUCT_INSPECTION_TEXT_RSP"/>
+      </Tables>
+		</ScopeConfig>
+		<ScopeConfig ScopeType="Cash" MetaDataGenerationPattern="Scope">
+			<ReversedForeignKeys>
+				<ForeignKeyConfig Table="KSS_OPERATION" Column="KSS_CASH_ID" ReferencedTable="KSS_CASH" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="KSS_CASH_DOCUMENT" Column="KSS_CASH_ID" ReferencedTable="KSS_CASH" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="KSS_OPERATION_ORD_POSITION_RSP" Column="KSS_OPERATION_ID" ReferencedTable="KSS_OPERATION" ReferencedColumn="ID"/>
+				<ForeignKeyConfig Table="KSS_OPERATION_DOCUMENT" Column="KSS_OPERATION_ID" ReferencedTable="KSS_OPERATION" ReferencedColumn="ID"/>
+			</ReversedForeignKeys>
+			<Tables>
+        <TableConfig Name="KSS_CASH" IsRoot="true">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="true"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="KSS_CASH_DOCUMENT"/>
+        <TableConfig Name="KSS_CHECK"/>
+				<TableConfig Name="KSS_INVOICE_COPY"/>
+        <TableConfig Name="KSS_OPERATION"/>
+        <TableConfig Name="KSS_OPERATION_DOCUMENT"/>
+        <TableConfig Name="KSS_OPERATION_ORD_POSITION_RSP"/>
+        <TableConfig Name="KSS_POS"/>
+        <TableConfig Name="KSS_TRANSF_CASH_COPY"/>
+			</Tables>
+		</ScopeConfig>
+
+    <ScopeConfig ScopeType="Protocol" MetaDataGenerationPattern="Scope">
+      <Tables>
+        <TableConfig Name="SYS_PROTOCOL" IsRoot="false">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="false"/>
+          </FilterColumns>
+        </TableConfig>
+        <TableConfig Name="SYS_LOG_ENTRY" IsRoot="false">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="false"/>
+          </FilterColumns>
+        </TableConfig>
+      </Tables>
+
+    </ScopeConfig>
+
+    <ScopeConfig ScopeType="Attachments" MetaDataGenerationPattern="Scope">
+      <Tables>
+        <TableConfig Name="INS_COMMON_BINARY_DATA_VALUE" IsRoot="false">
+          <FilterColumns>
+            <FilterColumnConfig ColumnName="ID" FilterClause="#COLUMN# IN ({0})" IsReferenced="false"/>
+          </FilterColumns>
+        </TableConfig>
+      </Tables>
+
+    </ScopeConfig>
+	</Scopes>
+</ScopesConfig>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DBSync
+namespace DBSyncOld
 {
     public sealed class Vertex<TV, TE>
     {
